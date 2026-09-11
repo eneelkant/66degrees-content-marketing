@@ -1,0 +1,8 @@
+{
+  "name": "66degrees-emailens-engine",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@emailens/engine": "latest"
+  }
+}

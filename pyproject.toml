@@ -1,0 +1,14 @@
+[project]
+name = "66degrees-content-marketing"
+version = "0.1.0"
+dependencies = ["pydantic>=2.0", "pydantic-settings>=2.0", "mcp>=1.29,<2", "uvicorn>=0.30"]
+
+[project.optional-dependencies]
+reference = ["chromadb", "sentence-transformers"]
+qa = ["rapidfuzz>=3.0"]
+llm = ["anthropic", "openai", "google-genai"]
+clients = ["openai-agents"]
+all = ["chromadb", "sentence-transformers", "anthropic", "openai", "google-genai", "rapidfuzz>=3.0", "openai-agents"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

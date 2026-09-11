@@ -1,0 +1,21 @@
+{
+  "mcp": {
+    "type": "mcp",
+    "server_label": "66degrees-content-marketing",
+    "server_url": "https://YOUR-DOMAIN.example.com/mcp",
+    "allowed_tools": [
+      "generate_content_strategy",
+      "process_event_brief",
+      "generate_campaign_kit",
+      "generate_content_asset",
+      "refine_content_asset",
+      "generate_social_posts",
+      "repurpose_content_asset",
+      "optimize_content_asset",
+      "qa_validate_asset",
+      "approve_campaign_kit",
+      "export_campaign_kit"
+    ],
+    "require_approval": "always"
+  }
+}

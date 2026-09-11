@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "66degrees-content-marketing": {
+      "command": "uv",
+      "args": ["run", "--directory", "/ABSOLUTE/PATH/66degrees-content-marketing", "python", "-m", "clients.claude.server"],
+      "trust": false
+    }
+  }
+}

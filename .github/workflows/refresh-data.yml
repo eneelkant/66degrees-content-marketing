@@ -1,0 +1,30 @@
+name: Refresh reference data
+on:
+  schedule:
+    # GitHub Actions cron cannot express 45 days; the job runs daily and ReferenceSync gates execution at 45 days.
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    permissions: {contents: write}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: pip install -e .
+      - run: python scripts/refresh_references.py
+      - name: Commit refreshed reference state
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add references/
+          if git diff --cached --quiet; then echo "changed=false" >> "$GITHUB_OUTPUT"; else git commit -m "chore: refresh reference data"; git push; echo "changed=true" >> "$GITHUB_OUTPUT"; fi
+      - name: Tag minor release
+        if: steps.commit.outputs.changed == 'true'
+        run: |
+          latest=$(git tag --list 'v1.*.0' --sort=-version:refname | head -1)
+          if [ -z "$latest" ]; then next="v1.1.0"; else n=$(echo "$latest" | sed -E 's/v1\.([0-9]+)\.0/\1/'); next="v1.$((n+1)).0"; fi
+          git tag "$next"
+          git push origin "$next"

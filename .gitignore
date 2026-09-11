@@ -1,0 +1,31 @@
+# Environment & secrets
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*credentials*
+*credential*
+*secret*
+google-ads-mcp.json
+credentials.json
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+
+# Local databases
+references/*.db
+references/*.sqlite
+references/*.sqlite3
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/

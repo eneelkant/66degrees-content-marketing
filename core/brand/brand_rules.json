@@ -1,0 +1,17 @@
+{
+  "mandatory_terminology": {
+    "Google Cloud Premier Partner": ["GCP Partner"],
+    "Generative AI": [],
+    "SecOps": []
+  },
+  "forbidden_jargon": [
+    "synergy",
+    "game-changing",
+    "best-in-class",
+    "turnkey solution",
+    "cheap migration"
+  ],
+  "voice": ["Strategic", "Precise", "Approachable", "Empathetic"],
+  "personality": ["Visionary Specialist", "Collaborative Partner"],
+  "strategic_pillars": ["Modernize", "Build", "Manage & Scale"]
+}
