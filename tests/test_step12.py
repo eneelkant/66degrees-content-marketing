@@ -1,7 +1,7 @@
 import pytest
 from config.settings import Settings
 from config.logging import sanitize
-from mcp.auth import validate_credentials, AuthenticationError
+from core.security.auth import validate_credentials, AuthenticationError
 from core.security.input import sanitize_payload
 def test_settings_loads_env(monkeypatch):
     monkeypatch.setenv("LLM_PROVIDER","mock"); monkeypatch.setenv("MCP_AUTH_TOKEN","secret"); s=Settings(); assert s.llm_provider=="mock" and s.mcp_auth_token=="secret"

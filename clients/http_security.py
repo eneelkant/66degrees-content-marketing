@@ -1,6 +1,6 @@
 """Small ASGI security wrapper for remote MCP transports."""
 from config.settings import get_settings
-from mcp.auth import validate_credentials, AuthenticationError
+from core.security.auth import validate_credentials, AuthenticationError
 
 class MCPAuthCORS:
     def __init__(self, app, expected_token=None, allowed_origins=None):

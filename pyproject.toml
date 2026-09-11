@@ -1,7 +1,14 @@
 [project]
 name = "66degrees-content-marketing"
 version = "0.1.0"
-dependencies = ["pydantic>=2.0", "pydantic-settings>=2.0", "mcp>=1.29,<2", "uvicorn>=0.30"]
+dependencies = [
+    "pydantic>=2.0",
+    "pydantic-settings>=2.0",
+    "mcp>=1.29,<2",
+    "uvicorn>=0.30",
+    "python-docx>=1.2.0",
+    "openpyxl>=3.1.5",
+]
 
 [project.optional-dependencies]
 reference = ["chromadb", "sentence-transformers"]
@@ -12,3 +19,8 @@ all = ["chromadb", "sentence-transformers", "anthropic", "openai", "google-genai
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
