@@ -20,6 +20,9 @@ llm = ["anthropic", "openai", "google-genai"]
 clients = ["openai-agents"]
 all = ["chromadb", "sentence-transformers", "anthropic", "openai", "google-genai", "rapidfuzz>=3.0", "openai-agents"]
 
+[tool.setuptools.packages.find]
+include = ["core*", "clients*", "engines*", "exporters*"]
+
 [tool.pytest.ini_options]
 pythonpath = ["."]
 
