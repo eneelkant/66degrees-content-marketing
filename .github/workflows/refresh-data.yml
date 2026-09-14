@@ -1,7 +1,7 @@
 name: Refresh reference data
 on:
   schedule:
-    # GitHub Actions cron cannot express 45 days; the job runs daily and ReferenceSync gates execution at 45 days.
+    # GitHub Actions runs daily; ReferenceSync gates execution at 2 days.
     - cron: "17 3 * * *"
   workflow_dispatch:
 jobs:
@@ -13,7 +13,8 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: "3.12"}
       - run: pip install -e .
-      - run: python scripts/refresh_references.py
+      - run: python -m playwright install --with-deps chromium
+      - run: PYTHONPATH=. python scripts/refresh_references.py
       - name: Commit refreshed reference state
         id: commit
         run: |

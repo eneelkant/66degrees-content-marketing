@@ -2,7 +2,7 @@ from datetime import datetime, timedelta, timezone
 import json
 from pathlib import Path
 
-REFRESH_DAYS = 45
+REFRESH_DAYS = 2
 
 class ReferenceSync:
     def __init__(self, sqlite_client, chroma_client=None, metadata_path=None):

@@ -23,13 +23,18 @@ class SQLiteReferenceClient:
         self.conn.commit()
 
     def upsert(self, record: ReferenceRecord) -> None:
-        self.conn.execute("""INSERT OR REPLACE INTO reference_records VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""", (
+        self.conn.execute("""INSERT OR REPLACE INTO reference_records (
+                id, title, content, source, source_type, authority_level,
+                channel, industry, topic, performance_score,
+                semantic_similarity, published_at, fetched_at, version,
+                metadata_json, platform
+            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""", (
             record.id, record.title, record.content, record.source, record.source_type,
-            record.authority_level, record.channel, record.industry, record.topic, record.platform,
+            record.authority_level, record.channel, record.industry, record.topic,
             record.performance_score, record.semantic_similarity,
             record.published_at.isoformat() if record.published_at else None,
             record.fetched_at.isoformat() if record.fetched_at else None,
-            record.version, __import__('json').dumps(record.metadata)
+            record.version, __import__('json').dumps(record.metadata), record.platform
         ))
         self.conn.commit()
 

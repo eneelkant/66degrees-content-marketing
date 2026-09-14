@@ -2,6 +2,7 @@ from pathlib import Path
 from typing import Any, Dict
 from core.reference_library.sqlite_client import SQLiteReferenceClient
 from core.reference_library.sync import ReferenceSync
+from core.reference_library.source_fetcher import ApprovedSourceFetcher
 from core.generators.context_builder import build_generation_context
 from core.generators.factory import content_factory
 
@@ -12,12 +13,19 @@ _sync = ReferenceSync(_db)
 
 def refresh_reference_library(force: bool = False):
     if not force and not _sync.is_stale():
-        return {"status": "CURRENT", "record_count": _db.count(), "last_refresh": _sync.last_refresh.isoformat() if _sync.last_refresh else None}
-    return _sync.sync([])
+        return {
+            "status": "CURRENT",
+            "record_count": _db.count(),
+            "last_refresh": _sync.last_refresh.isoformat()
+            if _sync.last_refresh else None,
+        }
+
+    records = ApprovedSourceFetcher().fetch_all()
+    return _sync.sync(records)
 
 
 def reference_status():
-    return {"database": str(DB_PATH), "record_count": _db.count(), "last_refresh": _sync.last_refresh.isoformat() if _sync.last_refresh else None, "refresh_interval_days": 45}
+    return {"database": str(DB_PATH), "record_count": _db.count(), "last_refresh": _sync.last_refresh.isoformat() if _sync.last_refresh else None, "refresh_interval_days": 2}
 
 
 def generate_content_asset(asset_type: str, brief_data: Dict[str, Any]) -> Dict[str, Any]:
