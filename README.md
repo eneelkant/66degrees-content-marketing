@@ -1,4 +1,4 @@
-# 66degrees Content Marketing AI Agent
+# 66degrees Content Marketing AI Agents Plugin for Gemini / Claude / ChatGPT
 
 > **From marketing brief to campaign-ready content — with AI doing the production work, built-in governance and QA, and a human making the final call.**
 
@@ -200,7 +200,7 @@ Human Review
 Approve
    ↓
 Export
-
+```
 ## License
 
 This project is **for the 66degrees team only** and is not intended for external use or redistribution.
