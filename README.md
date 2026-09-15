@@ -45,7 +45,7 @@ Content can **PASS**, raise a **WARNING**, or require a **REWRITE**. A human rev
 **5. Final output**  
 An approved campaign kit that can be exported to **DOCX, XLSX, or JSON**.
 
-![Content marketing workflow](assets/content-marketing-flow.svg)
+![AI content marketing workflow](assets/ai-content-marketing-workflow.png)
 
 *Illustration of the workflow — every tool and technology layer shown represents a real component in this repository.*
 
