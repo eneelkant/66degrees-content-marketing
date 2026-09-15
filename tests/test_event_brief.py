@@ -71,3 +71,19 @@ def test_66degrees_intake_normalizes_source():
 
     assert result["status"] == "READY_FOR_GENERATION"
     assert result["brief"]["source"]["type"] == "66degrees"
+
+
+def test_public_api_process_event_brief_uses_event_intake():
+    from clients.public_api import process_event_brief
+
+    result = process_event_brief(
+        {
+            "metadata": {
+                "title": "AI Leadership Summit",
+            }
+        }
+    )
+
+    assert result["status"] == "NEEDS_CLARIFICATION"
+    assert "metadata.date" in result["missing_fields"]
+    assert result["questions"]
