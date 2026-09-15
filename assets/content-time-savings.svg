@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620">
+  <rect width="1200" height="620" fill="#ffffff"/>
+
+  <style>
+    .title { font: 700 28px Arial, sans-serif; fill: #202124; }
+    .subtitle { font: 14px Arial, sans-serif; fill: #666; }
+    .label { font: 700 16px Arial, sans-serif; fill: #202124; }
+    .text { font: 14px Arial, sans-serif; fill: #555; }
+    .axis { stroke: #999; stroke-width: 2; }
+    .bar { fill: #e8eaed; }
+    .bar2 { fill: #202124; }
+  </style>
+
+  <text x="600" y="48" text-anchor="middle" class="title">
+    Approximate Content Production Time
+  </text>
+
+  <text x="600" y="76" text-anchor="middle" class="subtitle">
+    Illustrative human-effort estimate — actual savings vary by asset and review depth
+  </text>
+
+  <line x1="210" y1="145" x2="210" y2="500" class="axis"/>
+  <line x1="210" y1="500" x2="1060" y2="500" class="axis"/>
+
+  <!-- Manual -->
+  <text x="185" y="225" text-anchor="end" class="label">Traditional workflow</text>
+  <rect x="210" y="185" width="700" height="70" rx="10" class="bar"/>
+  <text x="935" y="228" class="label">4–6 hours</text>
+
+  <text x="185" y="350" text-anchor="end" class="label">AI-assisted workflow</text>
+  <rect x="210" y="310" width="350" height="70" rx="10" class="bar2"/>
+  <text x="585" y="353" class="label">1–2 hours</text>
+
+  <!-- Scale -->
+  <text x="210" y="530" text-anchor="middle" class="text">0h</text>
+  <text x="385" y="530" text-anchor="middle" class="text">1.5h</text>
+  <text x="560" y="530" text-anchor="middle" class="text">3h</text>
+  <text x="735" y="530" text-anchor="middle" class="text">4.5h</text>
+  <text x="910" y="530" text-anchor="middle" class="text">6h</text>
+
+  <text x="600" y="580" text-anchor="middle" class="subtitle">
+    Research · drafting · editing · brand checks · repurposing · QA · formatting
+  </text>
+</svg>

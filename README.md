@@ -4,7 +4,7 @@
 
 An MCP-powered content marketing system for 66degrees.
 
-It connects strategy, content creation, optimization, repurposing, brand governance, QA, human approval, and export into one workflow.
+It connects strategy, event content, blog and white paper creation, optimization, repurposing, brand governance, QA, human approval, and export into one workflow.
 
 ---
 
@@ -17,6 +17,8 @@ Most AI content workflows look like this:
 This project is designed to work more like a **marketing production team**:
 
 **Brief → Strategy → Create → Check → Improve → Approve → Export**
+
+The system is designed for **event content, blogs, and white papers** — with the same governed workflow behind each format.
 
 You give the system a marketing goal or event brief.
 
@@ -48,6 +50,12 @@ An approved campaign kit that can be exported to **DOCX, XLSX, or JSON**.
 *Illustration of the workflow — every tool and technology layer shown represents a real component in this repository.*
 
 ---
+
+## 🤖 11 AI agents working behind the scenes
+
+Think of the system as **11 AI specialists working together for you**. You interact with the workflow naturally; the specialist agents handle strategy, event intelligence, content creation, refinement, social content, repurposing, optimization, QA, approval, and export behind the scenes.
+
+The goal is simple: **less time spent moving content between tools, more time spent on the ideas and decisions that matter.**
 
 ## 🧩 Skills
 
@@ -120,7 +128,7 @@ This philosophy is reflected in the deliberately small public MCP surface: **11 
 ---
 
 <details>
-<summary><strong>🔧 The 11 public MCP tools</strong></summary>
+<summary><strong>🤖 The 11 AI agents behind the workflow</strong></summary>
 
 | Tool | Purpose |
 |---|---|
@@ -136,15 +144,29 @@ This philosophy is reflected in the deliberately small public MCP surface: **11 
 | `approve_campaign_kit` | Apply the human approval gate |
 | `export_campaign_kit` | Export an approved campaign kit |
 
-Specialist strategies are internal implementation components and are intentionally not exposed as additional MCP tools.
+These are the technical interfaces behind the 11 AI agents; specialist strategies remain internal implementation components.
 
 </details>
 
 ---
 
+## ⏱️ Approximate time savings
+
+A typical content workflow can involve research, outlining, drafting, editing, brand checks, repurposing, QA, and formatting. By bringing these steps into one workflow, the system is designed to reduce a large amount of repetitive production work.
+
+**Illustrative target:** a task that might take **4–6 hours manually** can be reduced to roughly **1–2 hours of human effort**, depending on the asset, research depth, and review required.
+
+![Approximate content production time savings](assets/content-time-savings.svg)
+
+*Illustrative estimate — actual savings vary by content type, complexity, and human review.*
+
 ## 📚 Reference library
 
 The reference library gives the system controlled context instead of relying on generic knowledge alone.
+
+The library is designed to hold approximately **2,000+ competitive advertising examples** alongside approved 66degrees and Google Cloud references. The content is stored in **SQLite** so the AI agents can search for relevant examples and messaging patterns before creating content.
+
+The competitive/reference collection is designed to refresh approximately every **7 days**, while the approved reference sources currently refresh every **2 days**.
 
 Sources are prioritized in this order:
 
@@ -155,8 +177,6 @@ Sources are prioritized in this order:
 5. External open-source methodologies
 
 Approved reference sources currently include 66degrees events, 66degrees success stories, and Google Cloud events.
-
-The library is designed to refresh every **2 days**.
 
 ---
 
@@ -180,3 +200,7 @@ Human Review
 Approve
    ↓
 Export
+
+## License
+
+This project is **for the 66degrees team only** and is not intended for external use or redistribution.
