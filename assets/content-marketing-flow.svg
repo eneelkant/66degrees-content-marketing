@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="820" viewBox="0 0 1400 820">
+  <defs>
+    <style>
+      .title { font: 700 28px Arial, sans-serif; fill: #202124; }
+      .section { font: 700 17px Arial, sans-serif; fill: #202124; }
+      .label { font: 700 15px Arial, sans-serif; fill: #202124; }
+      .text { font: 14px Arial, sans-serif; fill: #4a4a4a; }
+      .small { font: 12px Arial, sans-serif; fill: #666; }
+      .box { fill: #fff; stroke: #c8c8c8; stroke-width: 2; rx: 14; }
+      .primary { fill: #f5f7fa; stroke: #202124; stroke-width: 2; rx: 14; }
+      .qa { fill: #fafafa; stroke: #777; stroke-width: 2; rx: 14; }
+      .human { fill: #f7f7f7; stroke: #202124; stroke-width: 2; rx: 14; }
+      .output { fill: #f5f7fa; stroke: #202124; stroke-width: 2; rx: 14; }
+      .arrow { stroke: #555; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+      .loop { stroke: #777; stroke-width: 2; fill: none; stroke-dasharray: 7 6; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#555"/>
+    </marker>
+  </defs>
+
+  <rect width="1400" height="820" fill="#ffffff"/>
+
+  <text x="700" y="48" text-anchor="middle" class="title">66degrees Content Marketing Workflow</text>
+  <text x="700" y="76" text-anchor="middle" class="small">From a marketing brief to an approved, campaign-ready output</text>
+
+  <!-- INPUT -->
+  <text x="70" y="125" class="section">1 · INPUT</text>
+  <rect x="70" y="145" width="250" height="105" class="primary"/>
+  <text x="195" y="178" text-anchor="middle" class="label">Marketing Goal / Event Brief</text>
+  <text x="195" y="205" text-anchor="middle" class="text">What are we trying to achieve?</text>
+  <text x="195" y="228" text-anchor="middle" class="small">Audience · event · objective · CTA</text>
+
+  <!-- TOOLS -->
+  <text x="370" y="125" class="section">2 · SKILLS + MCP TOOL LAYER</text>
+  <rect x="370" y="145" width="360" height="210" class="box"/>
+  <text x="550" y="174" text-anchor="middle" class="label">11 public MCP tools</text>
+
+  <rect x="392" y="195" width="145" height="42" class="box"/>
+  <text x="464" y="221" text-anchor="middle" class="small">Strategy</text>
+
+  <rect x="553" y="195" width="155" height="42" class="box"/>
+  <text x="630" y="221" text-anchor="middle" class="small">Event / Campaign</text>
+
+  <rect x="392" y="248" width="145" height="42" class="box"/>
+  <text x="464" y="274" text-anchor="middle" class="small">Create / Refine</text>
+
+  <rect x="553" y="248" width="155" height="42" class="box"/>
+  <text x="630" y="274" text-anchor="middle" class="small">Social / Repurpose</text>
+
+  <rect x="392" y="301" width="145" height="38" class="box"/>
+  <text x="464" y="325" text-anchor="middle" class="small">Optimize / QA</text>
+
+  <rect x="553" y="301" width="155" height="38" class="box"/>
+  <text x="630" y="325" text-anchor="middle" class="small">Approve / Export</text>
+
+  <!-- CORE -->
+  <text x="780" y="125" class="section">3 · CORE + TECHNOLOGY</text>
+  <rect x="780" y="145" width="285" height="210" class="box"/>
+  <text x="922" y="174" text-anchor="middle" class="label">Core marketing logic</text>
+
+  <text x="810" y="208" class="text">• Structured campaign data</text>
+  <text x="810" y="235" class="text">• Content generation</text>
+  <text x="810" y="262" class="text">• Refinement &amp; optimization</text>
+  <text x="810" y="289" class="text">• Repurposing</text>
+  <text x="810" y="316" class="text">• Approval &amp; export controls</text>
+
+  <!-- GOVERNANCE -->
+  <rect x="1090" y="145" width="250" height="210" class="box"/>
+  <text x="1215" y="174" text-anchor="middle" class="label">Grounding &amp; specialist engines</text>
+  <text x="1115" y="208" class="text">• Brand governance</text>
+  <text x="1115" y="235" class="text">• Reference library</text>
+  <text x="1115" y="262" class="text">• Originality checks</text>
+  <text x="1115" y="289" class="text">• Emailens</text>
+  <text x="1115" y="316" class="text">• Content quality</text>
+  <text x="1115" y="343" class="small">Approved sources keep output grounded.</text>
+
+  <!-- ARROWS TOP -->
+  <path d="M320 197 L370 197" class="arrow"/>
+  <path d="M730 250 L780 250" class="arrow"/>
+  <path d="M1065 250 L1090 250" class="arrow"/>
+
+  <!-- QA -->
+  <text x="70" y="410" class="section">4 · QA GATE</text>
+  <rect x="70" y="430" width="410" height="155" class="qa"/>
+  <text x="275" y="462" text-anchor="middle" class="label">Automated quality checks</text>
+
+  <rect x="95" y="485" width="105" height="55" class="box"/>
+  <text x="147" y="518" text-anchor="middle" class="label">PASS</text>
+
+  <rect x="215" y="485" width="105" height="55" class="box"/>
+  <text x="267" y="518" text-anchor="middle" class="label">WARNING</text>
+
+  <rect x="335" y="485" width="120" height="55" class="box"/>
+  <text x="395" y="518" text-anchor="middle" class="label">REWRITE</text>
+
+  <text x="275" y="565" text-anchor="middle" class="small">Brand · channel · content quality · originality · email</text>
+
+  <!-- HUMAN -->
+  <text x="555" y="410" class="section">5 · HUMAN REVIEW</text>
+  <rect x="555" y="430" width="330" height="155" class="human"/>
+  <text x="720" y="463" text-anchor="middle" class="label">Human approval gate</text>
+  <text x="720" y="493" text-anchor="middle" class="text">Review the campaign kit</text>
+
+  <rect x="590" y="515" width="115" height="45" class="box"/>
+  <text x="647" y="543" text-anchor="middle" class="label">REVISE</text>
+
+  <rect x="735" y="515" width="115" height="45" class="box"/>
+  <text x="792" y="543" text-anchor="middle" class="label">APPROVE</text>
+
+  <!-- OUTPUT -->
+  <text x="960" y="410" class="section">6 · FINAL OUTPUT</text>
+  <rect x="960" y="430" width="380" height="155" class="output"/>
+  <text x="1150" y="463" text-anchor="middle" class="label">Approved Campaign Kit</text>
+  <text x="1150" y="493" text-anchor="middle" class="text">Ready for operational use</text>
+
+  <rect x="990" y="515" width="95" height="45" class="box"/>
+  <text x="1037" y="543" text-anchor="middle" class="label">DOCX</text>
+
+  <rect x="1097" y="515" width="95" height="45" class="box"/>
+  <text x="1144" y="543" text-anchor="middle" class="label">XLSX</text>
+
+  <rect x="1204" y="515" width="105" height="45" class="box"/>
+  <text x="1256" y="543" text-anchor="middle" class="label">JSON</text>
+
+  <!-- MAIN FLOW -->
+  <path d="M550 355 L550 390 L275 390 L275 430" class="arrow"/>
+  <path d="M480 507 L555 507" class="arrow"/>
+  <path d="M885 507 L960 507" class="arrow"/>
+
+  <!-- REWRITE LOOP -->
+  <path d="M395 485 C395 385 720 365 720 430" class="loop"/>
+  <text x="525" y="382" text-anchor="middle" class="small">REWRITE → refine / optimize → QA again</text>
+
+  <!-- HUMAN REVISE LOOP -->
+  <path d="M647 560 C647 625 275 625 275 585" class="loop"/>
+  <text x="460" y="650" text-anchor="middle" class="small">REVISE → return to content workflow</text>
+
+  <!-- FOOTER -->
+  <text x="700" y="735" text-anchor="middle" class="section">AI production + automated governance + human accountability</text>
+  <text x="700" y="765" text-anchor="middle" class="small">Claude · ChatGPT · Gemini can use the same governed core through the MCP interface</text>
+</svg>
