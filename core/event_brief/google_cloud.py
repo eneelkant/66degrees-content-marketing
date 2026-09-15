@@ -70,8 +70,8 @@ def normalize_event(record: Any) -> dict[str, Any]:
 
     source = record.source or ""
 
-    if source.startswith("[") and "](" in source and source.endswith(")"):
-        source = source.split("](", 1)[1][:-1]
+    if "](" in source:
+        source = source.split("](", 1)[1].split(")", 1)[0]
 
     return {
         "metadata": {

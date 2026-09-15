@@ -87,3 +87,17 @@ def test_public_api_process_event_brief_uses_event_intake():
     assert result["status"] == "NEEDS_CLARIFICATION"
     assert "metadata.date" in result["missing_fields"]
     assert result["questions"]
+
+
+def test_google_cloud_event_source_url_is_plain_url():
+    from core.event_brief.google_cloud import find_event
+
+    event = find_event("cloud roadmap infrastructure agentic era")
+
+    assert event is not None
+    url = event["source"]["url"]
+
+    assert url.startswith("https://")
+    assert not url.startswith("[")
+    assert "](" not in url
+    assert not url.endswith(")")
