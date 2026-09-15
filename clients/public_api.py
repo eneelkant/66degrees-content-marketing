@@ -7,6 +7,7 @@ import uuid
 from core.mcp_legacy import tools as _tools
 
 from clients.surface import PUBLIC_TOOL_NAMES
+from core.event_brief.questions import find_missing_fields, build_questions
 from core.security.input import sanitize_payload
 from config.logging import configure_logging, tool_timer
 logger=configure_logging("INFO")
@@ -36,21 +37,12 @@ def generate_content_strategy(goals_json: dict[str, Any]) -> dict[str, Any]:
 
 def process_event_brief(brief_data: dict[str, Any]) -> dict[str, Any]:
     brief = sanitize_payload(brief_data or {})
-    metadata = brief.get("metadata", {})
-    audience = brief.get("audience", {})
-    value_prop = brief.get("value_prop", {})
-    required = {
-        "metadata.title": metadata.get("title"),
-        "metadata.date": metadata.get("date"),
-        "audience.primary_persona": audience.get("primary_persona"),
-        "value_prop.primary_hook": value_prop.get("primary_hook"),
-        "cta_primary": brief.get("cta_primary"),
-    }
-    missing = [name for name, value in required.items() if value in (None, "", [])]
+    missing = find_missing_fields(brief)
     return {
         "status": "NEEDS_CLARIFICATION" if missing else "READY_FOR_GENERATION",
         "missing_fields": missing,
         "brief": brief,
+        "questions": build_questions(missing),
     }
 
 

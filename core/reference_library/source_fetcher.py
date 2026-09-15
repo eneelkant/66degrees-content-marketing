@@ -88,32 +88,53 @@ class ApprovedSourceFetcher:
             page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
             page.wait_for_timeout(2000)
 
-            links = page.locator("a[href*='cloudonair.withgoogle.com/events/']")
-            records = []
+            links = page.locator(
+                "a[href*='cloudonair.withgoogle.com/events/']"
+            )
 
+            records = []
             seen: set[str] = set()
 
             for i in range(links.count()):
                 link = links.nth(i)
                 href = link.get_attribute("href")
-                title = link.inner_text().strip()
+                if href:
+                    import re
+                    match = re.match(r"^\[([^\]]+)\]\(([^\)]+)\)$", href)
+                    if match:
+                        href = match.group(1)
 
                 if not href or href in seen:
                     continue
 
                 seen.add(href)
 
-                if not title:
-                    title = "Google Cloud Event"
+                title = (
+                    link.get_attribute("track-metadata-child_headline")
+                    or "Google Cloud Event"
+                ).strip()
 
-                records.append(self._record(
-                    source_id=source_id,
-                    title=title,
-                    content=f"{title} — {href}",
-                    source=href,
-                    source_type=source["source_type"],
-                    authority_level=source["authority_level"],
-                ))
+                lines = [
+                    line.strip()
+                    for line in link.inner_text(timeout=5000).splitlines()
+                    if line.strip()
+                ]
+
+                if lines and lines[0].lower() == title.lower():
+                    lines = lines[1:]
+
+                content = "\n".join(lines)
+
+                records.append(
+                    self._record(
+                        source_id=source_id,
+                        title=title or "Google Cloud Event",
+                        content=content,
+                        source=href,
+                        source_type=source["source_type"],
+                        authority_level=source["authority_level"],
+                    )
+                )
 
             browser.close()
 
