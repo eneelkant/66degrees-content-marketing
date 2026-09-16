@@ -1,142 +1,85 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="820" viewBox="0 0 1400 820">
-  <defs>
-    <style>
-      .title { font: 700 28px Arial, sans-serif; fill: #202124; }
-      .section { font: 700 17px Arial, sans-serif; fill: #202124; }
-      .label { font: 700 15px Arial, sans-serif; fill: #202124; }
-      .text { font: 14px Arial, sans-serif; fill: #4a4a4a; }
-      .small { font: 12px Arial, sans-serif; fill: #666; }
-      .box { fill: #fff; stroke: #c8c8c8; stroke-width: 2; rx: 14; }
-      .primary { fill: #f5f7fa; stroke: #202124; stroke-width: 2; rx: 14; }
-      .qa { fill: #fafafa; stroke: #777; stroke-width: 2; rx: 14; }
-      .human { fill: #f7f7f7; stroke: #202124; stroke-width: 2; rx: 14; }
-      .output { fill: #f5f7fa; stroke: #202124; stroke-width: 2; rx: 14; }
-      .arrow { stroke: #555; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
-      .loop { stroke: #777; stroke-width: 2; fill: none; stroke-dasharray: 7 6; marker-end: url(#arrow); }
-    </style>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
-      <path d="M0,0 L10,5 L0,10 Z" fill="#555"/>
-    </marker>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="1460" height="1000" viewBox="0 0 1460 1000">
+<defs>
+<style>
+.title{font:700 30px Arial,sans-serif;fill:#202124}.subtitle{font:600 17px Arial,sans-serif;fill:#5f6368}
+.section{font:700 18px Arial,sans-serif;fill:#202124}.label{font:700 15px Arial,sans-serif;fill:#202124}
+.text{font:14px Arial,sans-serif;fill:#3c4043}.small{font:13px Arial,sans-serif;fill:#5f6368}
+.agent{fill:#f3e8ff;stroke:#7e22ce;stroke-width:2}.tool{fill:#dcfce7;stroke:#15803d;stroke-width:2}
+.qa{fill:#fff7ed;stroke:#c2410c;stroke-width:2}.human{fill:#fee2e2;stroke:#b91c1c;stroke-width:2}
+.output{fill:#fef3c7;stroke:#b45309;stroke-width:2}.input{fill:#e1f5fe;stroke:#0284c7;stroke-width:2}
+.core{fill:#f1f5f9;stroke:#64748b;stroke-width:2}.publish{fill:#eef2ff;stroke:#4338ca;stroke-width:2}
+.arrow{fill:none;stroke:#5f6368;stroke-width:2.5;marker-end:url(#arrow)}
+.loop{fill:none;stroke:#b91c1c;stroke-width:2;stroke-dasharray:8 6;marker-end:url(#arrow)}
+</style>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#5f6368"/></marker>
+</defs>
+<rect width="1460" height="1000" fill="#fff"/>
+<text x="730" y="42" text-anchor="middle" class="title">66degrees AI Content Marketing Workflow</text>
+<text x="730" y="70" text-anchor="middle" class="subtitle">From a marketing brief to governed, human-approved content</text>
 
-  <rect width="1400" height="820" fill="#ffffff"/>
+<text x="45" y="112" class="section">1 · INPUT</text>
+<rect x="45" y="130" width="270" height="115" rx="10" class="input"/>
+<text x="180" y="166" text-anchor="middle" class="label">Marketing Goal / Event Brief</text>
+<text x="180" y="193" text-anchor="middle" class="text">Audience · objective · event</text>
+<text x="180" y="218" text-anchor="middle" class="small">CTA · topic · campaign context</text>
 
-  <text x="700" y="48" text-anchor="middle" class="title">66degrees Content Marketing Workflow</text>
-  <text x="700" y="76" text-anchor="middle" class="small">From a marketing brief to an approved, campaign-ready output</text>
+<text x="350" y="112" class="section">2 · 11 AI AGENTS</text>
+<rect x="350" y="130" width="650" height="295" rx="12" class="core"/>
+<text x="675" y="159" text-anchor="middle" class="label">11 AI specialists working behind the scenes</text>
+<rect x="375" y="178" width="190" height="40" rx="7" class="agent"/><text x="470" y="203" text-anchor="middle" class="text">Strategy</text>
+<rect x="580" y="178" width="190" height="40" rx="7" class="agent"/><text x="675" y="203" text-anchor="middle" class="text">Event Intelligence</text>
+<rect x="785" y="178" width="190" height="40" rx="7" class="agent"/><text x="880" y="203" text-anchor="middle" class="text">Content Creation</text>
+<rect x="375" y="230" width="190" height="40" rx="7" class="agent"/><text x="470" y="255" text-anchor="middle" class="text">Refinement</text>
+<rect x="580" y="230" width="190" height="40" rx="7" class="agent"/><text x="675" y="255" text-anchor="middle" class="text">Social Content</text>
+<rect x="785" y="230" width="190" height="40" rx="7" class="agent"/><text x="880" y="255" text-anchor="middle" class="text">Repurposing</text>
+<rect x="375" y="282" width="190" height="40" rx="7" class="agent"/><text x="470" y="307" text-anchor="middle" class="text">Optimization</text>
+<rect x="580" y="282" width="190" height="40" rx="7" class="agent"/><text x="675" y="307" text-anchor="middle" class="text">Brand Governance</text>
+<rect x="785" y="282" width="190" height="40" rx="7" class="agent"/><text x="880" y="307" text-anchor="middle" class="text">QA Specialist</text>
+<rect x="480" y="334" width="190" height="40" rx="7" class="agent"/><text x="575" y="359" text-anchor="middle" class="text">Export</text>
+<rect x="685" y="334" width="190" height="40" rx="7" class="agent"/><text x="780" y="359" text-anchor="middle" class="text">Asset Intelligence</text>
+<text x="675" y="405" text-anchor="middle" class="small">Event content · blogs · white papers · campaign assets</text>
 
-  <!-- INPUT -->
-  <text x="70" y="125" class="section">1 · INPUT</text>
-  <rect x="70" y="145" width="250" height="105" class="primary"/>
-  <text x="195" y="178" text-anchor="middle" class="label">Marketing Goal / Event Brief</text>
-  <text x="195" y="205" text-anchor="middle" class="text">What are we trying to achieve?</text>
-  <text x="195" y="228" text-anchor="middle" class="small">Audience · event · objective · CTA</text>
+<text x="45" y="468" class="section">3 · TOOLS + TECHNOLOGY LAYER</text>
+<rect x="45" y="486" width="1370" height="170" rx="12" class="core"/>
+<rect x="65" y="515" width="205" height="65" rx="8" class="tool"/><text x="167.5" y="542" text-anchor="middle" class="label">Ponytail</text><text x="167.5" y="563" text-anchor="middle" class="small">Brand strategy &amp; tone</text>
+<rect x="285" y="515" width="205" height="65" rx="8" class="tool"/><text x="387.5" y="542" text-anchor="middle" class="label">Emailens</text><text x="387.5" y="563" text-anchor="middle" class="small">Email QA &amp; validation</text>
+<rect x="505" y="515" width="205" height="65" rx="8" class="tool"/><text x="607.5" y="542" text-anchor="middle" class="label">Reference Library</text><text x="607.5" y="563" text-anchor="middle" class="small">66degrees + Google Cloud</text>
+<rect x="725" y="515" width="205" height="65" rx="8" class="tool"/><text x="827.5" y="542" text-anchor="middle" class="label">Competitive Library</text><text x="827.5" y="563" text-anchor="middle" class="small">2,000+ ad examples</text>
+<rect x="945" y="515" width="205" height="65" rx="8" class="tool"/><text x="1047.5" y="542" text-anchor="middle" class="label">SQLite</text><text x="1047.5" y="563" text-anchor="middle" class="small">Structured content storage</text>
+<rect x="1165" y="515" width="225" height="65" rx="8" class="tool"/><text x="1277.5" y="542" text-anchor="middle" class="label">Semantic Retrieval</text><text x="1277.5" y="563" text-anchor="middle" class="small">ChromaDB / embeddings</text>
+<text x="730" y="606" text-anchor="middle" class="text">HTTPX · BeautifulSoup · Playwright · sentence-transformers</text>
+<text x="730" y="633" text-anchor="middle" class="small">Competitive/reference collection refresh target: approximately every 7 days</text>
 
-  <!-- TOOLS -->
-  <text x="370" y="125" class="section">2 · SKILLS + MCP TOOL LAYER</text>
-  <rect x="370" y="145" width="360" height="210" class="box"/>
-  <text x="550" y="174" text-anchor="middle" class="label">11 public MCP tools</text>
+<text x="45" y="710" class="section">4 · QA + GOVERNANCE</text>
+<rect x="45" y="730" width="440" height="125" rx="12" class="qa"/>
+<text x="265" y="758" text-anchor="middle" class="label">Automated QA Gate</text>
+<text x="265" y="786" text-anchor="middle" class="small">Brand · hard constraints · originality</text>
+<text x="265" y="808" text-anchor="middle" class="small">Semantic/reference checks · email QA</text>
+<text x="265" y="832" text-anchor="middle" class="small">PASS · WARNING · REWRITE</text>
 
-  <rect x="392" y="195" width="145" height="42" class="box"/>
-  <text x="464" y="221" text-anchor="middle" class="small">Strategy</text>
+<rect x="515" y="730" width="440" height="125" rx="12" class="human"/>
+<text x="735" y="758" text-anchor="middle" class="label">Human Review &amp; Approval</text>
+<text x="735" y="786" text-anchor="middle" class="small">Review · refine · approve</text>
+<text x="735" y="809" text-anchor="middle" class="small">The human makes the final call</text>
+<text x="735" y="832" text-anchor="middle" class="small">No approved content → no final export</text>
 
-  <rect x="553" y="195" width="155" height="42" class="box"/>
-  <text x="630" y="221" text-anchor="middle" class="small">Event / Campaign</text>
+<rect x="985" y="730" width="430" height="125" rx="12" class="output"/>
+<text x="1200" y="758" text-anchor="middle" class="label">5 · FINAL OUTPUT</text>
+<text x="1200" y="786" text-anchor="middle" class="small">Approved campaign-ready content</text>
+<rect x="1015" y="805" width="105" height="32" rx="6" class="output"/><rect x="1135" y="805" width="105" height="32" rx="6" class="output"/><rect x="1255" y="805" width="105" height="32" rx="6" class="output"/>
+<text x="1067" y="827" text-anchor="middle" class="small">DOCX</text><text x="1187" y="827" text-anchor="middle" class="small">XLSX</text><text x="1307" y="827" text-anchor="middle" class="small">JSON</text>
 
-  <rect x="392" y="248" width="145" height="42" class="box"/>
-  <text x="464" y="274" text-anchor="middle" class="small">Create / Refine</text>
+<text x="985" y="888" class="section">6 · PUBLISH / DISTRIBUTION</text>
+<rect x="985" y="902" width="430" height="58" rx="10" class="publish"/>
+<text x="1200" y="926" text-anchor="middle" class="small">Webflow · LinkedIn · Email · Other approved channels</text>
+<text x="1200" y="947" text-anchor="middle" class="small">Publishing remains downstream of human approval</text>
 
-  <rect x="553" y="248" width="155" height="42" class="box"/>
-  <text x="630" y="274" text-anchor="middle" class="small">Social / Repurpose</text>
+<path d="M315 188 L350 188" class="arrow"/><path d="M675 425 L675 486" class="arrow"/>
+<path d="M730 656 L730 700 L265 700 L265 730" class="arrow"/><path d="M485 792 L515 792" class="arrow"/>
+<path d="M955 792 L985 792" class="arrow"/><path d="M1200 855 L1200 902" class="arrow"/>
+<path d="M515 832 C455 900 340 900 340 840 C340 690 410 650 510 625" class="loop"/>
+<text x="330" y="875" text-anchor="middle" class="small">REWRITE → refine → QA again</text>
 
-  <rect x="392" y="301" width="145" height="38" class="box"/>
-  <text x="464" y="325" text-anchor="middle" class="small">Optimize / QA</text>
-
-  <rect x="553" y="301" width="155" height="38" class="box"/>
-  <text x="630" y="325" text-anchor="middle" class="small">Approve / Export</text>
-
-  <!-- CORE -->
-  <text x="780" y="125" class="section">3 · CORE + TECHNOLOGY</text>
-  <rect x="780" y="145" width="285" height="210" class="box"/>
-  <text x="922" y="174" text-anchor="middle" class="label">Core marketing logic</text>
-
-  <text x="810" y="208" class="text">• Structured campaign data</text>
-  <text x="810" y="235" class="text">• Content generation</text>
-  <text x="810" y="262" class="text">• Refinement &amp; optimization</text>
-  <text x="810" y="289" class="text">• Repurposing</text>
-  <text x="810" y="316" class="text">• Approval &amp; export controls</text>
-
-  <!-- GOVERNANCE -->
-  <rect x="1090" y="145" width="250" height="210" class="box"/>
-  <text x="1215" y="174" text-anchor="middle" class="label">Grounding &amp; specialist engines</text>
-  <text x="1115" y="208" class="text">• Brand governance</text>
-  <text x="1115" y="235" class="text">• Reference library</text>
-  <text x="1115" y="262" class="text">• Originality checks</text>
-  <text x="1115" y="289" class="text">• Emailens</text>
-  <text x="1115" y="316" class="text">• Content quality</text>
-  <text x="1115" y="343" class="small">Approved sources keep output grounded.</text>
-
-  <!-- ARROWS TOP -->
-  <path d="M320 197 L370 197" class="arrow"/>
-  <path d="M730 250 L780 250" class="arrow"/>
-  <path d="M1065 250 L1090 250" class="arrow"/>
-
-  <!-- QA -->
-  <text x="70" y="410" class="section">4 · QA GATE</text>
-  <rect x="70" y="430" width="410" height="155" class="qa"/>
-  <text x="275" y="462" text-anchor="middle" class="label">Automated quality checks</text>
-
-  <rect x="95" y="485" width="105" height="55" class="box"/>
-  <text x="147" y="518" text-anchor="middle" class="label">PASS</text>
-
-  <rect x="215" y="485" width="105" height="55" class="box"/>
-  <text x="267" y="518" text-anchor="middle" class="label">WARNING</text>
-
-  <rect x="335" y="485" width="120" height="55" class="box"/>
-  <text x="395" y="518" text-anchor="middle" class="label">REWRITE</text>
-
-  <text x="275" y="565" text-anchor="middle" class="small">Brand · channel · content quality · originality · email</text>
-
-  <!-- HUMAN -->
-  <text x="555" y="410" class="section">5 · HUMAN REVIEW</text>
-  <rect x="555" y="430" width="330" height="155" class="human"/>
-  <text x="720" y="463" text-anchor="middle" class="label">Human approval gate</text>
-  <text x="720" y="493" text-anchor="middle" class="text">Review the campaign kit</text>
-
-  <rect x="590" y="515" width="115" height="45" class="box"/>
-  <text x="647" y="543" text-anchor="middle" class="label">REVISE</text>
-
-  <rect x="735" y="515" width="115" height="45" class="box"/>
-  <text x="792" y="543" text-anchor="middle" class="label">APPROVE</text>
-
-  <!-- OUTPUT -->
-  <text x="960" y="410" class="section">6 · FINAL OUTPUT</text>
-  <rect x="960" y="430" width="380" height="155" class="output"/>
-  <text x="1150" y="463" text-anchor="middle" class="label">Approved Campaign Kit</text>
-  <text x="1150" y="493" text-anchor="middle" class="text">Ready for operational use</text>
-
-  <rect x="990" y="515" width="95" height="45" class="box"/>
-  <text x="1037" y="543" text-anchor="middle" class="label">DOCX</text>
-
-  <rect x="1097" y="515" width="95" height="45" class="box"/>
-  <text x="1144" y="543" text-anchor="middle" class="label">XLSX</text>
-
-  <rect x="1204" y="515" width="105" height="45" class="box"/>
-  <text x="1256" y="543" text-anchor="middle" class="label">JSON</text>
-
-  <!-- MAIN FLOW -->
-  <path d="M550 355 L550 390 L275 390 L275 430" class="arrow"/>
-  <path d="M480 507 L555 507" class="arrow"/>
-  <path d="M885 507 L960 507" class="arrow"/>
-
-  <!-- REWRITE LOOP -->
-  <path d="M395 485 C395 385 720 365 720 430" class="loop"/>
-  <text x="525" y="382" text-anchor="middle" class="small">REWRITE → refine / optimize → QA again</text>
-
-  <!-- HUMAN REVISE LOOP -->
-  <path d="M647 560 C647 625 275 625 275 585" class="loop"/>
-  <text x="460" y="650" text-anchor="middle" class="small">REVISE → return to content workflow</text>
-
-  <!-- FOOTER -->
-  <text x="700" y="735" text-anchor="middle" class="section">AI production + automated governance + human accountability</text>
-  <text x="700" y="765" text-anchor="middle" class="small">Claude · ChatGPT · Gemini can use the same governed core through the MCP interface</text>
+<line x1="45" y1="972" x2="1415" y2="972" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="4 6"/>
+<text x="730" y="995" text-anchor="middle" class="label">AI production + governed intelligence + automated QA + human accountability</text>
 </svg>
