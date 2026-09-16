@@ -72,7 +72,13 @@ def approve_campaign_kit(kit_id: str, approved_by: str, notes: str | None = None
 
 
 def optimize_content_asset(asset_json: Dict[str, Any], qa_feedback: Any, provider: str | None = None) -> Dict[str, Any]:
-    return _optimize_content_asset(asset_json, qa_feedback, provider=provider)
+    context = build_generation_context(asset_json)
+    return _optimize_content_asset(
+        asset_json,
+        qa_feedback,
+        context=context,
+        provider=provider,
+    )
 
 
 def repurpose_content_asset(source_asset_json: Dict[str, Any], target_formats: str | list[str], provider: str | None = None) -> Dict[str, Any]:
