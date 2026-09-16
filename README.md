@@ -95,7 +95,7 @@ flowchart TD
 
 You can also view the illustrated version of the workflow:
 
-![AI content marketing workflow](assets/ai-content-marketing-workflow.png)
+![AI content marketing workflow](assets/ai-content-marketing-workflow.svg)
 
 ---
 
