@@ -17,6 +17,7 @@ class JsonFormatter(logging.Formatter):
             "provider",
             "campaign_id",
             "stage",
+            "previous_stage",
             "agent",
             "status",
             "error_type",

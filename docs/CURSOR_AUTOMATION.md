@@ -81,14 +81,31 @@ If already `APPROVAL_PENDING`, resume returns a message and does not invent appr
 
 Do not paste secrets into chat. Use `.env` from `.env.example`.
 
-## 9. Human-controlled actions
+## Autonomous vs human-controlled
 
-Always human:
+### Autonomous (safe with `LLM_PROVIDER=mock`)
 
-- Final campaign approval
-- Production publish / distribution outside this repo
-- Providing live API keys
-- Merging pull requests / GitHub write when agent credentials are unavailable
+```text
+Health Check
+ → Create Campaign
+ → Strategy / Event Intelligence
+ → Content / Social / Repurpose
+ → Brand Check
+ → QA (+ optimize loop)
+ → Approval Pending (stop)
+ → Status / Resume
+```
+
+### Human-controlled (hard gates)
+
+```text
+Review assets
+ → approve_campaign / approve_campaign_kit
+ → export_campaign / export_campaign_kit
+ → any external publish / paid media / Salesforce action
+```
+
+No automation may export or publish without `APPROVED` status.
 
 ## Future Cursor Automation sketch
 

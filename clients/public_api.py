@@ -159,6 +159,15 @@ def export_campaign(campaign_id: str, export_format: str = "json") -> dict[str, 
     """Export an approved orchestrated campaign. Fails if not APPROVED."""
     orch = get_orchestrator()
     state = orch.store.load(sanitize_payload(campaign_id))
+    if state.status == CampaignStatus.EXPORTED:
+        return {
+            **state.summary(),
+            "idempotent": True,
+            "status": "EXPORTED",
+            "path": (state.export or {}).get("path"),
+            "approved": True,
+            "message": "Already exported; returning prior export metadata.",
+        }
     assert_exportable(state.status)
     if not state.kit_id:
         raise ValueError(f"Campaign '{campaign_id}' has no kit_id to export.")
@@ -172,7 +181,6 @@ def export_campaign(campaign_id: str, export_format: str = "json") -> dict[str, 
     ):
         _tools.approve_campaign_kit(state.kit_id, "human", "Synced before export.")
     exported = export_campaign_kit(state.kit_id, export_format)
-    # sync_kit_exported already ran inside export_campaign_kit; ensure campaign status.
     if orch.store.load(campaign_id).status != CampaignStatus.EXPORTED:
         orch.mark_exported(campaign_id, exported)
     return {**exported, "campaign_id": campaign_id}

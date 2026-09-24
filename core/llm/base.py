@@ -17,9 +17,32 @@ class LLMResponse(BaseModel):
 class LLMProviderError(RuntimeError):
     """Provider/API failure. Never silently converted to mock output."""
 
+    def __init__(self, message: str):
+        # Keep messages actionable without embedding secrets.
+        super().__init__(message)
+
 
 class LLMStructuredOutputError(LLMProviderError):
     """Provider returned output that could not satisfy the requested schema."""
+
+    def __init__(self, message: str):
+        if "Invalid structured response" not in message:
+            message = f"Invalid structured response. {message}"
+        super().__init__(message)
+
+
+class LLMTimeoutError(LLMProviderError):
+    """LLM request exceeded the configured timeout."""
+
+    def __init__(self, message: str = "LLM request timed out."):
+        super().__init__(message)
+
+
+class LLMUnavailableError(LLMProviderError):
+    """Provider is unavailable or misconfigured."""
+
+    def __init__(self, message: str = "LLM provider unavailable."):
+        super().__init__(message)
 
 
 class BaseLLMProvider(ABC):

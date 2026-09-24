@@ -72,8 +72,10 @@ class CampaignBrief(BaseModel):
 
 class CampaignState(BaseModel):
     campaign_id: str
+    idempotency_key: str | None = None
     status: CampaignStatus = CampaignStatus.DRAFT
     current_stage: CampaignStage = CampaignStage.STRATEGY
+    previous_stage: CampaignStage | None = None
     brief: dict[str, Any] = Field(default_factory=dict)
     kit_id: str | None = None
     strategy: dict[str, Any] | None = None
@@ -87,18 +89,39 @@ class CampaignState(BaseModel):
     approval: dict[str, Any] = Field(default_factory=dict)
     export: dict[str, Any] = Field(default_factory=dict)
     errors: list[str] = Field(default_factory=list)
+    provider: str | None = None
     created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
     updated_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
 
     def touch(self) -> None:
         self.updated_at = datetime.now(timezone.utc).isoformat()
 
+    def lifecycle_label(self) -> str:
+        """Operator-facing aliases mapped from internal status/stage."""
+        if self.status == CampaignStatus.ERROR:
+            return "FAILED"
+        if self.status == CampaignStatus.GENERATED:
+            return "CONTENT_READY"
+        if (
+            self.status == CampaignStatus.DRAFT
+            and self.stages.get(CampaignStage.STRATEGY.value)
+            and self.stages[CampaignStage.STRATEGY.value].status == "complete"
+            and self.stages.get(CampaignStage.CONTENT.value)
+            and self.stages[CampaignStage.CONTENT.value].status != "complete"
+        ):
+            return "STRATEGY_READY"
+        return self.status.value
+
     def summary(self) -> dict[str, Any]:
         return {
             "campaign_id": self.campaign_id,
+            "idempotency_key": self.idempotency_key,
             "status": self.status.value,
+            "lifecycle_label": self.lifecycle_label(),
             "current_stage": self.current_stage.value,
+            "previous_stage": self.previous_stage.value if self.previous_stage else None,
             "kit_id": self.kit_id,
+            "provider": self.provider,
             "completed_stages": [
                 name for name, rec in self.stages.items() if rec.status == "complete"
             ],
@@ -116,4 +139,5 @@ class CampaignState(BaseModel):
             ),
             "asset_keys": list(self.assets.keys()),
             "social_count": len(self.social_assets),
+            "updated_at": self.updated_at,
         }

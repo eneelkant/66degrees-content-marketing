@@ -47,6 +47,19 @@ class CampaignStore:
                 return CampaignState.model_validate(data)
         return None
 
+    def find_by_idempotency_key(self, key: str) -> CampaignState | None:
+        needle = (key or "").strip()
+        if not needle:
+            return None
+        for path in self.root.glob("*.json"):
+            try:
+                data = json.loads(path.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError):
+                continue
+            if data.get("idempotency_key") == needle:
+                return CampaignState.model_validate(data)
+        return None
+
     def list_ids(self) -> list[str]:
         return sorted(p.stem for p in self.root.glob("*.json"))
 

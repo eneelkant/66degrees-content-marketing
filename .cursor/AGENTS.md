@@ -38,7 +38,10 @@ Cursor must:
 11. Never publish without approval.
 12. Export only after `approve_campaign` / `approve_campaign_kit`.
 
-Prefer MCP tool `create_campaign` over manually chaining every stage unless the user asks for a single stage.
+- Prefer MCP tool `create_campaign` over manually chaining every stage unless the user asks for a single stage.
+- On `REVISION_REQUIRED`, fix content and `resume_campaign` — never approve or export.
+- Use `idempotency_key` on create when retries must not duplicate campaigns.
+- See `docs/PRODUCTION_WORKFLOW.md` for operator lifecycle details.
 
 ## Architecture map
 

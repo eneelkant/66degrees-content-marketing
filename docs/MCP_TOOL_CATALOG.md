@@ -37,3 +37,6 @@ Classifications are derived from implementation behavior.
 2. Never call `export_*` unless status is `APPROVED`.
 3. Use `LLM_PROVIDER=mock` in CI and unattended dry-runs.
 4. Remote HTTP MCP still requires `MCP_AUTH_TOKEN` / `MCP_API_KEY`.
+5. Pass `idempotency_key` on `create_campaign` to avoid duplicates on retry.
+6. `approve_campaign` / `export_campaign` are idempotent once already approved/exported.
+7. Remaining QA `REWRITE` yields `REVISION_REQUIRED` — call `resume_campaign` after fixes.

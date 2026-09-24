@@ -59,6 +59,15 @@ Coverage includes state-machine illegal transitions, orchestrated webinar campai
 - Payload sanitization retained.
 - Repo-wide secret scan clean for this branch.
 
+## Phase 3 production readiness (this update)
+
+- Hardened QA revision loop: remaining REWRITE stays `REVISION_REQUIRED` (no auto-approval path)
+- Interrupt/resume with stable campaign IDs; completed stages skipped
+- Idempotent create (`idempotency_key`), approve, and export
+- Stronger deterministic brand checks (placeholders / unsupported claims)
+- Asset metadata (`campaign_id`, `content_type`, `status`, timestamps)
+- Production workflow doc + expanded readiness tests (75+ passing)
+
 ## Remaining limitations
 
 - Live LLM / remote MCP auth still require operator-supplied env vars (never fabricated).
