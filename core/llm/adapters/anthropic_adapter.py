@@ -20,7 +20,14 @@ class AnthropicAdapter(BaseLLMProvider):
                 "Anthropic provider requires the optional 'anthropic' package."
             ) from exc
         self.model_name = model_name or os.getenv("ANTHROPIC_MODEL", "claude-sonnet-4-5")
-        self.client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+        api_key = os.getenv("ANTHROPIC_API_KEY")
+        if not api_key:
+            raise LLMProviderError(
+                "Anthropic API configuration is missing. "
+                "Set ANTHROPIC_API_KEY in .env before using LLM_PROVIDER=anthropic, "
+                "or set LLM_PROVIDER=mock for local/offline runs."
+            )
+        self.client = Anthropic(api_key=api_key)
 
     def generate_text(self, prompt: str, system_prompt: str = "", temperature: float = 0.7) -> LLMResponse:
         try:

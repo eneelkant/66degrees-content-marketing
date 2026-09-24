@@ -1,0 +1,14 @@
+---
+description: Brand and content governance for marketing outputs
+globs: ["core/brand/**", "core/qa/**", "core/generators/**", "references/**"]
+alwaysApply: false
+---
+
+# Content & brand governance
+
+- Treat `core/brand/brand_rules.json` and Messaging Foundation references as source of truth.
+- QA must keep `approval_required=True` until a human approves.
+- Do not weaken forbidden-jargon or mandatory-terminology checks to greenwash tests.
+- Optimization loops may rewrite content; they must not skip QA or approval.
+- Prefer reusable brand validation (`core/brand/rules.py`, `core/qa/brand.py`) over duplicated prompt text.
+- Export formats: JSON, DOCX, XLSX only after `HumanApprovalGate` approval.

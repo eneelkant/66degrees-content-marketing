@@ -5,7 +5,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     environment: str = Field("production", alias="ENVIRONMENT")
     log_level: str = Field("INFO", alias="LOG_LEVEL")
-    llm_provider: str = Field("anthropic", alias="LLM_PROVIDER")
+    llm_provider: str = Field("mock", alias="LLM_PROVIDER")
     anthropic_api_key: str|None = Field(None, alias="ANTHROPIC_API_KEY")
     openai_api_key: str|None = Field(None, alias="OPENAI_API_KEY")
     gemini_api_key: str|None = Field(None, alias="GEMINI_API_KEY")

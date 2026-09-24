@@ -73,11 +73,20 @@ def refine_content_asset(asset_id: str, feedback_instructions: str) -> dict[str,
 
 def generate_social_posts(source_asset_json: dict[str, Any], platforms: list[str]) -> dict[str, Any]:
     if not platforms:
-        raise ValueError("platforms is required")
+        raise ValueError("platforms is required — pass at least one platform such as 'linkedin'.")
     assets = []
     for platform in platforms:
         target = "linkedin_post" if platform.lower() == "linkedin" else f"{platform.lower()}_post"
-        assets.append(_tools.repurpose_content_asset(source_asset_json, target)["asset"])
+        result = _tools.repurpose_content_asset(source_asset_json, target)
+        if "asset" in result:
+            assets.append(result["asset"])
+        elif result.get("assets"):
+            assets.append(result["assets"][0])
+        else:
+            raise ValueError(
+                f"Repurposing to '{target}' did not return an asset. "
+                "Check the source asset JSON and target platform."
+            )
     return {"status": "GENERATED", "platforms": platforms, "assets": assets}
 
 
@@ -98,13 +107,22 @@ def qa_validate_asset(content_json: dict[str, Any], asset_type: str) -> dict[str
 
 def approve_campaign_kit(kit_id: str) -> dict[str, Any]:
     if kit_id not in _KITS:
-        raise ValueError(f"Unknown kit_id '{kit_id}'")
+        raise ValueError(
+            f"Unknown kit_id '{kit_id}'. Generate a campaign kit first with "
+            "generate_campaign_kit, then pass the returned kit_id to approve_campaign_kit."
+        )
     approver = "human"
-    result = _tools.approve_campaign_kit(sanitize_payload(kit_id), approver, notes="Explicit human approval trigger invoked through MCP.")
+    result = _tools.approve_campaign_kit(
+        sanitize_payload(kit_id),
+        approver,
+        notes="Explicit human approval trigger invoked through MCP.",
+    )
     return result
 
 
 def export_campaign_kit(kit_id: str, export_format: str) -> dict[str, Any]:
     if kit_id not in _KITS:
-        raise ValueError(f"Unknown kit_id '{kit_id}'")
+        raise ValueError(
+            f"Unknown kit_id '{kit_id}'. Generate and approve a campaign kit before export."
+        )
     return _tools.export_campaign_kit(kit_id, _KITS[kit_id], export_format)

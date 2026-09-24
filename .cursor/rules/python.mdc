@@ -1,0 +1,14 @@
+---
+description: Python coding standards for this repository
+globs: ["**/*.py"]
+alwaysApply: false
+---
+
+# Python
+
+- Target **Python 3.12** (see `.python-version`). Manage deps with **uv** + `uv.lock`.
+- Prefer stdlib + existing deps (Ponytail). Do not add packages without a clear need.
+- Use Pydantic models for structured I/O at module boundaries.
+- Imports at module top; no inline imports unless documenting a circular-dependency exception.
+- Raise actionable errors that name the missing config/env var or invalid input.
+- Keep functions small and testable; mirror existing naming in the touched package.

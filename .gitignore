@@ -20,12 +20,17 @@ venv/
 dist/
 build/
 
-# Local databases
+# Local databases & runtime data
 references/*.db
 references/*.sqlite
 references/*.sqlite3
+data/
+core/exports/
+exports/
+*.docx.bak
 
 # OS / editor
 .DS_Store
 .vscode/
 .idea/
+66degrees_content_marketing.egg-info/

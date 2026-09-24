@@ -22,7 +22,13 @@ class GeminiAdapter(BaseLLMProvider):
         self._types = types
         self.model_name = model_name or os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
         api_key = os.getenv("GEMINI_API_KEY")
-        self.client = genai.Client(api_key=api_key) if api_key else genai.Client()
+        if not api_key:
+            raise LLMProviderError(
+                "Gemini API configuration is missing. "
+                "Set GEMINI_API_KEY in .env before using LLM_PROVIDER=gemini, "
+                "or set LLM_PROVIDER=mock for local/offline runs."
+            )
+        self.client = genai.Client(api_key=api_key)
 
     def generate_text(self, prompt: str, system_prompt: str = "", temperature: float = 0.7) -> LLMResponse:
         try:
