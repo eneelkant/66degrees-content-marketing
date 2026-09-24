@@ -4,7 +4,12 @@ from config.logging import sanitize
 from core.security.auth import validate_credentials, AuthenticationError
 from core.security.input import sanitize_payload
 def test_settings_loads_env(monkeypatch):
-    monkeypatch.setenv("LLM_PROVIDER","mock"); monkeypatch.setenv("MCP_AUTH_TOKEN","secret"); s=Settings(); assert s.llm_provider=="mock" and s.mcp_auth_token=="secret"
+    monkeypatch.setenv("LLM_PROVIDER", "mock")
+    monkeypatch.setenv("MCP_AUTH_TOKEN", "secret")
+    monkeypatch.setenv("CORS_ALLOWED_ORIGINS", "http://127.0.0.1:8000,https://chatgpt.com")
+    s = Settings()
+    assert s.llm_provider == "mock" and s.mcp_auth_token == "secret"
+    assert s.cors_allowed_origins == ["http://127.0.0.1:8000", "https://chatgpt.com"]
 def test_remote_security():
     with pytest.raises(ValueError): Settings().validate_production_security(remote=True)
     Settings(MCP_AUTH_TOKEN="secret", CORS_ALLOWED_ORIGINS=["https://chatgpt.com"]).validate_production_security(remote=True)
