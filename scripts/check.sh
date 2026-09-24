@@ -25,7 +25,7 @@ from config.settings import Settings
 from core.brand.rules import load_brand_rules
 from core.approval.gate import HumanApprovalGate
 
-assert len(PUBLIC_TOOL_NAMES) == 11
+assert len(PUBLIC_TOOL_NAMES) == 16
 assert set(TOOL_NAME_MAP) == set(PUBLIC_TOOL_NAMES)
 assert load_brand_rules().mandatory_terminology
 gate = HumanApprovalGate()

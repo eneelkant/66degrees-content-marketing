@@ -349,7 +349,7 @@ The engineering approach follows the **Ponytail** philosophy:
 
 > Keep the implementation small. Reuse the standard library and existing dependencies where they already solve the problem. Don't add complexity without a reason.
 
-Simplicity does **not** mean cutting corners — validation, error handling, security, and accessibility remain part of the implementation. This shows in the deliberately small public MCP surface: **11 tools**, with specialist strategies kept internal to the core.
+Simplicity does **not** mean cutting corners — validation, error handling, security, and accessibility remain part of the implementation. This shows in a deliberate public MCP surface: **11 specialist tools** plus **5 campaign orchestration tools** (`create_campaign`, status/resume/approve/export), with generator strategies kept internal to the core.
 
 ---
 
@@ -369,7 +369,7 @@ Simplicity does **not** mean cutting corners — validation, error handling, sec
 | Testing | pytest |
 
 <details>
-<summary><strong>The MCP tools behind the 11 AI agents</strong></summary>
+<summary><strong>The MCP tools behind the agents</strong></summary>
 
 | Tool | Purpose |
 |---|---|
@@ -382,10 +382,15 @@ Simplicity does **not** mean cutting corners — validation, error handling, sec
 | `repurpose_content_asset` | Repurpose an existing asset |
 | `optimize_content_asset` | Optimize content using QA feedback |
 | `qa_validate_asset` | Run content QA |
-| `approve_campaign_kit` | Apply the human approval gate |
+| `approve_campaign_kit` | Apply the human approval gate (kit) |
 | `export_campaign_kit` | Export an approved campaign kit |
+| `create_campaign` | Run the full pipeline and **stop at human approval** |
+| `get_campaign_status` | Read resumable campaign state |
+| `resume_campaign` | Continue from persisted stage |
+| `approve_campaign` | Human-approve an orchestrated campaign |
+| `export_campaign` | Export an approved orchestrated campaign |
 
-These are the technical interfaces behind the 11 AI agents; specialist strategies remain internal implementation components.
+See also `docs/MCP_TOOL_CATALOG.md` and `docs/AGENT_ARCHITECTURE.md`.
 
 </details>
 
@@ -470,8 +475,10 @@ Example Claude Desktop / Cursor MCP config: `config/claude_desktop_config.exampl
 4. Read `.cursor/AGENTS.md` — the agent operating manual.
 5. Project rules under `.cursor/rules/` apply automatically for architecture, Python, MCP, testing, security, and brand governance.
 6. Reusable agent tasks live in `.cursor/tasks/` (health check, add tool, generate campaign, security audit, …).
-7. Start Agent mode and ask for a task (e.g. “run repository-health-check” or “generate a mocked campaign kit”).
-8. For MCP inside Cursor, point an MCP server entry at `uv run --directory <repo> python -m clients.claude.server` (see `config/claude_desktop_config.example.json`).
+7. Start Agent mode and ask for a task (e.g. “run /health-check” or “/campaign with this brief”).
+8. For end-to-end work prefer MCP `create_campaign` — it stops at human approval.
+9. For MCP inside Cursor, point an MCP server entry at `uv run --directory <repo> python -m clients.claude.server` (see `config/claude_desktop_config.example.json`).
+10. Read `docs/CURSOR_AUTOMATION.md` for Automation-oriented entry points.
 
 Keep `LLM_PROVIDER=mock` unless you intentionally want live provider calls.
 

@@ -19,7 +19,7 @@ def test_mcp_discovers_locked_public_surface():
     tools = asyncio.run(mcp.list_tools())
     names = {tool.name for tool in tools}
     assert names == set(PUBLIC_TOOL_NAMES)
-    assert len(names) == 11
+    assert len(names) == 16
 
 
 def test_mcp_tool_schemas_are_objects():

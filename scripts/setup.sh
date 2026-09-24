@@ -24,7 +24,7 @@ fi
 mkdir -p data core/exports references
 
 echo ">> Validating imports…"
-PYTHONPATH=. uv run python -c "from clients.surface import PUBLIC_TOOL_NAMES; from clients.claude.server import mcp; assert len(PUBLIC_TOOL_NAMES)==11; print('imports_ok tools=', len(PUBLIC_TOOL_NAMES))"
+PYTHONPATH=. uv run python -c "from clients.surface import PUBLIC_TOOL_NAMES; from clients.claude.server import mcp; assert len(PUBLIC_TOOL_NAMES)==16; print('imports_ok tools=', len(PUBLIC_TOOL_NAMES))"
 
 echo "Setup complete. Next: ./scripts/check.sh && ./scripts/test.sh"
 echo "Start MCP (stdio): ./scripts/run-mcp.sh"

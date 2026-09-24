@@ -5,9 +5,10 @@ alwaysApply: true
 
 # Project architecture
 
-- Public MCP surface is locked at **11 tools** in `clients/surface.py`. Do not add/remove public tools without updating all adapters (`clients/claude`, `clients/chatgpt`, `clients/gemini`) and tests.
+- Public MCP surface is defined in `clients/surface.py` (currently **16 tools**: 11 specialists + campaign orchestration). Update all adapters (`clients/claude`, `clients/chatgpt`, `clients/gemini`) and tests when changing it.
+- Campaign orchestration lives in `core/campaign/` and must stop at human approval before export.
 - Business logic lives under `core/`. Client adapters only translate MCP/HTTP ↔ `clients/public_api.py`.
 - Brand rules live in `core/brand/brand_rules.json`. Prefer loading via `load_brand_rules()` — do not hard-code large brand copy into Python.
-- Approval is enforced by `core/approval/gate.py`. Export must call `require_approved`.
+- Approval is enforced by `core/approval/gate.py` and `core/campaign/state_machine.py`. Export must call `require_approved` / `assert_exportable`.
 - Reference DB path defaults to `references/references.db` (gitignored). Tests must seed fixtures or use `tmp_path`; never assume a populated DB on clean clone.
 - Keep specialist generators internal (`core/generators/`). Do not expose each strategy as a separate MCP tool.

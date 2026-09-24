@@ -14,6 +14,7 @@ Verify the repo installs, imports, checks, and tests cleanly for Cursor agents.
 
 ## Expected output
 - setup / check / test all exit 0
+- MCP discovers 16 public tools
 - Report any failing command with root cause
 
 ## Validation
