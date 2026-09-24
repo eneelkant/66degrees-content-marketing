@@ -9,13 +9,21 @@ from core.reference_library.sqlite_client import SQLiteReferenceClient
 DB_PATH = Path(__file__).resolve().parents[2] / "references" / "references.db"
 
 
-def find_event(query: str) -> dict[str, Any] | None:
-    """Find the closest stored Google Cloud event by title/source text."""
+def find_event(query: str, db_path: Path | str | None = None) -> dict[str, Any] | None:
+    """Find the closest stored Google Cloud event by title/source text.
+
+    Pass ``db_path`` in tests to avoid depending on a network-refreshed
+    ``references/references.db`` (gitignored; empty on a clean clone).
+    """
     query = (query or "").strip().lower()
     if not query:
         return None
 
-    db = SQLiteReferenceClient(DB_PATH)
+    path = Path(db_path) if db_path is not None else DB_PATH
+    if not path.exists():
+        return None
+
+    db = SQLiteReferenceClient(path)
     records = db.search(limit=100)
 
     candidates = [

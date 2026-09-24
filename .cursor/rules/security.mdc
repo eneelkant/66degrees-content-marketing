@@ -1,0 +1,13 @@
+---
+description: Security and secrets handling
+alwaysApply: true
+---
+
+# Security
+
+- Never commit secrets, PATs, private keys, or `.env` files.
+- Read credentials only from environment / `.env` (see `.env.example`).
+- Use `config.logging.sanitize` patterns — do not log tokens or API keys.
+- Preserve MCP auth checks for remote transports (`core/security/auth.py`, `clients/http_security.py`, `mcp/auth.py` re-export).
+- Sanitize tool payloads against prompt-injection and unsafe HTML tags (`core/security/input.py`).
+- If a secret is discovered in the tree: remove it, rotate externally, document the env var, update `.gitignore`.

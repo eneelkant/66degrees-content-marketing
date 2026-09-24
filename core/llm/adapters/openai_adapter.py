@@ -19,7 +19,14 @@ class OpenAIAdapter(BaseLLMProvider):
                 "OpenAI provider requires the optional 'openai' package."
             ) from exc
         self.model_name = model_name or os.getenv("OPENAI_MODEL", "gpt-5.1")
-        self.client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        api_key = os.getenv("OPENAI_API_KEY")
+        if not api_key:
+            raise LLMProviderError(
+                "OpenAI API configuration is missing. "
+                "Set OPENAI_API_KEY in .env before using LLM_PROVIDER=openai, "
+                "or set LLM_PROVIDER=mock for local/offline runs."
+            )
+        self.client = OpenAI(api_key=api_key)
 
     def generate_text(self, prompt: str, system_prompt: str = "", temperature: float = 0.7) -> LLMResponse:
         try:

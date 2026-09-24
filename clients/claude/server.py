@@ -1,10 +1,14 @@
-"""Claude Desktop MCP adapter. The public tool surface is intentionally fixed at 11 tools."""
+"""Claude Desktop / Cursor MCP adapter — public tool surface from clients.surface."""
 from mcp.server.fastmcp import FastMCP
 import clients.public_api as api
 
 mcp = FastMCP(
     "66degrees-content-marketing",
-    instructions="66degrees content marketing MCP. Use the 11 public tools only; specialist strategies remain internal.",
+    instructions=(
+        "66degrees content marketing MCP. Prefer create_campaign for end-to-end "
+        "workflows; it stops at human approval. Never export without approval. "
+        "Specialist strategies remain internal."
+    ),
     json_response=True,
 )
 
@@ -62,6 +66,31 @@ def approve_campaign_kit(kit_id: str) -> dict:
 def export_campaign_kit(kit_id: str, export_format: str) -> dict:
     """Export an approved campaign kit as JSON, DOCX, or XLSX."""
     return api.export_campaign_kit(kit_id, export_format)
+
+@mcp.tool()
+def create_campaign(brief_data: dict) -> dict:
+    """Run strategy→content→social→brand→QA and stop at human approval."""
+    return api.create_campaign(brief_data)
+
+@mcp.tool()
+def get_campaign_status(campaign_id: str) -> dict:
+    """Return persisted campaign status, stages, QA, and approval state."""
+    return api.get_campaign_status(campaign_id)
+
+@mcp.tool()
+def resume_campaign(campaign_id: str) -> dict:
+    """Resume an interrupted campaign from its persisted stage (never skips approval)."""
+    return api.resume_campaign(campaign_id)
+
+@mcp.tool()
+def approve_campaign(campaign_id: str) -> dict:
+    """Human-approve an orchestrated campaign that is APPROVAL_PENDING."""
+    return api.approve_campaign(campaign_id)
+
+@mcp.tool()
+def export_campaign(campaign_id: str, export_format: str = "json") -> dict:
+    """Export an APPROVED orchestrated campaign. Blocked before approval."""
+    return api.export_campaign(campaign_id, export_format)
 
 TOOL_NAME_MAP = {name: name for name in api.PUBLIC_TOOL_NAMES}
 

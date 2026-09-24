@@ -14,7 +14,12 @@
       "optimize_content_asset",
       "qa_validate_asset",
       "approve_campaign_kit",
-      "export_campaign_kit"
+      "export_campaign_kit",
+      "create_campaign",
+      "get_campaign_status",
+      "resume_campaign",
+      "approve_campaign",
+      "export_campaign"
     ],
     "require_approval": "always"
   }

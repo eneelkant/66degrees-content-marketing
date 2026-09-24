@@ -19,13 +19,3 @@ venv/
 *.egg-info/
 dist/
 build/
-
-# Local databases
-references/*.db
-references/*.sqlite
-references/*.sqlite3
-
-# OS / editor
-.DS_Store
-.vscode/
-.idea/

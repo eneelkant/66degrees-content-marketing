@@ -8,8 +8,22 @@ def sanitize(v):
 class JsonFormatter(logging.Formatter):
     def format(self,r):
         p={"timestamp":self.formatTime(r,"%Y-%m-%dT%H:%M:%S%z"),"level":r.levelname,"logger":r.name,"message":r.getMessage()}
-        for k in ("tool","client_type","duration_ms","qa_status","approval_state","provider"):
-            if hasattr(r,k): p[k]=sanitize(getattr(r,k))
+        for k in (
+            "tool",
+            "client_type",
+            "duration_ms",
+            "qa_status",
+            "approval_state",
+            "provider",
+            "campaign_id",
+            "stage",
+            "previous_stage",
+            "agent",
+            "status",
+            "error_type",
+        ):
+            if hasattr(r, k):
+                p[k] = sanitize(getattr(r, k))
         return json.dumps(sanitize(p),ensure_ascii=False)
 def configure_logging(level="INFO"):
     h=logging.StreamHandler(); h.setFormatter(JsonFormatter()); root=logging.getLogger(); root.handlers.clear(); root.addHandler(h); root.setLevel(level.upper()); return root

@@ -6,6 +6,7 @@ build-backend = "setuptools.build_meta"
 requires-python = ">=3.12,<3.13"
 name = "66degrees-content-marketing"
 version = "0.1.0"
+description = "MCP-powered 66degrees content marketing system with brand governance, QA, and human approval."
 dependencies = [
     "pydantic>=2.0",
     "pydantic-settings>=2.0",
@@ -25,11 +26,18 @@ llm = ["anthropic", "openai", "google-genai"]
 clients = ["openai-agents"]
 all = ["chromadb", "sentence-transformers", "anthropic", "openai", "google-genai", "rapidfuzz>=3.0", "openai-agents"]
 
+[project.scripts]
+degrees-mcp = "clients.claude.server:run_stdio"
+
 [tool.setuptools.packages.find]
-include = ["core*", "clients*", "engines*", "exporters*"]
+include = ["core*", "clients*", "engines*", "exporters*", "config*"]
+
+[tool.setuptools.package-data]
+"core.brand" = ["brand_rules.json"]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
+testpaths = ["tests"]
 
 [dependency-groups]
 dev = [

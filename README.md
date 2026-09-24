@@ -17,6 +17,15 @@ An MCP-powered content marketing system for 66degrees. It connects strategy, eve
 - [Built for 66degrees](#-built-for-66degrees)
 - [Built with Ponytail principles](#-built-with-ponytail-principles)
 - [Technology](#️-technology)
+- [Requirements & installation](#-requirements--installation)
+- [Environment configuration](#-environment-configuration)
+- [Running tests](#-running-tests)
+- [Starting MCP](#-starting-mcp)
+- [Cursor Setup](#-cursor-setup)
+- [Directory structure](#-directory-structure)
+- [Development workflow](#-development-workflow)
+- [Troubleshooting](#-troubleshooting)
+- [Security](#-security)
 - [Time savings](#️-approximate-time-savings)
 - [Reference library](#-reference-library)
 - [Human-in-the-loop](#-human-in-the-loop)
@@ -340,7 +349,7 @@ The engineering approach follows the **Ponytail** philosophy:
 
 > Keep the implementation small. Reuse the standard library and existing dependencies where they already solve the problem. Don't add complexity without a reason.
 
-Simplicity does **not** mean cutting corners — validation, error handling, security, and accessibility remain part of the implementation. This shows in the deliberately small public MCP surface: **11 tools**, with specialist strategies kept internal to the core.
+Simplicity does **not** mean cutting corners — validation, error handling, security, and accessibility remain part of the implementation. This shows in a deliberate public MCP surface: **11 specialist tools** plus **5 campaign orchestration tools** (`create_campaign`, status/resume/approve/export), with generator strategies kept internal to the core.
 
 ---
 
@@ -360,7 +369,7 @@ Simplicity does **not** mean cutting corners — validation, error handling, sec
 | Testing | pytest |
 
 <details>
-<summary><strong>The MCP tools behind the 11 AI agents</strong></summary>
+<summary><strong>The MCP tools behind the agents</strong></summary>
 
 | Tool | Purpose |
 |---|---|
@@ -373,12 +382,161 @@ Simplicity does **not** mean cutting corners — validation, error handling, sec
 | `repurpose_content_asset` | Repurpose an existing asset |
 | `optimize_content_asset` | Optimize content using QA feedback |
 | `qa_validate_asset` | Run content QA |
-| `approve_campaign_kit` | Apply the human approval gate |
+| `approve_campaign_kit` | Apply the human approval gate (kit) |
 | `export_campaign_kit` | Export an approved campaign kit |
+| `create_campaign` | Run the full pipeline and **stop at human approval** |
+| `get_campaign_status` | Read resumable campaign state |
+| `resume_campaign` | Continue from persisted stage |
+| `approve_campaign` | Human-approve an orchestrated campaign |
+| `export_campaign` | Export an approved orchestrated campaign |
 
-These are the technical interfaces behind the 11 AI agents; specialist strategies remain internal implementation components.
+See also `docs/MCP_TOOL_CATALOG.md` and `docs/AGENT_ARCHITECTURE.md`.
 
 </details>
+
+---
+
+## 📦 Requirements & installation
+
+- **Python 3.12** (see `.python-version`)
+- **[uv](https://docs.astral.sh/uv/)** for locked dependency installs
+- Optional LLM provider keys only when not using `LLM_PROVIDER=mock`
+
+```bash
+git clone https://github.com/eneelkant/66degrees-content-marketing.git
+cd 66degrees-content-marketing
+./scripts/setup.sh
+```
+
+`setup.sh` syncs dependencies from `uv.lock`, creates `.env` from `.env.example` if missing, and validates imports.
+
+Manual equivalent:
+
+```bash
+uv sync --group dev
+cp -n .env.example .env
+PYTHONPATH=. uv run python -c "from clients.claude.server import mcp; print('ok')"
+```
+
+---
+
+## 🔐 Environment configuration
+
+Copy `.env.example` → `.env`. Grouped variables:
+
+| Group | Variables | Notes |
+|---|---|---|
+| Runtime | `ENVIRONMENT`, `LOG_LEVEL`, `DATA_DIR`, `REFERENCES_DB_PATH` | Defaults work for local/dev |
+| LLM | `LLM_PROVIDER`, `ANTHROPIC_*`, `OPENAI_*`, `GEMINI_*` | Prefer `LLM_PROVIDER=mock` for tests/CI |
+| MCP | `MCP_AUTH_TOKEN`, `MCP_API_KEY`, `CORS_ALLOWED_ORIGINS` | Required for **remote** HTTP MCP |
+| Optional | Provider model overrides | No Salesforce/GitHub secrets required for the default suite |
+
+Missing provider keys raise **actionable** errors (e.g. “Set `GEMINI_API_KEY` in `.env`…”) instead of opaque SDK failures.
+
+---
+
+## 🧪 Running tests
+
+```bash
+./scripts/check.sh    # imports + MCP tool discovery
+./scripts/test.sh     # pytest with LLM_PROVIDER=mock
+```
+
+Tests are deterministic: mocked LLMs, seeded reference fixtures, no paid API calls.
+
+CI: `.github/workflows/ci.yml` runs the same check + test path on pull requests.
+
+---
+
+## 🔌 Starting MCP
+
+```bash
+./scripts/run-mcp.sh          # stdio (Claude Desktop / Cursor local)
+./scripts/run-mcp.sh http     # Streamable HTTP on 127.0.0.1:8000
+./scripts/run-mcp.sh sse      # legacy SSE transport
+```
+
+Or:
+
+```bash
+uv run python -m clients.claude.server
+uv run degrees-mcp
+```
+
+Example Claude Desktop / Cursor MCP config: `config/claude_desktop_config.example.json`.
+
+---
+
+## 🖥️ Cursor Setup
+
+1. Clone this repository and open the folder in **Cursor**.
+2. Run `./scripts/setup.sh` in the integrated terminal.
+3. Confirm `./scripts/check.sh` and `./scripts/test.sh` pass.
+4. Read `.cursor/AGENTS.md` — the agent operating manual.
+5. Project rules under `.cursor/rules/` apply automatically for architecture, Python, MCP, testing, security, and brand governance.
+6. Reusable agent tasks live in `.cursor/tasks/` (health check, add tool, generate campaign, security audit, …).
+7. Start Agent mode and ask for a task (e.g. “run /health-check” or “/campaign with this brief”).
+8. For end-to-end work prefer MCP `create_campaign` — it stops at human approval.
+9. For MCP inside Cursor, point an MCP server entry at `uv run --directory <repo> python -m clients.claude.server` (see `config/claude_desktop_config.example.json`).
+10. Read `docs/CURSOR_AUTOMATION.md` for Automation-oriented entry points.
+
+Keep `LLM_PROVIDER=mock` unless you intentionally want live provider calls.
+
+---
+
+## 📁 Directory structure
+
+```text
+clients/          # MCP adapters (Claude, ChatGPT, Gemini) + public_api
+config/           # settings, logging, example MCP client config
+core/             # brand, QA, approval, generators, LLM, references, security
+engines/          # specialist engines (e.g. Emailens)
+exporters/        # approved kit export (JSON / DOCX / XLSX)
+mcp/              # auth re-export + notes (not a Python package — avoids SDK shadowing)
+references/       # Messaging Foundation + refresh metadata (*.db gitignored)
+scripts/          # setup, check, test, run-mcp, refresh_references
+tests/            # unit + e2e mocked journey + MCP smoke
+.cursor/          # AGENTS.md, rules/, tasks/
+.github/workflows # CI + reference refresh
+```
+
+---
+
+## 🛠️ Development workflow
+
+```bash
+./scripts/setup.sh
+./scripts/check.sh
+./scripts/test.sh
+# make a focused change
+./scripts/test.sh -k <pattern>
+```
+
+Agent expectations: small testable diffs, no secret commits, preserve the 11-tool public surface unless explicitly expanding it, never bypass human approval to “make export work.”
+
+---
+
+## 🧯 Troubleshooting
+
+| Symptom | Fix |
+|---|---|
+| `uv: command not found` | Install uv, then re-run `./scripts/setup.sh` |
+| Wrong Python version | Use 3.12; `uv` reads `.python-version` |
+| Tests fail looking up Google Cloud events | Expected on empty `references.db`; suite seeds fixtures — pull latest tests |
+| Live LLM errors | Set `LLM_PROVIDER=mock` or set the matching `*_API_KEY` |
+| Remote MCP 401 | Set `MCP_AUTH_TOKEN` or `MCP_API_KEY` |
+| Export `PermissionError` | Call `approve_campaign_kit` first — intentional gate |
+| `from mcp.server…` import fails | Do **not** add `mcp/__init__.py` (would shadow the SDK) |
+
+---
+
+## 🔒 Security
+
+- Never commit `.env` or real API keys (see `.gitignore`).
+- Use `.env.example` as the template.
+- Logging redacts sensitive keys via `config/logging.py`.
+- Untrusted tool payloads are sanitized in `core/security/input.py`.
+- Remote MCP must not use wildcard CORS in production (`Settings.validate_production_security`).
 
 ---
 

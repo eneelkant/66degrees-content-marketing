@@ -1,10 +1,9 @@
-import hmac
-class AuthenticationError(PermissionError): pass
-def extract_bearer(authorization):
-    if not authorization: return None
-    scheme,_,token=authorization.partition(" ")
-    return token.strip() if scheme.lower()=="bearer" and token else None
-def validate_credentials(*,authorization=None,api_key=None,expected_token=None):
-    if not expected_token: raise AuthenticationError("Remote MCP authentication is not configured")
-    presented=extract_bearer(authorization) or api_key
-    if not presented or not hmac.compare_digest(presented,expected_token): raise AuthenticationError("Invalid MCP credentials")
+"""Transport-oriented MCP auth helpers.
+
+Prefer importing from ``core.security.auth`` in application code. This module
+exists for discoverability under the ``mcp/`` directory without registering a
+Python package named ``mcp`` (which would shadow the MCP SDK).
+"""
+from core.security.auth import AuthenticationError, extract_bearer, validate_credentials
+
+__all__ = ["AuthenticationError", "extract_bearer", "validate_credentials"]

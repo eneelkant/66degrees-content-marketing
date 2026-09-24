@@ -1,0 +1,14 @@
+---
+description: Testing requirements for Cursor agents
+globs: ["tests/**/*.py"]
+alwaysApply: false
+---
+
+# Testing
+
+- Tests must be **deterministic** and run with `LLM_PROVIDER=mock`.
+- Mock/stub external APIs — no paid OpenAI/Anthropic/Gemini, Salesforce, or live GitHub calls in the default suite.
+- Seed reference DB fixtures in-test; do not depend on `references/references.db` contents.
+- Cover approval blocking export and brand/QA failing closed where applicable.
+- Run `./scripts/test.sh` (or `uv run pytest -q`) after behavior changes.
+- Prefer focused unit tests plus one mocked end-to-end journey under `tests/e2e/`.

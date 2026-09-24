@@ -10,7 +10,7 @@ EXPECTED = list(PUBLIC_TOOL_NAMES)
 def test_locked_public_tool_surface():
     assert list(PUBLIC_TOOL_NAMES) == EXPECTED
     assert [item["name"] for item in TOOL_DEFINITIONS] == EXPECTED
-    assert len(EXPECTED) == 11
+    assert len(EXPECTED) == 16
 
 
 def test_no_internal_specialists_leak_into_gemini_definitions():
