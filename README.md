@@ -1,6 +1,6 @@
 # 66degrees AI Marketing Automation Platform
 
-[![CI Pipeline](https://img.shields.io/badge/CI-GitHub%20Actions-blue.svg)](#) [![Tests](https://img.shields.io/badge/Tests-75%20Passing-success.svg)](#-testing--reliability) [![Python](https://img.shields.io/badge/Python-3.10%2B-blueviolet.svg)](#) [![License](https://img.shields.io/badge/License-Internal%20Use-red.svg)](#-internal-project)
+[![CI Pipeline](https://img.shields.io/badge/CI-GitHub%20Actions-blue.svg)](#) [![Tests](https://img.shields.io/badge/Tests-Passing-success.svg)](#-testing--reliability) [![Python](https://img.shields.io/badge/Python-3.12-blueviolet.svg)](#) [![MCP](https://img.shields.io/badge/MCP-16%20Tools-informational.svg)](#-model-context-protocol-mcp-tools)
 
 The **66degrees AI Marketing Automation Platform** is an enterprise-grade AI system engineered to automate repetitive campaign production while keeping human marketers strictly in control of strategic decisions and final execution approvals.
 
@@ -131,17 +131,66 @@ flowchart TD
 
 ## 🔌 Model Context Protocol (MCP) Tools
 
-The platform exposes **16 secure MCP tools** allowing AI assistants such as Cursor and Claude Desktop to programmatically trigger and manage operations:
+The platform exposes **16 secure MCP tools** (canonical names in `clients/surface.py`) for Claude, ChatGPT, Gemini, and Cursor:
 
 ```text
-• create_campaign          • generate_social
-• approve_campaign         • get_campaign_status
-• repurpose_content        • export_campaign
-• resume_campaign          • run_qa_check
-• fetch_reference_data     • generate_strategy
-• check_brand_governance   • track_telemetry
-• generate_content         • optimize_content
-• recover_state            • refine_content
+• generate_content_strategy   • process_event_brief
+• generate_campaign_kit       • generate_content_asset
+• refine_content_asset        • generate_social_posts
+• repurpose_content_asset     • optimize_content_asset
+• qa_validate_asset           • approve_campaign_kit
+• export_campaign_kit         • create_campaign
+• get_campaign_status         • resume_campaign
+• approve_campaign            • export_campaign
+```
+
+```text
+Claude / ChatGPT / Gemini / Cursor
+        ↓
+MCP Transport (stdio local | Streamable HTTP / SSE remote)
+        ↓
+Auth (local trust | MCP_AUTH_TOKEN service credential — not GitHub)
+        ↓
+Content MCP (16 tools)
+        ↓
+Campaign Orchestrator → 16 Specialized Tools / Agents
+        ↓
+QA → Human Approval → Export
+```
+
+---
+
+## Public MCP Access
+
+**A public GitHub repository is not an MCP server.** Clients connect to an MCP transport, not to `github.com`.
+
+| Access path | Public? | GitHub login? | Auth |
+|---|---|---|---|
+| Clone / read this repo | Yes | No | None |
+| Local stdio MCP (`./scripts/run-mcp.sh`) | On your machine | No | Local trust |
+| Team-hosted remote MCP (Docker / HTTP) | Only if you deploy it | **No** | `MCP_AUTH_TOKEN` / `MCP_API_KEY` |
+
+This repository does **not** ship a first-party public hosted MCP URL. Deploy with Docker Compose (see below) or run locally.
+
+| Client | Transport | Endpoint | Auth | Read | Write |
+|---|---|---|---|---|---|
+| Claude Desktop / Claude Code | stdio | local process | none | yes | yes (local) |
+| Cursor | stdio | local process | none | yes | yes (local) |
+| ChatGPT | Streamable HTTP / SSE | `https://YOUR_HOST:8000` | service token | yes | yes (token) |
+| Gemini | adapter → stdio or HTTP | local or `YOUR_HOST` | none / token | yes | yes when authorized |
+
+**Write / destructive tools** (`create_campaign`, `approve_*`, `export_*`, `resume_campaign`, generation tools) require a configured service token on remote transports. Human approval remains mandatory before export:
+
+`QA → APPROVAL_PENDING → HUMAN APPROVAL → APPROVED → EXPORT`
+
+Full details: [`docs/PUBLIC_MCP_ACCESS.md`](./docs/PUBLIC_MCP_ACCESS.md).
+
+### Remote team host (no GitHub login for MCP clients)
+
+```bash
+cp .env.example .env   # set MCP_AUTH_TOKEN (not a GitHub PAT)
+docker compose up --build -d
+# Point ChatGPT / remote clients at https://YOUR_HOST:8000 with the service token
 ```
 
 ---
@@ -287,6 +336,7 @@ Detailed guides are maintained in the [`/docs`](./docs) directory:
 | [`docs/CONTENT_TYPES.md`](./docs/CONTENT_TYPES.md) | Specifications for supported collateral types and formatting constraints. |
 | [`docs/CURSOR_AUTOMATION.md`](./docs/CURSOR_AUTOMATION.md) | Standard Operating Procedures (SOP) for running tasks via Cursor Agent. |
 | [`docs/PRODUCTION_WORKFLOW.md`](./docs/PRODUCTION_WORKFLOW.md) | End-to-end production guide and deployment requirements. |
+| [`docs/PUBLIC_MCP_ACCESS.md`](./docs/PUBLIC_MCP_ACCESS.md) | Public vs remote MCP access, auth model, and client setup. |
 
 ---
 
@@ -320,11 +370,13 @@ flowchart LR
 
 ## 🔒 Security & Governance
 
-This repository is strictly intended for internal development at **66degrees**.
+This repository is **public** so the team can clone and run the Content MCP without GitHub authentication for MCP consumption. That does **not** mean the MCP endpoint is anonymously open on the internet.
 
-- **Secrets Management:** Never commit API credentials, environment variables, or private brand parameters. Use `.env` or enterprise secret stores.
-- **Human Oversight:** The platform is engineered around human control. Automated tools accelerate content generation, but final release authority remains exclusively with human marketers.
+- **Secrets Management:** Never commit API credentials, `.env` files, or private brand parameters. Use `.env` (gitignored) or a secret store.
+- **MCP Auth:** Remote HTTP/SSE requires `MCP_AUTH_TOKEN` or `MCP_API_KEY`. GitHub OAuth/login is not part of the MCP auth path.
+- **Human Oversight:** Final release authority remains with human marketers. Automations must not invent approval.
+- **Reference refresh CI:** Scheduled workflow refreshes approved public sources only; it never commits secrets, browsers, or virtualenvs.
 
 ---
 
-*© 66degrees. Internal Use Only.*
+*© 66degrees. Team MCP access does not require GitHub login.*
