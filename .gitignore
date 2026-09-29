@@ -22,3 +22,22 @@ build/
 
 # Local runtime/reference database
 references/references.db
+
+# Generated campaign exports / runtime data
+core/exports/
+data/
+*.db
+
+# Playwright / browsers / caches
+ms-playwright/
+.playwright/
+.cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

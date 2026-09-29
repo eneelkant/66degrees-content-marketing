@@ -1,31 +1,88 @@
 name: Refresh reference data
+
 on:
   schedule:
-    # GitHub Actions runs daily; ReferenceSync gates execution at 2 days.
+    # Daily schedule; ReferenceSync still gates execution at 2 days.
     - cron: "17 3 * * *"
   workflow_dispatch:
+
+concurrency:
+  group: refresh-reference-data
+  cancel-in-progress: false
+
 jobs:
   refresh:
-    runs-on: ubuntu-latest
-    permissions: {contents: write}
+    runs-on: ubuntu-24.04
+    # Pin ubuntu-24.04 for reproducibility while ubuntu-latest migrates toward Ubuntu 26.
+    permissions:
+      contents: write
+    env:
+      PYTHONPATH: .
+      LLM_PROVIDER: mock
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with: {python-version: "3.12"}
-      - run: pip install -e .
-      - run: python -m playwright install --with-deps chromium
-      - run: PYTHONPATH=. python scripts/refresh_references.py
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install package
+        run: pip install -e .
+
+      - name: Install Playwright Chromium
+        run: python -m playwright install --with-deps chromium
+
+      - name: Refresh reference library
+        run: PYTHONPATH=. python scripts/refresh_references.py
+
       - name: Commit refreshed reference state
         id: commit
         run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add references/
-          if git diff --cached --quiet; then echo "changed=false" >> "$GITHUB_OUTPUT"; else git commit -m "chore: refresh reference data"; git push; echo "changed=true" >> "$GITHUB_OUTPUT"; fi
+
+          # Only commit intended reference metadata/docs — never secrets, DBs, browsers, or venvs.
+          git add -- references/references.refresh.json
+          git add -- 'references/*.docx' 2>/dev/null || true
+
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No reference metadata changes to commit."
+          else
+            git commit -m "chore: refresh reference data"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Tag minor release
         if: steps.commit.outputs.changed == 'true'
         run: |
-          latest=$(git tag --list 'v1.*.0' --sort=-version:refname | head -1)
-          if [ -z "$latest" ]; then next="v1.1.0"; else n=$(echo "$latest" | sed -E 's/v1\.([0-9]+)\.0/\1/'); next="v1.$((n+1)).0"; fi
-          git tag "$next"
-          git push origin "$next"
+          set -euo pipefail
+          # Tags were fetched in checkout; compute next v1.N.0 without colliding.
+          latest=$(git tag --list 'v1.*.0' --sort=-version:refname | head -1 || true)
+          if [ -z "${latest}" ]; then
+            next="v1.1.0"
+          else
+            n=$(echo "${latest}" | sed -E 's/^v1\.([0-9]+)\.0$/\1/')
+            next="v1.$((n+1)).0"
+          fi
+
+          if git rev-parse -q --verify "refs/tags/${next}" >/dev/null; then
+            echo "Tag ${next} already exists locally; skipping create."
+          else
+            git tag "${next}"
+          fi
+
+          if git ls-remote --exit-code --tags origin "refs/tags/${next}" >/dev/null 2>&1; then
+            echo "Tag ${next} already exists on origin; skipping push."
+          else
+            git push origin "refs/tags/${next}"
+            echo "Pushed tag ${next}"
+          fi
