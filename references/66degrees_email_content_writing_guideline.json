@@ -1,0 +1,76 @@
+{
+  "repository_target": "https://github.com/eneelkant/66degrees-content-marketing",
+  "folder_purpose": "OKF Model Reference & 66degrees Email Content Writing Guidelines",
+  "document_type": "Email Content Writing Guidelines",
+  "brand_identity": {
+    "company_name": "66degrees",
+    "core_value_proposition": "Google Cloud Partner driving digital transformation, cloud modernization, data & AI innovation.",
+    "tone_of_voice": "Professional, authoritative, client-centric, concise, and action-oriented."
+  },
+  "email_types": [
+    "Cold Outreach / Prospecting",
+    "Lead Nurturing & Drip Campaigns",
+    "Client Onboarding & Updates",
+    "Event / Webinar Invitations",
+    "Case Study & Content Promotion"
+  ],
+  "structure_and_components": {
+    "subject_line": {
+      "char_limit": "30-50 characters",
+      "best_practices": [
+        "Include clear value proposition or relevant pain point.",
+        "Avoid spam triggers (e.g., ALL CAPS, FREE, Buy Now, excessive exclamation marks).",
+        "Personalize with company name or prospect role when applicable."
+      ],
+      "examples": [
+        "Modernizing your data infrastructure with 66degrees",
+        "How [Company] scaled AI initiatives on Google Cloud"
+      ]
+    },
+    "preheader_text": {
+      "char_limit": "40-100 characters",
+      "best_practices": [
+        "Complement the subject line without repeating it.",
+        "Provide a compelling hook or summary of the email's key benefit."
+      ]
+    },
+    "opening": {
+      "best_practices": [
+        "Personalized greeting.",
+        "Immediate relevance/hook connecting 66degrees solutions to prospect context.",
+        "State the purpose within the first 2 sentences."
+      ]
+    },
+    "body_content": {
+      "formatting": "Short paragraphs (2-3 sentences), bullet points for readability, bold key takeaways.",
+      "content_rules": [
+        "Focus on customer outcomes, not just technical features.",
+        "Highlight relevant Google Cloud competencies and real-world results.",
+        "Keep word count between 75 and 200 words for primary cold/promotional emails."
+      ]
+    },
+    "call_to_action": {
+      "rules": [
+        "Single, clear CTA per email.",
+        "Action-oriented wording (e.g., 'Schedule a 15-min strategy session', 'Read the case study').",
+        "Low friction for the recipient."
+      ]
+    },
+    "sign_off_and_signature": {
+      "format": "Professional sign-off, full name, role, 66degrees contact details, and link to relevant resources/website."
+    }
+  },
+  "best_practices": {
+    "dos": [
+      "A/B test subject lines and CTAs.",
+      "Segment audience based on industry, role, and cloud maturity.",
+      "Reference real metrics and success stories from 66degrees case studies.",
+      "Ensure mobile-responsive layout and plain-text fallbacks."
+    ],
+    "donts": [
+      "Don't use generic, unpersonalized copy.",
+      "Don't overwhelm the reader with multiple conflicting calls to action.",
+      "Don't use heavy jargon without clear context."
+    ]
+  }
+}

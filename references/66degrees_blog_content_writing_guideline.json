@@ -1,0 +1,82 @@
+{
+  "repository_target": "https://github.com/eneelkant/66degrees-content-marketing",
+  "folder_purpose": "OKF Model Reference & 66degrees Blog Content Writing Guidelines",
+  "document_type": "Blog Content Writing Guidelines",
+  "brand_identity": {
+    "company_name": "66degrees",
+    "core_value_proposition": "Premier Google Cloud Partner delivering end-to-end cloud transformation, data engineering, modern analytics, and generative AI solutions.",
+    "brand_voice": "Authoritative, insightful, technical yet accessible, solution-oriented, and forward-thinking."
+  },
+  "target_audience": [
+    "Chief Technology Officers (CTOs) & Chief Information Officers (CIOs)",
+    "VP of Data / Chief Data Officers (CDOs)",
+    "IT Directors, Cloud Architects, and Enterprise Infrastructure Leaders",
+    "Business Leadership seeking Digital Transformation on Google Cloud"
+  ],
+  "core_content_pillars": [
+    "Cloud Modernization & Infrastructure Strategy",
+    "Data Engineering, Warehousing & Analytics (BigQuery, Looker)",
+    "Generative AI & Machine Learning Implementation (Vertex AI)",
+    "App Development, DevOps & Cloud Security",
+    "Google Cloud Platform (GCP) Ecosystem Trends & Best Practices"
+  ],
+  "structure_and_formatting": {
+    "title": {
+      "char_limit": "50-65 characters (SEO optimal)",
+      "formatting_rules": "Actionable, clear, incorporating primary keyword naturally. Avoid clickbait.",
+      "examples": [
+        "How to Modernize Enterprise Data Platforms Using Google BigQuery",
+        "A Practical Guide to Enterprise Generative AI on Vertex AI"
+      ]
+    },
+    "meta_description": {
+      "char_limit": "140-160 characters",
+      "formatting_rules": "Summarize the key takeaway, include primary keyword, and provide a clear reason to read."
+    },
+    "word_count": {
+      "short_form": "800 - 1,200 words (Quick guides, feature updates)",
+      "long_form": "1,500 - 2,500 words (In-depth technical guides, architectural breakdowns)"
+    },
+    "article_structure": {
+      "introduction": "Hook the reader in the first 2-3 sentences. Define the enterprise pain point clearly, state why solving it matters, and outline what the article covers.",
+      "body_headings": "Use H2s for main sections, H3s for sub-topics. Keep headers descriptive and SEO-friendly.",
+      "formatting_elements": [
+        "Short paragraphs (2-4 sentences max) for readability.",
+        "Bullet points and numbered lists for steps and takeaways.",
+        "Bold text for key concepts and metrics.",
+        "Diagrams, architecture flowcharts, or code blocks for technical depth."
+      ],
+      "conclusion": "Summarize the key takeaways and tie back to business impact. Include a strategic Call-to-Action (CTA)."
+    },
+    "call_to_action_cta": {
+      "placement": "End of blog post, with optional mid-post contextual link.",
+      "examples": [
+        "Ready to accelerate your cloud migration? Speak with a 66degrees Google Cloud expert today.",
+        "Download our full guide on modernizing data architecture with Google Cloud."
+      ]
+    }
+  },
+  "seo_and_content_standards": {
+    "keyword_usage": "Integrate primary keyword in Title, H1, Meta Description, first 100 words, and naturally 2-3 times throughout the body (1-2% density).",
+    "internal_linking": "Link to at least 2-3 relevant 66degrees case studies, service pages, or related blog posts.",
+    "external_linking": "Link to official Google Cloud documentation or recognized industry benchmarks when citing data.",
+    "tone_and_style": [
+      "Use active voice (aim for >85% active voice).",
+      "Avoid fluff, overly academic jargon, or empty marketing buzzwords.",
+      "Provide concrete examples, ROI considerations, and real-world implementation nuances."
+    ]
+  },
+  "best_practices": {
+    "dos": [
+      "Ground claims in real enterprise scenarios and Google Cloud capabilities.",
+      "Provide actionable advice that technical leaders can implement.",
+      "Highlight 66degrees' expertise as a trusted Google Cloud Premier Partner.",
+      "Include visual breakups like architecture diagrams or callout boxes."
+    ],
+    "donts": [
+      "Don't write purely promotional content without providing educational value.",
+      "Don't use outdated GCP terminology or deprecated features.",
+      "Don't copy content or rehash generic surface-level advice."
+    ]
+  }
+}

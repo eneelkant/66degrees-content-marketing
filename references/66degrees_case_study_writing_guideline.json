@@ -1,0 +1,80 @@
+{
+  "repository_target": "https://github.com/eneelkant/66degrees-content-marketing",
+  "folder_purpose": "OKF Model Reference & 66degrees Case Study Content Writing Guidelines",
+  "document_type": "Case Study Content Writing Guidelines",
+  "brand_identity": {
+    "company_name": "66degrees",
+    "core_value_proposition": "Premier Google Cloud Partner delivering end-to-end cloud transformation, data engineering, modern analytics, and generative AI solutions.",
+    "brand_voice": "Results-driven, authoritative, client-focused, technical yet accessible, and impact-oriented."
+  },
+  "target_audience": [
+    "Chief Technology Officers (CTOs) & Chief Information Officers (CIOs)",
+    "VPs and Directors of Cloud, Data, and Software Engineering",
+    "Enterprise IT Decision Makers & Cloud Architects",
+    "Google Cloud Partner Managers & Enterprise Sales Teams"
+  ],
+  "structure_and_components": {
+    "title_and_headline": {
+      "char_limit": "50-75 characters",
+      "formatting_rules": "Highlight the client, the Google Cloud solution implemented, and the primary quantifiable outcome.",
+      "examples": [
+        "How 66degrees Accelerated Data Modernization for Retail Giant with Google BigQuery",
+        "Scaling Enterprise Generative AI on Vertex AI: A 66degrees Success Story"
+      ]
+    },
+    "executive_summary_at_a_glance": {
+      "components": [
+        "Client Overview: Brief description of the client and industry.",
+        "The Challenge: 1-2 sentence core problem statement.",
+        "The Solution: Core Google Cloud technologies & 66degrees services leveraged.",
+        "Key Results & Metrics: 3-4 bulleted quantitative impact metrics (e.g., 40% cost reduction, 3x faster query performance)."
+      ]
+    },
+    "client_challenge": {
+      "formatting": "Detailed 2-3 paragraph overview.",
+      "content_rules": [
+        "Describe the legacy system limitations, pain points, or scaling bottlenecks.",
+        "Highlight the business risk or opportunity lost if not addressed.",
+        "Explain why previous solutions fell short and why Google Cloud was chosen."
+      ]
+    },
+    "the_66degrees_solution": {
+      "formatting": "Structured narrative with subheadings, technical details, and architectural descriptions.",
+      "content_rules": [
+        "Detail 66degrees' strategic approach, discovery phase, and execution roadmap.",
+        "Highlight specific Google Cloud products (e.g., BigQuery, Vertex AI, Looker, GKE, Dataflow).",
+        "Emphasize 66degrees' proprietary methodologies, cloud expertise, and change management."
+      ]
+    },
+    "impact_and_measurable_results": {
+      "formatting": "Callout stat boxes and narrative detailing business outcomes.",
+      "metric_types": [
+        "Performance Gains (speed, throughput, latency reductions)",
+        "Cost Efficiency & TCO Reductions",
+        "Time-to-Market / Agility Enhancements",
+        "User Adoption & Operational Scaling"
+      ]
+    },
+    "client_quote_and_testimonial": {
+      "formatting": "Highlighted callout quote.",
+      "required_fields": "Client Executive Name, Title, Company Name, and explicit endorsement of 66degrees' partnership."
+    }
+  },
+  "writing_and_style_standards": {
+    "tone": "Active, authoritative, and data-backed.",
+    "formatting": "Use short paragraphs, bold key metrics, bullet points, and visual architecture callouts.",
+    "seo_and_linking": "Include internal links to relevant service pages, Google Cloud product pages, and related 66degrees blog posts."
+  },
+  "best_practices": {
+    "dos": [
+      "Focus on tangible, verified metrics and real business outcomes.",
+      "Position 66degrees as a strategic, trusted co-innovator alongside Google Cloud.",
+      "Use clear, professional, and precise technical language."
+    ],
+    "donts": [
+      "Don't make vague claims without supporting data or statistics.",
+      "Don't overcomplicate with unneeded jargon that obscures the business value.",
+      "Don't omit the client's original pain points or business context."
+    ]
+  }
+}

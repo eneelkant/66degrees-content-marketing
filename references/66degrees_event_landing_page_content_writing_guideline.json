@@ -1,0 +1,95 @@
+{
+  "repository_target": "https://github.com/eneelkant/66degrees-content-marketing",
+  "folder_purpose": "OKF Model Reference & 66degrees Event Landing Page Content Writing Guidelines",
+  "document_type": "Event Landing Page Content Writing Guidelines",
+  "brand_identity": {
+    "company_name": "66degrees",
+    "core_value_proposition": "Premier Google Cloud Partner driving enterprise cloud transformation, data engineering, modern analytics, and generative AI innovation.",
+    "brand_voice": "Engaging, authoritative, high-value, action-oriented, and professional."
+  },
+  "landing_page_objectives": [
+    "Drive event registrations (webinars, roundtables, workshops, user groups)",
+    "Clearly articulate the value proposition and key takeaways for attendees",
+    "Establish 66degrees and speaker thought leadership on Google Cloud ecosystem topics",
+    "Capture qualified lead information for sales follow-up"
+  ],
+  "target_audience": [
+    "C-Suite Executives (CTO, CIO, CDO)",
+    "VPs and Directors of Cloud, Data, and Engineering",
+    "Enterprise IT & Data Architects",
+    "Google Cloud decision-makers and technology leaders"
+  ],
+  "structure_and_components": {
+    "hero_section": {
+      "event_title": {
+        "char_limit": "40-70 characters",
+        "rules": "Compelling, benefit-driven title highlighting topic and Google Cloud context. Avoid generic event titles."
+      },
+      "subheadline": {
+        "char_limit": "80-140 characters",
+        "rules": "Elaborate on the value proposition\u2014what attendees will learn or solve by attending."
+      },
+      "event_metadata": [
+        "Date & Time (with timezone indicator, e.g., EST / PST / GMT)",
+        "Format (Virtual Webinar, In-Person Workshop, Executive Dinner, Live Stream)",
+        "Location / Virtual Platform info"
+      ],
+      "primary_cta_button": {
+        "label_examples": [
+          "Reserve Your Spot",
+          "Register Now for Free",
+          "Claim Your Seat"
+        ],
+        "placement": "Above the fold alongside or directly below the main header."
+      }
+    },
+    "overview_and_value_proposition": {
+      "section_title": "Why You Should Attend / About the Event",
+      "formatting": "Short intro paragraph (3-4 lines) followed by 3-5 bulleted key takeaways.",
+      "takeaway_rules": [
+        "Start each bullet point with an active verb (e.g., 'Discover', 'Learn', 'Explore', 'Master').",
+        "Focus on actionable insights, case studies, or architectural patterns.",
+        "Highlight specific Google Cloud tools/features involved (e.g., Vertex AI, BigQuery, Looker)."
+      ]
+    },
+    "speaker_profiles": {
+      "required_fields": [
+        "Full Name & Title",
+        "Company Name (66degrees, Google Cloud, or Client/Partner)",
+        "High-resolution headshot",
+        "2-3 sentence bio highlighting relevant technical domain expertise and achievements"
+      ]
+    },
+    "agenda_section": {
+      "formatting": "Timeline view with clear time slots and session topics.",
+      "content_rules": "Keep session descriptions concise and focused on topics covered (e.g., Keynote, Panel Discussion, Q&A, Live Demo)."
+    },
+    "social_proof_and_trust_elements": [
+      "Google Cloud Partner status badge",
+      "Client logos / Partner logos",
+      "Testimonials or quotes from previous event attendees / webinars"
+    ],
+    "registration_form_copy": {
+      "headline": "Complete Your Registration",
+      "subtext": "Seats are limited. Fill out the form below to secure your spot.",
+      "field_guidelines": "Keep form fields minimal to optimize conversion (e.g., First Name, Last Name, Work Email, Job Title, Company Name)."
+    }
+  },
+  "conversion_optimization_standards": {
+    "urgency_and_scarcity": "Use subtle urgency triggers where applicable (e.g., 'Limited executive seats available', 'Live Q&A only').",
+    "mobile_responsiveness": "Ensure header copy, registration form, and speaker images stack neatly on mobile screens.",
+    "thank_you_page_copy": "Provide immediate registration confirmation, calendar invite link (.ics), and links to relevant 66degrees case studies or whitepapers."
+  },
+  "best_practices": {
+    "dos": [
+      "Keep copy concise, scannable, and focused on audience ROI.",
+      "Feature joint Google Cloud / 66degrees branding prominently.",
+      "Include an interactive Q&A opportunity in the event value proposition."
+    ],
+    "donts": [
+      "Don't clutter the page with off-topic navigation or external links that distract from registration.",
+      "Don't write long, wall-of-text event descriptions.",
+      "Don't omit timezones or event format details."
+    ]
+  }
+}
