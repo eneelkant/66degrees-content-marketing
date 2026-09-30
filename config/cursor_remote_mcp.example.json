@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "66degrees-content-marketing": {
+      "url": "https://six6degrees-content-mcp.onrender.com/mcp",
+      "headers": {
+        "Authorization": "Bearer ${MCP_AUTH_TOKEN}"
+      }
+    }
+  }
+}

@@ -2,7 +2,7 @@
   "mcp": {
     "type": "mcp",
     "server_label": "66degrees-content-marketing",
-    "server_url": "https://YOUR-DOMAIN.example.com/mcp",
+    "server_url": "https://six6degrees-content-mcp.onrender.com/mcp",
     "allowed_tools": [
       "generate_content_strategy",
       "process_event_brief",
