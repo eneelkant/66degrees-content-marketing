@@ -1,9 +1,11 @@
 from typing import Any, Dict
+from pathlib import Path
+
 from core.brand.rules import load_brand_rules
 from core.generators.base import GenerationContext
+from core.okf import OKF_CONTENT_TYPES, get_okf_profile
 from core.reference_library.hybrid_retriever import HybridRetriever
 from core.reference_library.sqlite_client import SQLiteReferenceClient
-from pathlib import Path
 
 DB_PATH = Path(__file__).resolve().parents[2] / "references" / "references.db"
 
@@ -13,6 +15,7 @@ def build_generation_context(
     *,
     brand_engine=None,
     hybrid_retriever=None,
+    content_type: str | None = None,
 ) -> GenerationContext:
     """Build a client/LLM-neutral context bundle from brand rules and references."""
     brand_engine = brand_engine or load_brand_rules()
@@ -42,8 +45,14 @@ def build_generation_context(
         competitor_records = [item for item in retrieval if getattr(getattr(item, "record", item), "source_type", "internal") == "competitor"]
         competitor = hybrid_retriever.competitor_context(competitor_records)
 
+    okf_profile: dict[str, Any] = {}
+    normalized = (content_type or "").strip().lower().replace("-", "_").replace(" ", "_")
+    if normalized in OKF_CONTENT_TYPES:
+        okf_profile = get_okf_profile(normalized).model_dump(mode="json")
+
     return GenerationContext(
         brand_rules=brand_engine.data,
         internal_winning_references=internal[:3],
         competitor_xml_references=competitor,
+        okf_profile=okf_profile,
     )
