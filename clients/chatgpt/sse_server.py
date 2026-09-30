@@ -10,14 +10,69 @@ import argparse
 import os
 
 import uvicorn
+from mcp.server.transport_security import TransportSecuritySettings
+from starlette.requests import Request
+from starlette.responses import JSONResponse
 
 from clients.claude.server import mcp
 from clients.http_security import MCPAuthCORS
 from config.settings import get_settings
 
+_LOCAL_HOSTS = ["127.0.0.1:*", "localhost:*", "[::1]:*"]
+_LOCAL_ORIGINS = ["http://127.0.0.1:*", "http://localhost:*", "http://[::1]:*"]
+_PLATFORM_HOST_ENV = (
+    "MCP_PUBLIC_HOST",
+    "RENDER_EXTERNAL_HOSTNAME",
+    "RAILWAY_PUBLIC_DOMAIN",
+)
+
+
+def public_hostnames() -> list[str]:
+    """Hostnames that may appear in the Host header on a public HTTPS deploy."""
+    found: list[str] = []
+    for key in _PLATFORM_HOST_ENV:
+        for part in os.getenv(key, "").split(","):
+            host = part.strip()
+            if "://" in host:
+                host = host.split("://", 1)[1]
+            host = host.split("/", 1)[0].strip()
+            if host and host not in found:
+                found.append(host)
+    return found
+
+
+def configure_transport_security() -> None:
+    """Allow the public hostname while keeping DNS-rebinding checks enabled.
+
+    FastMCP otherwise allowlists only localhost, so a real Host header such as
+    the Render service hostname is rejected with 421 before the MCP session starts.
+    The hostname comes from the platform environment, not from source code.
+    """
+    hosts = list(_LOCAL_HOSTS)
+    for host in public_hostnames():
+        hosts.append(host)
+        if not host.endswith(":*"):
+            hosts.append(f"{host}:*")
+    origins = list(_LOCAL_ORIGINS)
+    for origin in get_settings().cors_allowed_origins:
+        if origin and origin != "*" and origin not in origins:
+            origins.append(origin)
+    mcp.settings.transport_security = TransportSecuritySettings(
+        enable_dns_rebinding_protection=True,
+        allowed_hosts=hosts,
+        allowed_origins=origins,
+    )
+
+
+@mcp.custom_route("/health", methods=["GET"], include_in_schema=False)
+async def health(_request: Request) -> JSONResponse:
+    """Unauthenticated liveness probe for the HTTPS platform."""
+    return JSONResponse({"status": "ok"})
+
 
 def build_app(transport: str = "streamable-http"):
     """Return the ASGI app, wrapping with auth when remote credentials are configured."""
+    configure_transport_security()
     if transport == "sse":
         app = mcp.sse_app()
     else:

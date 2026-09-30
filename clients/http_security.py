@@ -10,9 +10,14 @@ class MCPAuthCORS:
         self.allowed_origins=set(allowed_origins or settings.cors_allowed_origins)
     async def __call__(self, scope, receive, send):
         if scope.get("type") != "http": return await self.app(scope,receive,send)
+        # Platform probes must not send the MCP service token.
+        if scope.get("path") == "/health" and scope.get("method") in {"GET", "HEAD"}:
+            return await self.app(scope, receive, send)
         headers={k.decode().lower():v.decode() for k,v in scope.get("headers",[])}
         origin=headers.get("origin")
-        if self.allowed_origins and "*" not in self.allowed_origins and origin not in self.allowed_origins:
+        # Server-side MCP clients omit Origin. Reject only a present Origin
+        # that is not on the allowlist.
+        if origin and self.allowed_origins and "*" not in self.allowed_origins and origin not in self.allowed_origins:
             return await self._reject(send,403,"Origin not allowed")
         try:
             validate_credentials(authorization=headers.get("authorization"), api_key=headers.get("x-api-key"), expected_token=self.expected_token)
