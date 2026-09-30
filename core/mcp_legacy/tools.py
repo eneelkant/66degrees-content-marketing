@@ -30,7 +30,7 @@ def reference_status():
 
 def generate_content_asset(asset_type: str, brief_data: Dict[str, Any]) -> Dict[str, Any]:
     try:
-        context = build_generation_context(brief_data)
+        context = build_generation_context(brief_data, content_type=asset_type)
         strategy = content_factory.get_strategy(asset_type)
         generated = strategy.generate(brief_data, context=context)
         return {

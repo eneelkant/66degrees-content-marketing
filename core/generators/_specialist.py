@@ -38,16 +38,20 @@ class SpecialistScaffoldStrategy(BaseContentStrategy):
             content += ", ".join(mandatory[:3]) + "\n"
 
         metrics = self.calculate_metrics(content)
+        metadata = {
+            "target_persona": persona,
+            "status": "CONTEXT_INJECTED_DRAFT" if context else "DRAFT",
+            "references_used_count": len(winning_refs),
+            "strategy": self.__class__.__name__,
+        }
+        if context and context.okf_profile:
+            metadata["okf_content_type"] = context.okf_profile.get("content_type")
+            metadata["okf_source"] = context.okf_profile.get("source_filename")
         return GeneratedAssetOutput(
             asset_type=self.asset_type,
             title=title,
             content_markdown=content,
-            metadata={
-                "target_persona": persona,
-                "status": "CONTEXT_INJECTED_DRAFT" if context else "DRAFT",
-                "references_used_count": len(winning_refs),
-                "strategy": self.__class__.__name__,
-            },
+            metadata=metadata,
             word_count=metrics["word_count"],
             character_count=metrics["character_count"],
         )

@@ -281,7 +281,7 @@ flowchart TD
 │   └── qa/                 # Rule-based and model-assisted quality checking
 ├── docs/                   # Comprehensive technical documentation
 ├── mcp/                    # Model Context Protocol servers and tool definitions
-├── references/             # Reference datasets (excluded from git)
+├── references/             # Guideline JSON (OKF sources) and local reference datasets
 ├── scripts/                # Shell automation scripts (setup, test, build)
 ├── tests/                  # Test suites (75 passing unit/integration tests)
 ├── .env.example            # Environment setup template

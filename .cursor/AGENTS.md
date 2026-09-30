@@ -51,6 +51,7 @@ Cursor must:
 | Campaign orchestrator + state machine | `core/campaign/` |
 | Claude / Cursor stdio MCP server | `clients/claude/server.py` |
 | Brand rules | `core/brand/` |
+| OKF content profiles (blog, case study, email, event landing page) | `core/okf/`, `references/*guideline.json` |
 | QA pipeline | `core/qa/` |
 | Human approval gate | `core/approval/gate.py` |
 | Export | `exporters/campaign.py` |

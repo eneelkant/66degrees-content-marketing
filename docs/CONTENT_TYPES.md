@@ -31,6 +31,19 @@ Derived from `core/generators/factory.py`, campaign kit generators, and MCP tool
 | LinkedIn / platform posts | `generate_social_posts` | Uses repurposer; `linkedin` → `linkedin_post` |
 | Format conversion | `repurpose_content_asset` | Target formats such as `linkedin_post` |
 
+## OKF writing profiles
+
+Canonical sources live in `references/` and are loaded by `core/okf/`. See `docs/OKF_CONTENT_MODEL.md`.
+
+| `content_type` | Guideline | Used by |
+|---|---|---|
+| `blog` | `66degrees_blog_content_writing_guideline.json` | `generate_content_asset("blog", …)` |
+| `case_study` | `66degrees_case_study_writing_guideline.json` | `generate_content_asset("case_study", …)` |
+| `email` | `66degrees_email_content_writing_guideline.json` | `get_okf_profile("email")` |
+| `event_landing_page` | `66degrees_event_landing_page_content_writing_guideline.json` | `get_okf_profile("event_landing_page")` |
+
+Each profile applies the shared 66degrees Google Cloud partner foundation plus that file's structure, tone, SEO, CTA, and dos/don'ts. `validate_okf_content(content_type, draft)` checks those constraints.
+
 ## Conceptual mapping (requested workflows)
 
 | Requested workflow | How to run it | Supported? |
