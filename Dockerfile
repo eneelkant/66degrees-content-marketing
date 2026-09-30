@@ -22,6 +22,7 @@ COPY references ./references
 
 RUN pip install --no-cache-dir -e .
 
+# Render/Railway/Fly target this port. /health is unauthenticated; /mcp is not.
 EXPOSE 8000
 
 # Bind 0.0.0.0 only when MCP_AUTH_TOKEN or MCP_API_KEY is provided at runtime.

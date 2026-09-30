@@ -122,6 +122,130 @@ def test_human_approval_still_required_before_export():
     assert_exportable(approved)
 
 
+def test_public_hostnames_include_platform_domain(monkeypatch):
+    monkeypatch.setenv("MCP_PUBLIC_HOST", "https://mcp.example.com/mcp, extra.example.com")
+    monkeypatch.setenv("RENDER_EXTERNAL_HOSTNAME", "content-mcp.onrender.com")
+    monkeypatch.setenv("RAILWAY_PUBLIC_DOMAIN", "content-mcp.up.railway.app")
+    from clients.chatgpt.sse_server import public_hostnames
+
+    assert public_hostnames() == [
+        "mcp.example.com",
+        "extra.example.com",
+        "content-mcp.onrender.com",
+        "content-mcp.up.railway.app",
+    ]
+
+
+def test_render_hostname_is_not_hardcoded():
+    source = Path("clients/chatgpt/sse_server.py").read_text(encoding="utf-8")
+    assert "RENDER_EXTERNAL_HOSTNAME" in source
+    assert "onrender.com" not in source
+
+
+def test_health_is_public_and_foreign_host_is_rejected(monkeypatch):
+    monkeypatch.setenv("MCP_AUTH_TOKEN", "secret-token")
+    monkeypatch.setenv("MCP_API_KEY", "")
+    monkeypatch.setenv("MCP_PUBLIC_HOST", "mcp.example.com")
+    monkeypatch.setenv(
+        "CORS_ALLOWED_ORIGINS",
+        "https://chatgpt.com,https://claude.ai,https://gemini.google.com",
+    )
+    from config.settings import get_settings
+
+    get_settings.cache_clear()
+    from starlette.testclient import TestClient
+
+    from clients.chatgpt.sse_server import build_app
+
+    app = build_app("streamable-http")
+    init = {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "method": "initialize",
+        "params": {
+            "protocolVersion": "2025-03-26",
+            "capabilities": {},
+            "clientInfo": {"name": "deploy-check", "version": "0"},
+        },
+    }
+    with TestClient(app, base_url="https://mcp.example.com") as client:
+        health = client.get("/health")
+        assert health.status_code == 200
+        assert health.json() == {"status": "ok"}
+
+        unauthenticated = client.post(
+            "/mcp",
+            headers={
+                "content-type": "application/json",
+                "accept": "application/json, text/event-stream",
+            },
+            json=init,
+        )
+        assert unauthenticated.status_code == 401
+
+        invalid = client.post(
+            "/mcp",
+            headers={
+                "authorization": "Bearer wrong-token",
+                "content-type": "application/json",
+                "accept": "application/json, text/event-stream",
+            },
+            json=init,
+        )
+        assert invalid.status_code == 401
+
+        blocked_origin = client.post(
+            "/mcp",
+            headers={
+                "authorization": "Bearer secret-token",
+                "content-type": "application/json",
+                "accept": "application/json, text/event-stream",
+                "origin": "https://evil.example",
+            },
+            json=init,
+        )
+        assert blocked_origin.status_code == 403
+
+        allowed = client.post(
+            "/mcp",
+            headers={
+                "authorization": "Bearer secret-token",
+                "content-type": "application/json",
+                "accept": "application/json, text/event-stream",
+                "origin": "https://chatgpt.com",
+            },
+            json=init,
+        )
+        assert allowed.status_code == 200
+        assert allowed.json()["result"]["serverInfo"]["name"] == "66degrees-content-marketing"
+
+        api_key = client.post(
+            "/mcp",
+            headers={
+                "x-api-key": "secret-token",
+                "content-type": "application/json",
+                "accept": "application/json, text/event-stream",
+                "origin": "https://gemini.google.com",
+            },
+            json=init,
+        )
+        assert api_key.status_code == 200
+
+        rejected = client.post(
+            "/mcp",
+            headers={
+                "host": "evil.example",
+                "authorization": "Bearer secret-token",
+                "content-type": "application/json",
+                "accept": "application/json, text/event-stream",
+                "origin": "https://claude.ai",
+            },
+            json=init,
+        )
+        assert rejected.status_code == 421
+        assert "Invalid Host" in rejected.text
+
+
 def test_public_mcp_docs_do_not_claim_hosted_endpoint():
     readme = Path("README.md").read_text(encoding="utf-8")
     docs = Path("docs/PUBLIC_MCP_ACCESS.md").read_text(encoding="utf-8")
