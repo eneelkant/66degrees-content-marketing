@@ -44,8 +44,9 @@ Expected: `status=APPROVAL_PENDING`, assets generated, export blocked.
 
 ## 5. How MCP tools are used
 
+- Remote Streamable HTTP (no clone): `config/cursor_remote_mcp.example.json` pointed at `https://six6degrees-content-mcp.onrender.com/mcp` with `Authorization: Bearer <MCP_AUTH_TOKEN>`
 - Local stdio: `./scripts/run-mcp.sh` or `uv run python -m clients.claude.server`
-- Configure Cursor MCP using `config/claude_desktop_config.example.json` (absolute repo path)
+- Local Cursor MCP config: `config/claude_desktop_config.example.json` (absolute repo path)
 - Tool catalog: `docs/MCP_TOOL_CATALOG.md`
 
 ## 6. Human approval

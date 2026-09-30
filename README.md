@@ -170,14 +170,19 @@ QA → Human Approval → Export
 | Local stdio MCP (`./scripts/run-mcp.sh`) | On your machine | No | Local trust |
 | Team-hosted remote MCP (Docker / HTTP) | Only if you deploy it | **No** | `MCP_AUTH_TOKEN` / `MCP_API_KEY` |
 
-This repository does **not** ship a first-party public hosted MCP URL. Deploy with Docker Compose (see below) or run locally.
+This repository does **not** ship MCP credentials. Remote clients use the deployed Streamable HTTP server and do not need a local checkout:
+
+`https://six6degrees-content-mcp.onrender.com/mcp`
 
 | Client | Transport | Endpoint | Auth | Read | Write |
 |---|---|---|---|---|---|
-| Claude Desktop / Claude Code | stdio | local process | none | yes | yes (local) |
-| Cursor | stdio | local process | none | yes | yes (local) |
-| ChatGPT | Streamable HTTP / SSE | `https://YOUR_HOST:8000` | service token | yes | yes (token) |
-| Gemini | adapter → stdio or HTTP | local or `YOUR_HOST` | none / token | yes | yes when authorized |
+| Claude remote | Streamable HTTP | production `/mcp` | service token | yes | yes (token) |
+| Claude local | stdio | local process | none | yes | yes (local) |
+| Cursor remote | Streamable HTTP | production `/mcp` | service token | yes | yes (token) |
+| Cursor local | stdio | local process | none | yes | yes (local) |
+| ChatGPT | Streamable HTTP | production `/mcp` | service token | yes | yes (token) |
+| Gemini remote | Streamable HTTP | production `/mcp` | service token | yes | yes (token) |
+| Gemini local | stdio | local process | none | yes | yes (local) |
 
 **Write / destructive tools** (`create_campaign`, `approve_*`, `export_*`, `resume_campaign`, generation tools) require a configured service token on remote transports. Human approval remains mandatory before export:
 

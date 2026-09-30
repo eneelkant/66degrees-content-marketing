@@ -15,7 +15,7 @@ from starlette.requests import Request
 from starlette.responses import JSONResponse
 
 from clients.claude.server import mcp
-from clients.http_security import MCPAuthCORS
+from clients.http_security import DESKTOP_CLIENT_ORIGINS, MCPAuthCORS
 from config.settings import get_settings
 
 _LOCAL_HOSTS = ["127.0.0.1:*", "localhost:*", "[::1]:*"]
@@ -54,7 +54,8 @@ def configure_transport_security() -> None:
         if not host.endswith(":*"):
             hosts.append(f"{host}:*")
     origins = list(_LOCAL_ORIGINS)
-    for origin in get_settings().cors_allowed_origins:
+    configured = list(get_settings().cors_allowed_origins) + sorted(DESKTOP_CLIENT_ORIGINS)
+    for origin in configured:
         if origin and origin != "*" and origin not in origins:
             origins.append(origin)
     mcp.settings.transport_security = TransportSecuritySettings(

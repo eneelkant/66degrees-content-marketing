@@ -230,6 +230,99 @@ def test_health_is_public_and_foreign_host_is_rejected(monkeypatch):
             json=init,
         )
         assert api_key.status_code == 200
+        assert api_key.headers["access-control-allow-origin"] == "https://gemini.google.com"
+
+        raw_authorization = client.post(
+            "/mcp",
+            headers={
+                "authorization": "secret-token",
+                "content-type": "application/json",
+                "accept": "application/json, text/event-stream",
+                "origin": "https://claude.ai",
+            },
+            json=init,
+        )
+        assert raw_authorization.status_code == 200
+
+        cursor_origin = client.post(
+            "/mcp",
+            headers={
+                "authorization": "Bearer secret-token",
+                "content-type": "application/json",
+                "accept": "application/json, text/event-stream",
+                "origin": "vscode-file://vscode-app",
+            },
+            json=init,
+        )
+        assert cursor_origin.status_code == 200
+        assert cursor_origin.headers["access-control-allow-origin"] == "vscode-file://vscode-app"
+        assert "www-authenticate" not in {key.lower() for key in cursor_origin.headers}
+
+        opaque = client.post(
+            "/mcp",
+            headers={
+                "authorization": "Bearer secret-token",
+                "content-type": "application/json",
+                "accept": "application/json, text/event-stream",
+                "origin": "null",
+            },
+            json=init,
+        )
+        assert opaque.status_code == 403
+
+        discovery = client.get("/.well-known/oauth-protected-resource")
+        assert discovery.status_code == 404
+        assert "Invalid MCP credentials" not in discovery.text
+        nested = client.get("/.well-known/oauth-authorization-server/mcp")
+        assert nested.status_code == 404
+
+        preflight = client.options(
+            "/mcp",
+            headers={
+                "origin": "https://chatgpt.com",
+                "access-control-request-method": "POST",
+                "access-control-request-headers": "authorization,content-type",
+            },
+        )
+        assert preflight.status_code == 204
+        assert preflight.headers["access-control-allow-origin"] == "https://chatgpt.com"
+        assert "*" not in preflight.headers["access-control-allow-origin"]
+
+        blocked_preflight = client.options(
+            "/mcp",
+            headers={
+                "origin": "https://evil.example",
+                "access-control-request-method": "POST",
+            },
+        )
+        assert blocked_preflight.status_code == 403
+
+        session = allowed.headers.get("mcp-session-id")
+        assert session
+        client.post(
+            "/mcp",
+            headers={
+                "authorization": "Bearer secret-token",
+                "content-type": "application/json",
+                "accept": "application/json, text/event-stream",
+                "mcp-session-id": session,
+            },
+            json={"jsonrpc": "2.0", "method": "notifications/initialized"},
+        )
+        listed = client.post(
+            "/mcp",
+            headers={
+                "authorization": "Bearer secret-token",
+                "content-type": "application/json",
+                "accept": "application/json, text/event-stream",
+                "mcp-session-id": session,
+            },
+            json={"jsonrpc": "2.0", "id": 2, "method": "tools/list", "params": {}},
+        )
+        assert listed.status_code == 200
+        names = [tool["name"] for tool in listed.json()["result"]["tools"]]
+        assert names == list(PUBLIC_TOOL_NAMES)
+        assert len(names) == 16
 
         rejected = client.post(
             "/mcp",
@@ -244,6 +337,32 @@ def test_health_is_public_and_foreign_host_is_rejected(monkeypatch):
         )
         assert rejected.status_code == 421
         assert "Invalid Host" in rejected.text
+
+
+def test_desktop_origin_does_not_allow_other_vscode_origins():
+    from clients.http_security import origin_allowed
+
+    configured = ["https://chatgpt.com", "https://claude.ai", "https://gemini.google.com"]
+    assert origin_allowed(None, configured)
+    assert origin_allowed("vscode-file://vscode-app", configured)
+    assert origin_allowed("vscode-file://vscode-app/", configured)
+    assert not origin_allowed("vscode-file://other-app", configured)
+    assert not origin_allowed("https://evil.example", configured)
+    assert not origin_allowed("null", configured)
+
+
+def test_repository_does_not_commit_mcp_token():
+    example = Path(".env.example").read_text(encoding="utf-8")
+    render = Path("render.yaml").read_text(encoding="utf-8")
+    assert "\nMCP_AUTH_TOKEN=\n" in example
+    assert "generateValue: true" in render
+    assert "MCP_AUTH_TOKEN" in render
+    cors_at = render.index("CORS_ALLOWED_ORIGINS")
+    cors_block = render[cors_at:cors_at + 180]
+    assert "*" not in cors_block
+    assert "https://chatgpt.com" in cors_block
+    assert "https://claude.ai" in cors_block
+    assert "https://gemini.google.com" in cors_block
 
 
 def test_public_mcp_docs_do_not_claim_hosted_endpoint():
