@@ -1,0 +1,433 @@
+{
+  "bundle": "66degrees-content-marketing",
+  "okf_version": "0.2.0",
+  "generated": {
+    "by": "process:content-marketing-mcp-builder",
+    "timestamp": "2026-10-05T12:00:00Z"
+  },
+  "repository": {
+    "url": "https://github.com/eneelkant/66degrees-content-marketing",
+    "branch": "main",
+    "license": "Apache-2.0"
+  },
+  "global_brand_guidelines": {
+    "organization": "66degrees",
+    "primary_cloud_partner": "Google Cloud",
+    "voice_and_tone": "Executive, consultative, technical, conversational, and direct",
+    "target_personas": [
+      "CxO",
+      "VP",
+      "IT Decision Maker",
+      "Technical Lead",
+      "Data Scientist"
+    ],
+    "word_count_benchmarks": {
+      "subject_line_max_words": 9,
+      "subject_line_character_range": "30-50",
+      "preview_text_max_words": 12,
+      "body_copy_min_words": 45,
+      "body_copy_max_words": 215,
+      "body_copy_mean_target": 100
+    },
+    "deliverability_rules": {
+      "prohibited_spam_triggers": [
+        "free!!!",
+        "act now",
+        "limited time only",
+        "guaranteed",
+        "raffle winner",
+        "claim your prize",
+        "urgent"
+      ],
+      "max_hyperlinks_per_asset": 2,
+      "authentication_prerequisites": [
+        "SPF Alignment",
+        "DKIM 2048-bit",
+        "DMARC Enforcement"
+      ]
+    }
+  },
+  "concepts": [
+    {
+      "id": "campaigns/sports-executive-hospitality/sf-giants-oracle-park",
+      "type": "Lifecycle Email Campaign",
+      "title": "San Francisco Giants Baseball & Networking at Oracle Park",
+      "description": "Executive networking sequence targeting IT leaders during Giants vs. Mets at Oracle Park, co-hosted with Google Cloud.",
+      "resource": "https://66degrees.com/events/san-francisco-giants-baseball-networking",
+      "tags": [
+        "Executive Networking",
+        "AI/ML",
+        "Google Cloud",
+        "San Francisco",
+        "Hospitality"
+      ],
+      "sources": [
+        {
+          "resource": "briefs/4_2_26_San_Francisco_Giants_Baseball_Networking.docx",
+          "author": "Alex Bodor, Sarah Rostron",
+          "last_modified": "2026-03-13T10:00:00Z"
+        }
+      ],
+      "verified": [
+        {
+          "by": "human:Alan Miller",
+          "tier": "human-reviewed",
+          "timestamp": "2026-03-13T16:00:00Z"
+        }
+      ],
+      "status": "approved",
+      "logistics": {
+        "event_date": "2026-04-02",
+        "start_time": "18:00 PDT",
+        "end_time": "21:30 PDT",
+        "venue": "Oracle Park, Left Field Party Suite #48",
+        "location": "San Francisco, CA",
+        "onsite_contact": "Sarah Rostron (+1-713-208-9678)"
+      },
+      "email_templates": {
+        "invitations": [
+          {
+            "sequence_number": 1,
+            "sub_type": "Invitation #1 - Strategic Value",
+            "subject": "Giants Baseball and AI Strategy at Oracle Park",
+            "preview_text": "Join 66degrees and Google Cloud in a private executive suite.",
+            "body": "Hi {{Recipient.FirstName}},\n\nMoving enterprise artificial intelligence initiatives from conceptual exploration to measurable operational return requires stepping back from daily routines to evaluate core architecture.\n\nOn Thursday, April 2, 2026, 66degrees and Google Cloud are hosting a select group of technology leaders in a private executive suite at Oracle Park as the San Francisco Giants take on the New York Mets.\n\nRather than vendor presentations, this evening provides a relaxed venue to discuss data foundation readiness, agent governance, and modernization roadmaps with executive peers and principal cloud strategists. Complimentary suite hospitality and premium catering will be provided throughout the game.\n\nSpace within the suite is strictly capped to support substantive discussion. Please confirm your attendance through the link below.\n\n[Confirm Suite Registration]\n\nBest regards,\nThe 66degrees Team",
+            "metrics": {
+              "subject_word_count": 8,
+              "preview_word_count": 10,
+              "body_word_count": 128
+            }
+          },
+          {
+            "sequence_number": 2,
+            "sub_type": "Invitation #2 - Technical Focus",
+            "subject": "Executive Discussion: Practical Enterprise AI at Oracle Park",
+            "preview_text": "Connecting technical strategy with production execution on April 2.",
+            "body": "Hi {{Recipient.FirstName}},\n\nEnterprise data platforms frequently present operational bottlenecks when scaling complex machine learning models. Evaluating these infrastructure hurdles is most productive alongside peers navigating identical modernization priorities.\n\nJoin 66degrees and Google Cloud on April 2 at Oracle Park for an evening focused on practical cloud execution. We are gathering regional engineering leaders and IT executives in Suite 48 to examine how organizations are structuring data pipelines to support production AI deployments.\n\nCome for the game, engage in direct technical dialogue, and evaluate architectural priorities for the year ahead.\n\n[Reserve Your Seat]\n\nBest regards,\nThe 66degrees Team",
+            "metrics": {
+              "subject_word_count": 8,
+              "preview_word_count": 9,
+              "body_word_count": 107
+            }
+          },
+          {
+            "sequence_number": 3,
+            "sub_type": "Invitation #3 - Final Window",
+            "subject": "Final Registration: Giants Suite with 66degrees and Google",
+            "preview_text": "Confirming attendance for Thursday evening at Oracle Park.",
+            "body": "Hi {{Recipient.FirstName}},\n\nWe are finalizing our guest list for this Thursday's executive gathering at Oracle Park with Google Cloud.\n\nIf your calendar permits, we would welcome your participation in Suite 48 for an evening of baseball and conversational strategy around enterprise modernization. Our engineering leadership will be on-site to discuss real-world pipeline design and governance frameworks in an informal environment.\n\nWe are closing our attendee roster to coordinate digital ticketing and stadium entry protocols. Please confirm your participation today if you plan to attend.\n\n[Finalize Registration]\n\nBest regards,\nThe 66degrees Team",
+            "metrics": {
+              "subject_word_count": 8,
+              "preview_word_count": 8,
+              "body_word_count": 97
+            }
+          }
+        ],
+        "reminders": [
+          {
+            "sequence_number": 1,
+            "sub_type": "Pre-Event Reminder (48 Hours)",
+            "subject": "Suite Logistics for Thursday at Oracle Park",
+            "preview_text": "Essential entry, mobile ticketing, and arrival information.",
+            "body": "Hi {{Recipient.FirstName}},\n\nWe look forward to hosting you this Thursday, April 2, at Oracle Park for the Giants vs. Mets game. Please review these logistical details to ensure a seamless arrival:\n\nArrival and Gate Schedule: Gates open at 5:15 PM PDT. Suite arrival begins at 6:00 PM, with the first pitch scheduled for 6:45 PM PDT.\n\nLocation and Check-In: We will be in Left Field Party Suite #48. Enter via the Suite Lobby at Willie Mays Plaza or the 2nd and King gate.\n\nTicketing Access: Mobile tickets are distributed through the MLB Ballpark application. Please accept the digital transfer using this registered email address prior to arrival.\n\nStadium Bag Policy: Oracle Park enforces a strict policy prohibiting backpacks. Briefcases and small bags under sixteen by sixteen inches are permitted.\n\nIf your schedule has shifted, please let us know so we can reallocate suite access.\n\nBest regards,\nThe 66degrees Team",
+            "metrics": {
+              "subject_word_count": 7,
+              "preview_word_count": 7,
+              "body_word_count": 147
+            }
+          },
+          {
+            "sequence_number": 2,
+            "sub_type": "Pre-Event Reminder (Day-Of)",
+            "subject": "Today: Giants vs. Mets at Oracle Park",
+            "preview_text": "Arrival protocol and onsite contact details for Suite 48.",
+            "body": "Hi {{Recipient.FirstName}},\n\nThe Giants take the field this evening, and we are prepared to host you in Left Field Party Suite #48.\n\nSuite doors open at 6:00 PM PDT. Please verify that your digital ticket is downloaded in your MLB Ballpark app. A 66degrees host will be present at the Suite Level check-in to assist with entry. Premium catering and refreshments will be served throughout the evening.\n\nFor immediate logistical assistance upon arrival, please contact our onsite coordinator directly at (713) 208-9678.\n\nSee you tonight at the ballpark.\n\nBest regards,\nThe 66degrees Team",
+            "metrics": {
+              "subject_word_count": 7,
+              "preview_word_count": 8,
+              "body_word_count": 96
+            }
+          }
+        ],
+        "follow_ups": [
+          {
+            "sub_type": "Post-Event Attendee Follow-Up",
+            "subject": "Thank You for Joining Us at Oracle Park",
+            "preview_text": "Continuing the cloud modernization and AI discussion.",
+            "body": "Hi {{Recipient.FirstName}},\n\nThank you for spending yesterday evening with 66degrees and Google Cloud at Oracle Park. We enjoyed the opportunity to connect and discuss practical enterprise modernization initiatives during the game.\n\nTo help us ensure future executive sessions remain relevant and valuable, could you share sixty seconds of feedback regarding your experience?\n\n[Share Brief Feedback]\n\nWithin the survey, you can highlight specific topics—such as agent development architectures, data platform governance, or Vertex AI deployments—that you wish to evaluate further.\n\nAlternatively, reply directly to this note to schedule an architectural follow-up with our cloud engineering specialists.\n\nBest regards,\nThe 66degrees Team",
+            "metrics": {
+              "subject_word_count": 8,
+              "preview_word_count": 7,
+              "body_word_count": 105
+            }
+          },
+          {
+            "sub_type": "Post-Event Non-Attendee Follow-Up",
+            "subject": "Following Up: 66degrees and Google Cloud Executive Gathering",
+            "preview_text": "Connecting on enterprise cloud initiatives following Oracle Park.",
+            "body": "Hi {{Recipient.FirstName}},\n\nWe missed connecting with you at Oracle Park yesterday evening. We recognize that executive commitments shift rapidly and hope to host you at a future regional gathering.\n\nOur team remains available to share the deployment frameworks discussed during the session, specifically surrounding enterprise data readiness and cloud infrastructure optimization.\n\nYou can track our upcoming executive sessions on our central Events Portal, or reply directly to this message to schedule a focused discovery discussion with our cloud architects.\n\nBest regards,\nThe 66degrees Team",
+            "metrics": {
+              "subject_word_count": 7,
+              "preview_word_count": 8,
+              "body_word_count": 87
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "campaigns/technical-summits/scale-with-ai-irvine",
+      "type": "Lifecycle Email Campaign",
+      "title": "Scale with AI: Live + Labs [Irvine]",
+      "description": "Technical conference email flow for Google Cloud flagship symposium featuring hands-on sandboxes and 66degrees demo kiosk.",
+      "resource": "https://cloud.google.com/events/scale-with-ai-live-labs-google-irvine",
+      "tags": [
+        "Technical Immersion",
+        "Vertex AI",
+        "Data Analytics",
+        "Irvine",
+        "Google Cloud"
+      ],
+      "sources": [
+        {
+          "resource": "briefs/6_09_Scale_with_AI_Live_Labs_Irvine.docx",
+          "author": "Marketing Team",
+          "last_modified": "2026-04-09T14:00:00Z"
+        }
+      ],
+      "verified": [
+        {
+          "by": "human:Alan Miller",
+          "tier": "human-reviewed",
+          "timestamp": "2026-04-10T09:30:00Z"
+        }
+      ],
+      "status": "approved",
+      "logistics": {
+        "event_date": "2026-06-09",
+        "start_time": "11:30 PDT",
+        "end_time": "17:30 PDT",
+        "venue": "[AV] Irvine, 16500 Scientific",
+        "location": "Irvine, CA",
+        "onsite_contact": "Livia Chen"
+      },
+      "email_templates": {
+        "invitations": [
+          {
+            "sequence_number": 1,
+            "sub_type": "Invitation #1 - Architecture Blueprint",
+            "subject": "Resolving Data Architecture Roadblocks in Enterprise AI",
+            "preview_text": "Bridging foundational data pipelines and machine learning scale.",
+            "body": "Hi {{Recipient.FirstName}},\n\nEnterprise initiatives scaling generative models routinely stall when advanced algorithms encounter fragmented data pipelines and legacy database infrastructure. Industry research indicates that up to 60% of enterprise AI programs lacking structured data foundations face operational abandonment.\n\nTo address this execution challenge, Google Cloud is hosting Scale with AI: Live + Labs in Irvine on June 9, 2026, with 66degrees anchoring the technical partner demonstration showcase.\n\nWhile your technical engineering leads validate live code in Google's hands-on sandboxes, 66degrees specialists will be available at our demonstration kiosk to help map those functional capabilities directly into your production architecture.\n\n[Register for Scale with AI: Live + Labs]\n\nBest regards,\nThe 66degrees Team",
+            "metrics": {
+              "subject_word_count": 7,
+              "preview_word_count": 8,
+              "body_word_count": 115
+            }
+          },
+          {
+            "sequence_number": 2,
+            "sub_type": "Invitation #2 - Hands-On Lab Context",
+            "subject": "Validating Production AI Code in Live Google Labs",
+            "preview_text": "Practical architectural alignment for enterprise engineering teams.",
+            "body": "Hi {{Recipient.FirstName}},\n\nBuilding reliable, production-ready AI systems requires rigorous infrastructure validation rather than theoretical demonstrations.\n\nAt the upcoming Scale with AI: Live + Labs briefing on June 9, Google Cloud provides live sandboxes spanning BigQuery analytics, unstructured data pipelines, and Vertex AI integrations.\n\nThe 66degrees technical advisory group will be present throughout the day to bridge the gap between sandbox experiments and your actual enterprise workflows. We will help your teams evaluate security boundaries, governance policies, and deployment blueprints.\n\nRegister your engineering leads to ensure dedicated consultation time at our showcase kiosk.\n\n[Register Your Technical Team]\n\nBest regards,\nThe 66degrees Team",
+            "metrics": {
+              "subject_word_count": 8,
+              "preview_word_count": 7,
+              "body_word_count": 105
+            }
+          },
+          {
+            "sequence_number": 3,
+            "sub_type": "Invitation #3 - Regional Capacity Notice",
+            "subject": "Irvine AI Briefing: Final Registration Window",
+            "preview_text": "Secure partner kiosk consultation access for June 9.",
+            "body": "Hi {{Recipient.FirstName}},\n\nGoogle Cloud's flagship technical symposium, Scale with AI: Live + Labs [Irvine], is approaching regional capacity limits at the [AV] Irvine facility.\n\nBecause onsite capacity is restricted, 66degrees is structuring our consultation schedule to provide attending organizations with direct, face-to-face access to principal cloud strategists.\n\nIf your organization is evaluating custom database configurations, pipeline orchestration, or model governance frameworks, please secure your credentials before regional registration closes.\n\n[Reserve Event Credentials]\n\nBest regards,\nThe 66degrees Team",
+            "metrics": {
+              "subject_word_count": 6,
+              "preview_word_count": 7,
+              "body_word_count": 87
+            }
+          }
+        ],
+        "reminders": [
+          {
+            "sequence_number": 1,
+            "sub_type": "Pre-Event Reminder (48 Hours)",
+            "subject": "Event Details: Scale with AI in Irvine",
+            "preview_text": "Schedule, venue guidelines, and track alignment for June 9.",
+            "body": "Hi {{Recipient.FirstName}},\n\nWe look forward to connecting with your team this Tuesday, June 9, at Scale with AI: Live + Labs. Please review these event operational guidelines:\n\nSchedule and Hours: Check-in and lunch begin at 11:30 AM PDT, with keynote presentations commencing at 12:15 PM PDT.\n\nVenue Address: [AV] Irvine, 16500 Scientific, Irvine, CA 92618. Complimentary on-site parking is available for all registered attendees.\n\nDual Track Architecture: Track 1 focuses on hands-on agent development using BigQuery and Vertex AI; Track 2 focuses on IT executive governance, compliance, and ROI roadmaps.\n\nConsultation Access: Visit the 66degrees kiosk in the demo hall to review your pipeline architecture with our technical specialists.\n\nBest regards,\nThe 66degrees Team",
+            "metrics": {
+              "subject_word_count": 7,
+              "preview_word_count": 8,
+              "body_word_count": 121
+            }
+          },
+          {
+            "sequence_number": 2,
+            "sub_type": "Pre-Event Reminder (Day-Of)",
+            "subject": "Today: Scale with AI Live + Labs",
+            "preview_text": "Check-in protocol and showcase kiosk navigation.",
+            "body": "Hi {{Recipient.FirstName}},\n\nScale with AI: Live + Labs commences today at 11:30 AM PDT at [AV] Irvine.\n\nPlease have your registration confirmation QR code ready on your mobile device at the Google reception desk. Hands-on lab sandboxes begin promptly following the opening keynote.\n\nIf your team has specific questions regarding data modernization, Vertex AI APIs, or platform security controls, visit the 66degrees showcase kiosk during dedicated networking breaks.\n\nWe look forward to meeting you on the floor.\n\nBest regards,\nThe 66degrees Team",
+            "metrics": {
+              "subject_word_count": 6,
+              "preview_word_count": 6,
+              "body_word_count": 86
+            }
+          }
+        ],
+        "follow_ups": [
+          {
+            "sub_type": "Post-Event Attendee Follow-Up",
+            "subject": "Thank You for Joining Scale with AI",
+            "preview_text": "Access deployment resources and provide brief feedback.",
+            "body": "Hi {{Recipient.FirstName}},\n\nThank you for engaging with 66degrees and Google Cloud at Scale with AI: Live + Labs in Irvine. We trust the hands-on labs and architecture briefings offered concrete guidance for your current data initiatives.\n\nTo assist us in refining future technical workshops, please share two minutes of feedback regarding the content:\n\n[Complete Session Survey]\n\nIf your engineering team is preparing to pilot agentic workflows, modernize data pipelines, or evaluate Vertex AI governance, reply directly to this email to coordinate an architectural discovery review with our principal engineers.\n\nBest regards,\nThe 66degrees Team",
+            "metrics": {
+              "subject_word_count": 7,
+              "preview_word_count": 7,
+              "body_word_count": 96
+            }
+          },
+          {
+            "sub_type": "Post-Event Non-Attendee Follow-Up",
+            "subject": "Technical Materials from Scale with AI Irvine",
+            "preview_text": "Architecture frameworks and future workshop access.",
+            "body": "Hi {{Recipient.FirstName}},\n\nWe regret that you were unable to join 66degrees and Google Cloud at Scale with AI: Live + Labs in Irvine yesterday.\n\nTo support your ongoing planning, we have curated the foundational architecture blueprints and data readiness frameworks examined during the showcase sessions.\n\nYou may access our upcoming technical webinar calendar via our Events Portal, or reply directly to this note to discuss your enterprise cloud data requirements with our engineering team.\n\nBest regards,\nThe 66degrees Team",
+            "metrics": {
+              "subject_word_count": 7,
+              "preview_word_count": 6,
+              "body_word_count": 79
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "campaigns/executive-receptions/bio-it-happy-hour-boston",
+      "type": "Lifecycle Email Campaign",
+      "title": "Bio-IT Executive Reception at Harpoon Brewery",
+      "description": "Executive reception series during Bio-IT World Expo in Boston co-hosted with Google Cloud for life sciences and informatics leaders.",
+      "resource": "https://66degrees.com/events/bio-it-happy-hour-boston",
+      "tags": [
+        "Life Sciences",
+        "Bio-IT World",
+        "Networking",
+        "Boston",
+        "Healthcare Innovation"
+      ],
+      "sources": [
+        {
+          "resource": "briefs/5_20_Bio-IT_Happy_Hour_hosted_by_66degrees_Google_Cloud.docx",
+          "author": "Mac Greenwald, Sydney Ingram",
+          "last_modified": "2026-04-12T11:00:00Z"
+        }
+      ],
+      "verified": [
+        {
+          "by": "human:Leah Gordon",
+          "tier": "human-reviewed",
+          "timestamp": "2026-04-13T14:30:00Z"
+        }
+      ],
+      "status": "approved",
+      "logistics": {
+        "event_date": "2026-05-20",
+        "start_time": "18:00 EDT",
+        "end_time": "20:30 EDT",
+        "venue": "Harpoon Brewery & Beer Hall",
+        "location": "Boston, MA",
+        "onsite_contact": "Mac Greenwald"
+      },
+      "email_templates": {
+        "invitations": [
+          {
+            "sequence_number": 1,
+            "sub_type": "Invitation #1 - Contextual Anchor",
+            "subject": "Invitation: Bio-IT Executive Happy Hour in Boston",
+            "preview_text": "Join 66degrees and Google Cloud at Harpoon Brewery on May 20.",
+            "body": "Hi {{Recipient.FirstName}},\n\nDuring major industry conferences, the most valuable strategic insights often emerge away from crowded exhibition halls.\n\nFollowing the conclusion of Day 2 at the Bio-IT World Expo, 66degrees and Google Cloud invite you to an executive networking reception at Harpoon Brewery & Beer Hall on Wednesday, May 20, from 6:00 PM to 8:30 PM.\n\nWe are bringing together life sciences, bioinformatics, and technology leaders for a relaxed evening of peer connection, hospitality, and informal discussions regarding modern data architecture and cloud analytics.\n\n[Reserve Your Spot]\n\nBest regards,\nThe 66degrees Team",
+            "metrics": {
+              "subject_word_count": 7,
+              "preview_word_count": 10,
+              "body_word_count": 96
+            }
+          },
+          {
+            "sequence_number": 2,
+            "sub_type": "Invitation #2 - Domain Discussion",
+            "subject": "Connecting After Bio-IT World: Harpoon Brewery Reception",
+            "preview_text": "Informal life sciences and cloud dialogue on May 20.",
+            "body": "Hi {{Recipient.FirstName}},\n\nWhen evaluating data modernization across clinical research, genomics, and healthcare systems, structured peer conversations provide unmatched operational clarity.\n\nOur upcoming executive reception on May 20 at Harpoon Brewery is curated specifically to connect enterprise leaders navigating complex data governance and AI adoption. There are no formal presentations or slide decks—simply high-level networking, craft beverages, and focused discussion with 66degrees and Google Cloud technical leadership.\n\nPlease confirm your attendance below to reserve your entry.\n\n[RSVP for the Reception]\n\nBest regards,\nThe 66degrees Team",
+            "metrics": {
+              "subject_word_count": 7,
+              "preview_word_count": 8,
+              "body_word_count": 87
+            }
+          },
+          {
+            "sequence_number": 3,
+            "sub_type": "Invitation #3 - Final Roster",
+            "subject": "Final Roster: Bio-IT Reception in Boston",
+            "preview_text": "RSVP before Wednesday evening at Harpoon Brewery.",
+            "body": "Hi {{Recipient.FirstName}},\n\nWe are finalizing our guest count for Wednesday evening's Bio-IT reception hosted by 66degrees and Google Cloud.\n\nIf you will be in Boston for the conference, we would be delighted to host you at Harpoon Brewery from 6:00 PM to 8:30 PM for drinks, food, and substantive industry discussion.\n\nSpace is limited by venue capacity, so please reserve your spot today if you plan to attend.\n\n[Confirm Your Attendance]\n\nBest regards,\nThe 66degrees Team",
+            "metrics": {
+              "subject_word_count": 6,
+              "preview_word_count": 7,
+              "body_word_count": 80
+            }
+          }
+        ],
+        "reminders": [
+          {
+            "sequence_number": 1,
+            "sub_type": "Pre-Event Reminder (48 Hours)",
+            "subject": "Event Details: Wednesday at Harpoon Brewery",
+            "preview_text": "Venue location, arrival timing, and reception check-in.",
+            "body": "Hi {{Recipient.FirstName}},\n\nWe look forward to hosting you this Wednesday, May 20, for our Bio-IT Executive Happy Hour. Logistical details are outlined below:\n\nSchedule: Wednesday, May 20, 2026, from 6:00 PM to 8:30 PM EDT.\n\nLocation: Harpoon Brewery & Beer Hall, located at 306 Northern Avenue, Boston, MA 02210.\n\nCheck-In: Upon arrival, check in with the 66degrees host at the private event space entrance.\n\nHospitality: Complimentary catering and local craft refreshments will be served throughout the evening.\n\nIf your travel plans have shifted, please let us know so we can update our guest roster.\n\nBest regards,\nThe 66degrees Team",
+            "metrics": {
+              "subject_word_count": 6,
+              "preview_word_count": 7,
+              "body_word_count": 105
+            }
+          },
+          {
+            "sequence_number": 2,
+            "sub_type": "Pre-Event Reminder (Day-Of)",
+            "subject": "Tonight: Bio-IT Reception at Harpoon Brewery",
+            "preview_text": "See you at 6:00 PM in Boston.",
+            "body": "Hi {{Recipient.FirstName}},\n\nFollowing today's conference sessions, join 66degrees and Google Cloud at Harpoon Brewery starting at 6:00 PM EDT.\n\nOur private reception area is reserved for an evening of relaxed conversation, food, and hospitality. Street parking and local garages are available along Northern Avenue.\n\nWe look forward to welcoming you this evening.\n\nBest regards,\nThe 66degrees Team",
+            "metrics": {
+              "subject_word_count": 6,
+              "preview_word_count": 7,
+              "body_word_count": 58
+            }
+          }
+        ],
+        "follow_ups": [
+          {
+            "sub_type": "Post-Event Attendee Follow-Up",
+            "subject": "Thank You for Joining Us in Boston",
+            "preview_text": "Continuing life sciences cloud innovation conversations.",
+            "body": "Hi {{Recipient.FirstName}},\n\nThank you for taking time out of your Bio-IT World schedule to connect with 66degrees and Google Cloud at Harpoon Brewery. We valued the opportunity to discuss your data and infrastructure priorities in person.\n\nTo help us ensure future executive gatherings provide high value, would you mind sharing your brief impressions?\n\n[Submit Brief Feedback]\n\nIf your team is interested in exploring specific technical topics—such as Gemini agent deployments, BigQuery health sciences integration, or managed platform modernization—reply directly to this note to connect with our specialists.\n\nBest regards,\nThe 66degrees Team",
+            "metrics": {
+              "subject_word_count": 7,
+              "preview_word_count": 6,
+              "body_word_count": 93
+            }
+          },
+          {
+            "sub_type": "Post-Event Non-Attendee Follow-Up",
+            "subject": "Missed Connections at Bio-IT World",
+            "preview_text": "Stay connected with 66degrees life sciences initiatives.",
+            "body": "Hi {{Recipient.FirstName}},\n\nWe regret that you were unable to join us for our Bio-IT networking reception in Boston yesterday evening. We know how demanding conference schedules can be and hope our paths cross at an upcoming event.\n\n66degrees works closely with life sciences organizations to accelerate secure cloud analytics and AI deployments on Google Cloud.\n\nPlease visit our Events Page for future sessions, or reply directly to this email to coordinate an informal introductory call with our technical leadership.\n\nBest regards,\nThe 66degrees Team",
+            "metrics": {
+              "subject_word_count": 5,
+              "preview_word_count": 7,
+              "body_word_count": 79
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
