@@ -267,6 +267,29 @@ flowchart TD
 
 ---
 
+## Event email OKF
+
+Event lifecycle email uses both approved sources. Neither file is a substitute for the other.
+
+| Source | Path | Role |
+|---|---|---|
+| Procedural source | `docs/Event Email OKF Model Generation.docx` | How to generate an event email OKF concept |
+| Machine-readable source | `docs/email-content.json` | Lifecycle examples, benchmarks, deliverability rules, and campaign data |
+
+The human-readable procedure is `references/event-email-okf-model-generation.md`. The general email profile in `references/66degrees_email_content_writing_guideline.json` stays in place.
+
+A standard event sequence has 3 invitations + 2 reminders + 1 attendee follow-up + 1 non-attendee follow-up = 7 emails:
+
+1. Invitation #1
+2. Invitation #2
+3. Invitation #3
+4. Reminder #1
+5. Reminder #2
+6. Attendee Follow-Up
+7. Non-Attendee Follow-Up
+
+`generate_event_email_sequence` returns those seven assets. The campaign kit stores them on `email_campaign`. Generated concepts stay `draft` until a person approves them. The public MCP surface remains 16 tools.
+
 ## 📂 Repository Layout
 
 ```text
@@ -286,7 +309,7 @@ flowchart TD
 │   └── qa/                 # Rule-based and model-assisted quality checking
 ├── docs/                   # Comprehensive technical documentation
 ├── mcp/                    # Model Context Protocol servers and tool definitions
-├── references/             # Guideline JSON (OKF sources) and local reference datasets
+├── references/             # Guideline JSON, event email OKF procedure, and local reference datasets
 ├── scripts/                # Shell automation scripts (setup, test, build)
 ├── tests/                  # Test suites (75 passing unit/integration tests)
 ├── .env.example            # Environment setup template

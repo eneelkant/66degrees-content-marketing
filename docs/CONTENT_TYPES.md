@@ -22,7 +22,7 @@ Derived from `core/generators/factory.py`, campaign kit generators, and MCP tool
 | Landing page copy | `landing_page.py` | Supported |
 | Google Ads RSA | `google_ads.py` | Supported |
 | LinkedIn ads | `linkedin_ads.py` | Supported |
-| Email lifecycle | `email_sequence.py` | Supported |
+| Email lifecycle | `email_sequence.py` | Supported. Seven emails: 3 invitations, 2 reminders, attendee follow-up, non-attendee follow-up |
 
 ## Social / repurposing
 
@@ -39,10 +39,17 @@ Canonical sources live in `references/` and are loaded by `core/okf/`. See `docs
 |---|---|---|
 | `blog` | `66degrees_blog_content_writing_guideline.json` | `generate_content_asset("blog", …)` |
 | `case_study` | `66degrees_case_study_writing_guideline.json` | `generate_content_asset("case_study", …)` |
-| `email` | `66degrees_email_content_writing_guideline.json` | `get_okf_profile("email")` |
+| `email` | `66degrees_email_content_writing_guideline.json` | `get_okf_profile("email")` and `generate_event_email_sequence` |
 | `event_landing_page` | `66degrees_event_landing_page_content_writing_guideline.json` | `get_okf_profile("event_landing_page")` |
 
 Each profile applies the shared 66degrees Google Cloud partner foundation plus that file's structure, tone, SEO, CTA, and dos/don'ts. `validate_okf_content(content_type, draft)` checks those constraints.
+
+Event lifecycle email uses that email profile together with two more sources:
+
+- `docs/Event Email OKF Model Generation.docx` is the procedural source.
+- `docs/email-content.json` is the machine-readable lifecycle and campaign source.
+
+The human-readable procedure is `references/event-email-okf-model-generation.md`. A standard event sequence is Invitation #1, Invitation #2, Invitation #3, Reminder #1, Reminder #2, Attendee Follow-Up, and Non-Attendee Follow-Up. `generate_event_email_sequence` returns those seven assets, and the kit stores them on `email_campaign`. Passing format checks does not approve the concept.
 
 ## Conceptual mapping (requested workflows)
 

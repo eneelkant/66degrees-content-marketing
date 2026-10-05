@@ -1,6 +1,7 @@
 from core.generators.campaign_kit import CampaignKitOrchestrator
 from core.generators.google_ads import generate_google_ads_rsa
 from core.generators.linkedin_ads import generate_linkedin_sponsored_content
+from core.okf.event_email import EVENT_EMAIL_STAGE_KEYS
 
 BRIEF={"metadata":{"title":"Build AI Systems Enterprises Trust"},"audience":{"primary_persona":"CIO","industry_verticals":["Financial Services"]},"value_prop":{"primary_hook":"Move enterprise AI from pilot to measurable impact","key_takeaways":["Practical architecture","Governance"]},"cta_primary":"Register"}
 
@@ -20,4 +21,4 @@ def test_linkedin_contract():
 def test_master_kit():
     kit=CampaignKitOrchestrator().create_kit(BRIEF)
     assert set(["landing_page","google_ads","linkedin_ads","email_campaign"]).issubset(kit)
-    assert len(kit["email_campaign"])==4
+    assert [item["lifecycle_stage"] for item in kit["email_campaign"]] == list(EVENT_EMAIL_STAGE_KEYS)
