@@ -42,7 +42,7 @@ Canonical sources live in `references/` and are loaded by `core/okf/`. See `docs
 | `email` | `66degrees_email_content_writing_guideline.json` | `get_okf_profile("email")` and `generate_event_email_sequence` |
 | `event_landing_page` | `66degrees_event_landing_page_content_writing_guideline.json` | `get_okf_profile("event_landing_page")` |
 
-Each profile applies the shared 66degrees Google Cloud partner foundation plus that file's structure, tone, SEO, CTA, and dos/don'ts. `validate_okf_content(content_type, draft)` checks those constraints.
+Each profile applies the shared 66degrees Google Cloud partner foundation plus that file's structure, tone, SEO, CTA, and dos/don'ts. `validate_okf_content(content_type, draft)` checks those constraints. `generate_content_asset` returns that feedback on the draft and does not approve it. Optional `sources.slack` and `sources.drive` fields are described in `docs/CONTENT_QUALITY_AND_SOURCES.md`.
 
 Event lifecycle email uses that email profile together with two more sources:
 
@@ -69,3 +69,6 @@ The human-readable procedure is `references/event-email-okf-model-generation.md`
 - Direct Salesforce / CMS publish integrations
 - Paid media API submission
 - Live Google Cloud event scrape during unit tests (requires refreshed `references.db`)
+- In-memory reads of PDF or other binary Drive files
+- Direct edits of any Drive file that is not a Google Doc
+- Automatic writes to Slack or Drive during generation

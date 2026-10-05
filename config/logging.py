@@ -1,5 +1,5 @@
 import json, logging, time
-_SENSITIVE={"authorization","api_key","token","password","secret","anthropic_api_key","openai_api_key","gemini_api_key","mcp_auth_token","mcp_api_key"}
+_SENSITIVE={"authorization","api_key","token","password","secret","anthropic_api_key","openai_api_key","gemini_api_key","mcp_auth_token","mcp_api_key","slack_bot_token","google_drive_access_token"}
 def sanitize(v):
     if isinstance(v,dict): return {k:("[REDACTED]" if k.lower() in _SENSITIVE else sanitize(x)) for k,x in v.items()}
     if isinstance(v,(list,tuple)): return [sanitize(x) for x in v]

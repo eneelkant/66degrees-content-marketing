@@ -32,6 +32,8 @@ result = validate_okf_content("email", draft)
 
 `validate_okf_content` checks title or subject length, meta description or preheader length, word-count range, required sections, CTA presence, and content-type fields from the source guidelines (including quantified case-study results, a single email CTA, and event timezone/format). It returns `valid` and `violations`. It does not approve or export a campaign.
 
+`validate_content_quality` calls that check for a single OKF draft and calls `assess_event_email_sequence` when the payload contains all seven event-email stages. The quality result stays `DRAFT` and `grants_approval` is false. See `docs/CONTENT_QUALITY_AND_SOURCES.md`.
+
 ## Event lifecycle email
 
 Event email keeps this profile and adds two sources. Neither source replaces the guideline file.

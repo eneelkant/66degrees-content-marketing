@@ -4,6 +4,8 @@ from pathlib import Path
 from core.brand.rules import load_brand_rules
 from core.generators.base import GenerationContext
 from core.okf import OKF_CONTENT_TYPES, get_okf_profile
+from core.quality.pipeline import assemble_content_context
+from core.sources.retrieve import retrieve_requested_sources
 from core.reference_library.hybrid_retriever import HybridRetriever
 from core.reference_library.sqlite_client import SQLiteReferenceClient
 
@@ -49,10 +51,19 @@ def build_generation_context(
     normalized = (content_type or "").strip().lower().replace("-", "_").replace(" ", "_")
     if normalized in OKF_CONTENT_TYPES:
         okf_profile = get_okf_profile(normalized).model_dump(mode="json")
+    external = retrieve_requested_sources(brief_data)
+    content_context = assemble_content_context(
+        brief_data,
+        content_type=normalized or None,
+        repository_references=internal[:3],
+        external_sources=external,
+        okf_profile=okf_profile,
+    )
 
     return GenerationContext(
         brand_rules=brand_engine.data,
         internal_winning_references=internal[:3],
         competitor_xml_references=competitor,
         okf_profile=okf_profile,
+        content_context=content_context,
     )

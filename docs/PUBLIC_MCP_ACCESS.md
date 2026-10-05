@@ -138,6 +138,13 @@ Public URLs after deploy:
 
 See `.env.example` — MCP, LLM providers, CORS. Never commit `.env`.
 
+Optional source retrieval, used only when a brief sets `sources.slack` or `sources.drive`:
+
+- `SLACK_BOT_TOKEN` — Slack bot token. Missing token returns `credentials_missing` and no messages.
+- `GOOGLE_DRIVE_ACCESS_TOKEN` — OAuth access token. Reads stay in memory. A Google Doc append happens only after approval when `drive_update.confirm` is boolean `true`.
+
+Do not commit either token. CI does not need them. Details are in `docs/CONTENT_QUALITY_AND_SOURCES.md`.
+
 ## Security model
 
 - GitHub OAuth/login is **not** part of the MCP auth path.

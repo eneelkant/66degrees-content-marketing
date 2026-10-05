@@ -31,6 +31,18 @@ Classifications are derived from implementation behavior.
 - **EXPORT** — writes deliverable artifacts
 - **EXTERNAL_SIDE_EFFECT** — records human approval / irreversible gate action
 
+## Optional Slack and Drive context
+
+The tool list stays at 16. Slack and Drive are optional fields on an existing brief, not extra tools.
+
+| Brief field | When it runs | Result |
+|---|---|---|
+| `sources.slack` | Only if the object is present | Feedback messages with channel and timestamp. Not a brand rule. |
+| `sources.drive` | Only if `file_id`, `name`, or `query` is present | In-memory text for Google Docs, Sheets, Slides, and text files. |
+| `drive_update` | Only during approved export when `confirm` is true and `file_id` is set | Appends to a Google Doc. Other formats are not edited in place. |
+
+`SLACK_BOT_TOKEN` and `GOOGLE_DRIVE_ACCESS_TOKEN` are optional. CI does not need them. See `docs/CONTENT_QUALITY_AND_SOURCES.md`.
+
 ## Safety notes for autonomous agents
 
 1. Prefer `create_campaign` for end-to-end work; it **must not** auto-export.
