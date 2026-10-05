@@ -3,9 +3,15 @@ from core.generators.google_ads import generate_google_ads_rsa
 from core.generators.linkedin_ads import generate_linkedin_sponsored_content
 from core.generators.landing_page import generate_landing_page_copy
 from core.generators.email_sequence import generate_event_email_lifecycle
+from core.okf.event_email import EVENT_EMAIL_STAGE_KEYS, assess_event_email_sequence
+from core.sources.retrieve import retrieve_requested_sources
 
 class CampaignKitOrchestrator:
     def create_kit(self, brief_data: Dict[str, Any]) -> Dict[str, Any]:
+        emails = generate_event_email_lifecycle(brief_data)
+        sequence = {item["lifecycle_stage"]: item for item in emails}
+        sources = retrieve_requested_sources(brief_data)
+        drive_update = brief_data.get("drive_update") if isinstance(brief_data.get("drive_update"), dict) else None
         return {
           "campaign_metadata": {
             "campaign_title": brief_data.get("metadata",{}).get("title","Untitled Event"),
@@ -16,7 +22,15 @@ class CampaignKitOrchestrator:
           "landing_page": generate_landing_page_copy(brief_data),
           "google_ads": generate_google_ads_rsa(brief_data),
           "linkedin_ads": generate_linkedin_sponsored_content(brief_data),
-          "email_campaign": generate_event_email_lifecycle(brief_data),
+          "email_campaign": emails,
+          "source_context": sources,
+          "quality": {
+            "status": "DRAFT",
+            "grants_approval": False,
+            "event_email_lifecycle": list(EVENT_EMAIL_STAGE_KEYS),
+            "event_email_assessment": assess_event_email_sequence(sequence, brief_data),
+          },
+          "drive_update_request": drive_update,
           "qa_metadata": {"hard_constraints_validated": False,"originality_checked": False,"emailens_audited": False,"approval_gate":"LOCKED","qa_tool":"qa_validate_asset"}
         }
 

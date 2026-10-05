@@ -267,6 +267,18 @@ flowchart TD
 
 ---
 
+## Content quality and source retrieval
+
+Generation stays in `DRAFT` until a person uses the existing approval gate. A quality pass reads the OKF profile for the content type and `core/brand/brand_rules.json`. It separates source facts, the brief, feedback, the draft, and validation feedback. Slack messages are feedback. They do not become brand rules. Drive excerpts are source facts and are not written back unless export runs after approval with `drive_update.confirm` set to true.
+
+Optional brief fields, not new MCP tools:
+
+- `sources.slack`: `channel`, optional `thread_ts`, `keywords`, `oldest`, `latest`
+- `sources.drive`: `file_id`, `name`, or `query`
+- `drive_update`: `file_id` and `confirm: true` for a Google Doc append during approved export
+
+Missing `SLACK_BOT_TOKEN` or `GOOGLE_DRIVE_ACCESS_TOKEN` returns a credentials status and does not invent source text. See `docs/CONTENT_QUALITY_AND_SOURCES.md`.
+
 ## Event email OKF
 
 Event lifecycle email uses both approved sources. Neither file is a substitute for the other.

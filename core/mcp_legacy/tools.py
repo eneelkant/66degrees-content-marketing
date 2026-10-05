@@ -5,6 +5,7 @@ from core.reference_library.sync import ReferenceSync
 from core.reference_library.source_fetcher import ApprovedSourceFetcher
 from core.generators.context_builder import build_generation_context
 from core.generators.factory import content_factory
+from core.quality.pipeline import validate_content_quality
 
 DB_PATH = Path(__file__).resolve().parents[2] / "references" / "references.db"
 _db = SQLiteReferenceClient(DB_PATH)
@@ -33,11 +34,29 @@ def generate_content_asset(asset_type: str, brief_data: Dict[str, Any]) -> Dict[
         context = build_generation_context(brief_data, content_type=asset_type)
         strategy = content_factory.get_strategy(asset_type)
         generated = strategy.generate(brief_data, context=context)
+        asset = generated.model_dump(mode="json")
+        asset["metadata"]["status"] = "DRAFT"
+        metadata = asset.get("metadata") or {}
+        quality = validate_content_quality(
+            {
+                "title": asset.get("title") or "",
+                "meta_description": metadata.get("meta_description") or "",
+                "body": asset.get("content_markdown") or "",
+                "content_markdown": asset.get("content_markdown") or "",
+                "cta": metadata.get("cta") or "",
+                "word_count_form": metadata.get("word_count_form") or "short_form",
+            },
+            content_type=asset_type,
+            context=context.content_context,
+        )
+        asset["metadata"]["quality"] = quality
         return {
             "qa_status": "GENERATED_DRAFT",
             "context_injected": True,
             "references_retrieved": len(context.internal_winning_references),
-            "asset": generated.model_dump(mode="json"),
+            "source_context": context.content_context,
+            "quality": quality,
+            "asset": asset,
         }
     except ValueError as err:
         return {"qa_status": "FAILED", "error": str(err)}

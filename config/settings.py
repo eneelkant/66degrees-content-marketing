@@ -20,6 +20,8 @@ class Settings(BaseSettings):
     )
     data_dir: str = Field("./data", alias="DATA_DIR")
     references_db_path: str = Field("./references/references.db", alias="REFERENCES_DB_PATH")
+    slack_bot_token: str | None = Field(None, alias="SLACK_BOT_TOKEN")
+    google_drive_access_token: str | None = Field(None, alias="GOOGLE_DRIVE_ACCESS_TOKEN")
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",

@@ -29,7 +29,11 @@ def generate_campaign_kit(brief_data: dict) -> dict:
 
 @mcp.tool()
 def generate_content_asset(asset_type: str, brief_data: dict) -> dict:
-    """Generate a supported content asset."""
+    """Generate a supported content asset.
+
+    Optional brief_data.sources.slack or brief_data.sources.drive retrieves
+    that source only when the field is present. Slack is feedback, not a brand rule.
+    """
     return api.generate_content_asset(asset_type, brief_data)
 
 @mcp.tool()

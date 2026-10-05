@@ -8,6 +8,7 @@ class GenerationContext(BaseModel):
     internal_winning_references: List[Dict[str, Any]] = Field(default_factory=list)
     competitor_xml_references: str = ""
     okf_profile: Dict[str, Any] = Field(default_factory=dict)
+    content_context: Dict[str, Any] = Field(default_factory=dict)
 
 
 class GeneratedAssetOutput(BaseModel):
