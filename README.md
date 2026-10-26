@@ -129,6 +129,12 @@ flowchart TD
 
 ---
 
+## Writing guidelines
+
+Curated 66degrees writing rules live in [`content_knowledge/`](./content_knowledge/) and are applied through [`core/writing/`](./core/writing/) on generate, optimize, and QA paths. Skills select a relevant subset (brand voice, messaging, channel specs, CEO voice, pre-publication checklist). Compliance returns hard failures vs warnings; it does **not** replace human approval or full factual verification.
+
+See [`docs/WRITING_GUIDELINES.md`](./docs/WRITING_GUIDELINES.md) for versioning, how to update rules, and client notes. Partner tier in runtime checks is **Google Cloud Diamond Partner** (never Premier).
+
 ## 🔌 Model Context Protocol (MCP) Tools
 
 The platform exposes **16 secure MCP tools** (canonical names in `clients/surface.py`) for Claude, ChatGPT, Gemini, and Cursor:

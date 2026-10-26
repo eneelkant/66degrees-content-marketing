@@ -53,6 +53,14 @@ class SpecialistScaffoldStrategy(BaseContentStrategy):
             content += "## Sources considered\n"
             content += "\n".join(f"- {label}" for label in source_labels) + "\n\n"
             content += "Slack messages are feedback and are not copied into this draft as facts.\n"
+        if context and context.writing_prompt_block:
+            content += "## Writing constraints applied\n"
+            content += (
+                f"Guideline version {context.guideline_version or 'unknown'}. "
+                "Drafts must follow loaded 66degrees writing guidelines "
+                "(Diamond Partner, no banned terms, no dashes, outcome first, "
+                "embedded credential, literal truth).\n"
+            )
 
         metrics = self.calculate_metrics(content)
         metadata = {
@@ -66,6 +74,12 @@ class SpecialistScaffoldStrategy(BaseContentStrategy):
         if context and context.okf_profile:
             metadata["okf_content_type"] = context.okf_profile.get("content_type")
             metadata["okf_source"] = context.okf_profile.get("source_filename")
+        if context and (context.guideline_version or context.applicable_skills):
+            metadata["guideline_version"] = context.guideline_version
+            metadata["applicable_skills"] = list(context.applicable_skills)
+            metadata["writing_guidelines_available"] = bool(
+                (context.writing_guidelines or {}).get("available", True)
+            )
         return GeneratedAssetOutput(
             asset_type=self.asset_type,
             title=title,

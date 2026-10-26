@@ -58,3 +58,6 @@ def test_context_builder_injects_brand_and_references(tmp_path):
     assert context.internal_winning_references
     assert context.internal_winning_references[0]["id"] == "winner-1"
     assert context.brand_rules
+    assert context.guideline_version
+    assert context.writing_prompt_block
+    assert context.applicable_skills
