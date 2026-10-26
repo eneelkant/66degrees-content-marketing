@@ -4,6 +4,7 @@ from core.okf import OKF_CONTENT_TYPES
 from core.quality.pipeline import validate_content_quality
 from core.reference_library.hybrid_retriever import HybridRetriever
 from core.reference_library.sqlite_client import SQLiteReferenceClient
+from core.writing.compliance import evaluate_compliance
 from pathlib import Path
 from .brand import validate_brand
 from .emailens import EmailensAuditEngine
@@ -23,8 +24,54 @@ def _status(checks):
     return QAState.PASS
 
 
-def qa_validate_asset(content_json: dict[str, Any], asset_type: str, *, references=None, semantic_search=None, emailens_engine=None) -> QAReport:
-    checks = [validate_hard_constraints(content_json, asset_type), validate_brand(content_json, brand_rules=load_brand_rules())]
+def _writing_guidelines_check(
+    content_json: dict[str, Any],
+    asset_type: str,
+    *,
+    brief_data: dict[str, Any] | None = None,
+) -> QACheck:
+    result = evaluate_compliance(
+        content_json,
+        asset_type,
+        brief_data=brief_data,
+        mode="qa",
+    )
+    if not result.loaded or result.status == "unavailable":
+        state = QAState.REWRITE
+        message = "Writing guidelines unavailable; compliance cannot be claimed."
+    elif result.hard_failures:
+        state = QAState.REWRITE
+        message = (
+            f"Writing guidelines need revision ({len(result.hard_failures)} hard failure(s))."
+        )
+    elif result.warnings:
+        state = QAState.WARNING
+        message = f"Writing guidelines passed with {len(result.warnings)} warning(s)."
+    else:
+        state = QAState.PASS
+        message = "Writing guidelines passed."
+    return QACheck(
+        name="writing_guidelines",
+        state=state,
+        message=message,
+        details=result.to_public_dict(),
+    )
+
+
+def qa_validate_asset(
+    content_json: dict[str, Any],
+    asset_type: str,
+    *,
+    references=None,
+    semantic_search=None,
+    emailens_engine=None,
+    brief_data: dict[str, Any] | None = None,
+) -> QAReport:
+    checks = [
+        validate_hard_constraints(content_json, asset_type),
+        validate_brand(content_json, brand_rules=load_brand_rules()),
+        _writing_guidelines_check(content_json, asset_type, brief_data=brief_data),
+    ]
     if references is None:
         sqlite = SQLiteReferenceClient(DB_PATH)
         refs = [r.model_dump(mode="json") for r in sqlite.search(limit=20)]
@@ -50,4 +97,10 @@ def qa_validate_asset(content_json: dict[str, Any], asset_type: str, *, referenc
         )
 
     status = _status(checks)
-    return QAReport(asset_type=asset_type, overall_status=status, checks=checks, approval_required=True, approval_status="LOCKED")
+    return QAReport(
+        asset_type=asset_type,
+        overall_status=status,
+        checks=checks,
+        approval_required=True,
+        approval_status="LOCKED",
+    )

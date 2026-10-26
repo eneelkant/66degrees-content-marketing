@@ -1,6 +1,13 @@
 {
   "mandatory_terminology": {
-    "Google Cloud Premier Partner": ["GCP Partner"],
+    "Google Cloud Diamond Partner": [
+      "GCP Partner",
+      "Google Cloud Premier Partner",
+      "Premier Partner"
+    ],
+    "Paradigm°": ["PRISM", "Prism"],
+    "The AI-Native Enterprise": ["The Agentic Enterprise"],
+    "Industry Agent Libraries": ["Agent Garden"],
     "Generative AI": [],
     "SecOps": []
   },
@@ -9,12 +16,33 @@
     "game-changing",
     "best-in-class",
     "turnkey solution",
-    "cheap migration"
+    "cheap migration",
+    "seamless",
+    "cutting edge",
+    "cutting-edge",
+    "world class",
+    "world-class",
+    "purpose built",
+    "purpose-built",
+    "unlock",
+    "speed to value",
+    "powerful ally",
+    "automate the past",
+    "paradigm shift"
   ],
   "voice": ["Strategic", "Precise", "Approachable", "Empathetic"],
   "personality": ["Visionary Specialist", "Collaborative Partner"],
-  "strategic_pillars": ["Modernize", "Build", "Manage & Scale"],
+  "strategic_pillars": [
+    "Turn AI Ambition into Advantage",
+    "Build the Foundation",
+    "Engineer AI Workflows",
+    "Drive Adoption",
+    "Optimize and Scale"
+  ],
   "company_names": ["66degrees"],
   "prohibited_placeholders": ["tbd", "todo", "lorem ipsum", "[insert"],
-  "notes": "Deterministic governance checks only — do not invent unofficial brand claims."
+  "partner_tier": "Google Cloud Diamond Partner",
+  "tagline": "Engineering Your AI-Native Advantage.",
+  "guideline_version_source": "content_knowledge/VERSION",
+  "notes": "Deterministic governance checks only — do not invent unofficial brand claims. Writing guidelines in content_knowledge/ are authoritative for voice, bans, and proof; see conflicts_and_exceptions.md for legacy OKF Premier wording."
 }

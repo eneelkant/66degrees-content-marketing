@@ -17,10 +17,12 @@ from core.generators.linkedin_ads import generate_linkedin_sponsored_content
 def test_brand_and_hard_constraints_pass_for_valid_google_ads():
     brief = {"metadata": {"title": "Build AI Systems Enterprises Trust"}, "value_prop": {"primary_hook": "Move AI from pilot to measurable impact"}}
     ads = generate_google_ads_rsa(brief)
-    report = qa_validate_asset(ads, "google_ads", references=[])
+    report = qa_validate_asset(ads, "google_ads", references=[], brief_data=brief)
     assert report.overall_status == QAState.WARNING  # no corpus is a review warning
     assert report.checks[0].state == QAState.PASS
     assert report.checks[1].state == QAState.PASS
+    writing = next(c for c in report.checks if c.name == "writing_guidelines")
+    assert writing.state in {QAState.PASS, QAState.WARNING}
 
 
 def test_google_constraints_rewrite_when_lengths_or_counts_fail():

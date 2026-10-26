@@ -13,7 +13,7 @@ class MockLLMProvider(BaseLLMProvider):
     model_name = "mock-v1"
 
     def generate_text(self, prompt: str, system_prompt: str = "", temperature: float = 0.7) -> LLMResponse:
-        text = "[Mock Output] 66degrees Google Cloud Premier Partner solution."
+        text = "[Mock Output] 66degrees Google Cloud Diamond Partner solution."
         return LLMResponse(raw_text=text, provider=self.provider_name, model_name=self.model_name)
 
     def generate_structured(

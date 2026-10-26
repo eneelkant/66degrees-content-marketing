@@ -522,7 +522,10 @@ class CampaignOrchestrator:
             except PermissionError:
                 state.status = CampaignStatus.QA_PENDING
         asset = state.assets.get("landing_page") or next(iter(state.assets.values()), {})
-        report = self.api.qa_validate_asset(asset, "landing_page")
+        qa_payload = asset if isinstance(asset, dict) else {"content": asset}
+        if isinstance(qa_payload, dict) and state.brief:
+            qa_payload = {**qa_payload, "brief_data": state.brief}
+        report = self.api.qa_validate_asset(qa_payload, "landing_page")
         state.qa_results = report
         overall = report.get("overall_status")
         if overall == "REWRITE":
@@ -553,7 +556,10 @@ class CampaignOrchestrator:
                 content_type=asset_key,
                 status="OPTIMIZED",
             )
-            report = self.api.qa_validate_asset(state.assets[asset_key], "landing_page")
+            qa_payload = state.assets[asset_key]
+            if isinstance(qa_payload, dict) and state.brief:
+                qa_payload = {**qa_payload, "brief_data": state.brief}
+            report = self.api.qa_validate_asset(qa_payload, "landing_page")
             state.qa_results = report
             overall = report.get("overall_status")
             if overall in {"PASS", "WARNING"}:

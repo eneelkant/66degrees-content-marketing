@@ -27,7 +27,13 @@ def generate_content_strategy(goals_json: dict[str, Any]) -> dict[str, Any]:
             "objective": goals.get("objective") or goals.get("goal") or "Define measurable content marketing outcomes.",
             "audience": goals.get("audience", {}),
             "channels": goals.get("channels", ["website", "blog", "linkedin", "email"]),
-            "content_pillars": ["Modernize", "Build", "Manage & Scale"],
+            "content_pillars": [
+                "Turn AI Ambition into Advantage",
+                "Build the Foundation",
+                "Engineer AI Workflows",
+                "Drive Adoption",
+                "Optimize and Scale",
+            ],
             "measurement": goals.get("measurement", ["engagement", "qualified leads", "pipeline influence"]),
         },
     }
@@ -100,7 +106,17 @@ def optimize_content_asset(asset_json: dict[str, Any], qa_feedback: Any) -> dict
 
 def qa_validate_asset(content_json: dict[str, Any], asset_type: str) -> dict[str, Any]:
     done = tool_timer(logger, "qa_validate_asset")
-    result = _tools.qa_validate_asset(sanitize_payload(content_json), sanitize_payload(asset_type))
+    payload = sanitize_payload(content_json) or {}
+    brief_data = None
+    if isinstance(payload, dict):
+        brief_data = payload.get("brief_data") or payload.get("brief")
+        if isinstance(brief_data, dict):
+            payload = {k: v for k, v in payload.items() if k not in {"brief_data", "brief"}}
+    result = _tools.qa_validate_asset(
+        payload,
+        sanitize_payload(asset_type),
+        brief_data=brief_data if isinstance(brief_data, dict) else None,
+    )
     done(qa_status=result.get("overall_status"))
     return result
 

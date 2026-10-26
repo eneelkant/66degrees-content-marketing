@@ -8,6 +8,7 @@ from core.quality.pipeline import assemble_content_context
 from core.sources.retrieve import retrieve_requested_sources
 from core.reference_library.hybrid_retriever import HybridRetriever
 from core.reference_library.sqlite_client import SQLiteReferenceClient
+from core.writing.prompt import build_writing_prompt
 
 DB_PATH = Path(__file__).resolve().parents[2] / "references" / "references.db"
 
@@ -18,6 +19,7 @@ def build_generation_context(
     brand_engine=None,
     hybrid_retriever=None,
     content_type: str | None = None,
+    writing_mode: str = "generate",
 ) -> GenerationContext:
     """Build a client/LLM-neutral context bundle from brand rules and references."""
     brand_engine = brand_engine or load_brand_rules()
@@ -60,10 +62,32 @@ def build_generation_context(
         okf_profile=okf_profile,
     )
 
+    writing = build_writing_prompt(
+        normalized or content_type,
+        brief_data=brief_data,
+        mode=writing_mode,
+    )
+    content_context = {
+        **content_context,
+        "writing_guidelines": {
+            "version": writing.get("guideline_version"),
+            "available": writing.get("available"),
+            "skills": writing.get("applicable_skills"),
+            "doc_ids": writing.get("doc_ids"),
+        },
+    }
+
     return GenerationContext(
         brand_rules=brand_engine.data,
         internal_winning_references=internal[:3],
         competitor_xml_references=competitor,
         okf_profile=okf_profile,
         content_context=content_context,
+        writing_guidelines={
+            "available": writing.get("available"),
+            "doc_ids": writing.get("doc_ids", []),
+        },
+        writing_prompt_block=str(writing.get("prompt_block") or ""),
+        applicable_skills=list(writing.get("applicable_skills") or []),
+        guideline_version=str(writing.get("guideline_version") or ""),
     )

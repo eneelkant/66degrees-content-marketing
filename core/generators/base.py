@@ -9,6 +9,10 @@ class GenerationContext(BaseModel):
     competitor_xml_references: str = ""
     okf_profile: Dict[str, Any] = Field(default_factory=dict)
     content_context: Dict[str, Any] = Field(default_factory=dict)
+    writing_guidelines: Dict[str, Any] = Field(default_factory=dict)
+    writing_prompt_block: str = ""
+    applicable_skills: List[str] = Field(default_factory=list)
+    guideline_version: str = ""
 
 
 class GeneratedAssetOutput(BaseModel):

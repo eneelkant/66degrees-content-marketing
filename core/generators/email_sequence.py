@@ -98,7 +98,7 @@ def _facts(brief: dict[str, Any]) -> dict[str, Any]:
     verticals = audience.get("industry_verticals") or []
     industry = verticals[0] if verticals else "[INDUSTRY]"
     takeaways = [str(item).strip() for item in (value_prop.get("key_takeaways") or []) if str(item).strip()]
-    partner = "Google Cloud Premier Partner"
+    partner = "Google Cloud Diamond Partner"
     if partner not in brand.mandatory_terminology:
         partner = str(load_email_partner())
     resource = _first(

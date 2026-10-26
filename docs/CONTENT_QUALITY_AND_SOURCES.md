@@ -18,9 +18,12 @@ Generation stays a draft until a person uses the existing approval gate. Slack a
 
 Rules come from files already in the repository:
 
-- Brand voice, forbidden jargon, mandatory terminology, and unsupported-claim phrases: `core/brand/brand_rules.json`
-- Blog, case study, email, and event landing page structure: the guideline JSON files in `references/`
+- Authoritative writing guidelines (voice, bans, proof, channel specs): `content_knowledge/` via `core/writing/` — see [`WRITING_GUIDELINES.md`](./WRITING_GUIDELINES.md)
+- Brand voice, forbidden jargon, mandatory terminology, and unsupported-claim phrases: `core/brand/brand_rules.json` (aligned to Diamond Partner / messaging bans)
+- Blog, case study, email, and event landing page structure: the guideline JSON files in `references/` (OKF shapes; partner-tier wording may lag — QA writing checks override Premier → Diamond)
 - Event email lifecycle: `references/event-email-okf-model-generation.md`, `docs/email-content.json`, and `docs/Event Email OKF Model Generation.docx`
+
+`qa_validate_asset` includes a `writing_guidelines` check. Passing it is not human approval and is not a full factual audit.
 
 The quality pass does not add brand rules. A number or percentage may appear in the draft only when the brief or a source fact already contains it. A number that appears only in Slack feedback is reported as an unsupported claim. The deterministic generator does not copy Slack text into the draft.
 

@@ -24,14 +24,26 @@ from clients.claude.server import mcp, TOOL_NAME_MAP
 from config.settings import Settings
 from core.brand.rules import load_brand_rules
 from core.approval.gate import HumanApprovalGate
+from core.writing import get_guideline_version, load_guidelines
 
 assert len(PUBLIC_TOOL_NAMES) == 16
 assert set(TOOL_NAME_MAP) == set(PUBLIC_TOOL_NAMES)
 assert load_brand_rules().mandatory_terminology
+assert "Google Cloud Diamond Partner" in load_brand_rules().mandatory_terminology
+assert load_guidelines()
+assert get_guideline_version() != "unavailable"
 gate = HumanApprovalGate()
 assert gate.is_approved("x") is False
 s = Settings()
-print("check_ok", "tools", len(PUBLIC_TOOL_NAMES), "llm_default", s.llm_provider)
+print(
+    "check_ok",
+    "tools",
+    len(PUBLIC_TOOL_NAMES),
+    "llm_default",
+    s.llm_provider,
+    "guidelines",
+    get_guideline_version(),
+)
 PY
 
 echo ">> MCP tool discovery"
