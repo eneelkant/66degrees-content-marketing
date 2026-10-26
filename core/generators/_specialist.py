@@ -54,12 +54,14 @@ class SpecialistScaffoldStrategy(BaseContentStrategy):
             content += "\n".join(f"- {label}" for label in source_labels) + "\n\n"
             content += "Slack messages are feedback and are not copied into this draft as facts.\n"
         if context and context.writing_prompt_block:
+            # Keep guideline version in metadata only — dotted version strings in
+            # body copy false-trigger unsupported_numerical_claim (e.g. 2026.10).
             content += "## Writing constraints applied\n"
             content += (
-                f"Guideline version {context.guideline_version or 'unknown'}. "
                 "Drafts must follow loaded 66degrees writing guidelines "
                 "(Diamond Partner, no banned terms, no dashes, outcome first, "
-                "embedded credential, literal truth).\n"
+                "embedded credential, literal truth). "
+                "Guideline version is recorded in asset metadata, not in body copy.\n"
             )
 
         metrics = self.calculate_metrics(content)

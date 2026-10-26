@@ -189,6 +189,28 @@ def test_generate_content_asset_applies_guidelines(tmp_path, monkeypatch):
         "pass",
         "needs_revision",
     }
+    body = result["asset"]["content_markdown"]
+    assert "2026.10.26" not in body
+    assert result["asset"]["metadata"]["guideline_version"] == "2026.10.26"
+    # Guideline version must not false-trigger unsupported_numerical_claim.
+    hard_rules = {f["rule"] for f in result["writing_compliance"]["hard_failures"]}
+    assert "unsupported_numerical_claim" not in hard_rules
+    assert result["writing_compliance"]["status"] == "pass"
+
+
+def test_guideline_version_string_is_not_a_numerical_claim():
+    """Regression: dotted VERSION metadata must not hard-fail claim scanning."""
+    content = {
+        "body": (
+            "Leaders who already run disciplined estates get measurable ROI when "
+            "forward deployed engineers work alongside their architects as a "
+            "Google Cloud Diamond Partner engagement. "
+            "Guideline version 2026.10.26 is recorded in metadata."
+        )
+    }
+    result = evaluate_compliance(content, "blog", brief_data=content, mode="qa")
+    assert result.status == "pass"
+    assert not any(f.rule == "unsupported_numerical_claim" for f in result.hard_failures)
 
 
 def test_optimize_prompt_includes_same_guideline_source():
