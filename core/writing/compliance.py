@@ -156,6 +156,10 @@ def _allowed_number_blob(brief_data: dict[str, Any] | None, proof_excerpts: list
         "35 10 18 22 285 660 56 25 30 11.3 55 3500 100 196 300 90 70 4.8 4 19 12 2023 2025 2026 "
         "50 80 60 10000 20000 3.7 10 2024 2020 2021 2022 2027 2028"
     )
+    # Guideline VERSION strings (e.g. 2026.10.26) are metadata, not performance claims.
+    version = get_guideline_version()
+    if version and version != "unavailable":
+        parts.append(version)
     return " ".join(parts)
 
 
